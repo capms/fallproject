@@ -11,6 +11,7 @@ class CreateUsers < ActiveRecord::Migration
 			t.string :linkedin_url
 			t.integer :user_type
 			t.integer :team_id
+			
 			t.timestamps
 		end
 	end
