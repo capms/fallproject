@@ -17,6 +17,16 @@
 //= require jquery-ui/spinner
 //= require jquery-ui/tooltip
 //= require jquery-ui/effect
+<<<<<<< HEAD
+=======
+//= require jquery_ujs
+//= require jquery-ui/button
+//= require jquery-ui/datepicker
+//= require jquery-ui/slider
+//= require jquery-ui/spinner
+//= require jquery-ui/tooltip
+//= require jquery-ui/effect
+>>>>>>> master
 //= require twitter/bootstrap
 //= require flatuipro
 //= require turbolinks
