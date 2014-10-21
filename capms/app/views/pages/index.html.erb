@@ -58,4 +58,16 @@
 </div>
 </body>
 
+<<<<<<< HEAD
+<% if user_signed_in? %>
+  <li>
+  <%= link_to('Logout...', destroy_user_session_path, :method => :delete) %>
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login...', new_user_session_path)  %>
+  </li>
+<% end %>
+=======
 <html>
+>>>>>>> ac586bfc17d774ea45264d06b2bee8384426e8c5
