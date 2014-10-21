@@ -1,0 +1,57 @@
+<h1>NavBar</h1>
+<br>
+<div class="team-index">
+	<div id="newteam">
+		<%= form_for @team, url: {action: "create"} do |f| %>
+			<div class="form-group">
+		      	<input id="team_name" type="text" class= "form-control input-hg" value="" placeholder="Team Name" name="team[name]">
+		    </div>
+		    <div class="form-group">
+		      	<input id="team_description" type="textarea" class= "form-control input-sm" value="" placeholder="Team Description" name="team[description]">
+		    </div>
+		    <div class="form-group">
+				<%= f.label :max_size %><br />
+		      	<%= f.number_field(:max_size, in: 2..10, step: 1, value: 2) %>
+		    </div>
+		    <div class="form-group">
+		    	<%= button_tag(class: "btn btn-sm btn-block btn-primary") do%>
+		    		<%=content_tag(:strong, 'Create Team') %>
+		    	<% end %>
+		    </div>
+		<% end %>
+	</div>
+	<div id="users">
+		<table>
+			<th>Available Users</th>
+			<tr>
+			<% @free_users.each do |freeuser| %>
+				<td> <%= freeuser.first_name %> </td>
+			<% end %>
+			</tr>
+		</table>
+	</div>
+</div>
+<br>
+<br>
+
+<div class="team-list">
+	<% Team.all.each do |team| %>
+		<% usersInGroup = User.where(team_id: team.id) %>
+		<% if !usersInGroup.blank? %>
+			<h3 margin: '30'><%= team.name %></h3>
+			<div class="usersInTeam">
+				<% usersInGroup.each do |userInTeam| %>
+					<div id="singleUser">
+						<% imageLoc = userInTeam.picture_url %>
+						<% if imageLoc != ""%>
+							<%= image_tag(imageLoc, alt: userInTeam.first_name, class: "img-thumbnail", float: 'left') %>
+						<% else %>
+							<%= image_tag("/images/default.png", alt: userInTeam.first_name, class: "img-thumbnail", float: 'left') %>
+						<% end %>
+						<%= userInTeam.first_name %>
+					</div>
+				<% end %>
+			</div>
+		<% end %>
+	<% end %>
+</div>

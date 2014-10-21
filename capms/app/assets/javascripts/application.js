@@ -17,6 +17,7 @@
 //= require jquery-ui/spinner
 //= require jquery-ui/tooltip
 //= require jquery-ui/effect
+//= require twitter/bootstrap
 //= require flatuipro
 //= require jquery_ujs
 //= require turbolinks
