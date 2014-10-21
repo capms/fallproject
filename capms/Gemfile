@@ -47,7 +47,3 @@ gem 'flatui-rails'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-<<<<<<< HEAD
-=======
-
->>>>>>> ac586bfc17d774ea45264d06b2bee8384426e8c5
