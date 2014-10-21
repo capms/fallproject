@@ -1,0 +1,14 @@
+
+.container {
+      width: 970px !important;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+}
+
+
+a {
+  text-decoration: none;
+  color: green;
+}

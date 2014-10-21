@@ -1,3 +1,18 @@
 Group Creation Page
 
-<%= @free_users[0].first_name %>
+ 
+
+<table>
+	<% count = 0 %>
+	<th>Available Users</th>
+	<tr>
+	<% @free_users.each do |freeuser| %>
+		<td> <%= freeuser.first_name %> </td>
+		<%  if count > 5 %>
+				</tr><tr>
+				<% count = 0 
+			end %>
+
+	<% end %>
+	</tr>
+</table>
