@@ -10,16 +10,16 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require flatuipro
-//= require twitter/bootstrap
-//= require turbolinks
+//= require jquery
+//= require jquery_ujs
 //= require jquery-ui/button
 //= require jquery-ui/datepicker
 //= require jquery-ui/slider
 //= require jquery-ui/spinner
 //= require jquery-ui/tooltip
 //= require jquery-ui/effect
-//= require jquery_ujs
-//= require jquery
+//= require flatuipro
+//= require turbolinks
+//= require twitter/bootstrap
 //= require_tree .
 
