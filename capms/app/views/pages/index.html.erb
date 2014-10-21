@@ -1,27 +1,61 @@
-MAIN LOGIN PAGE
+<html>
+<head>
+</head>
 
-<% if user_signed_in? %>
-<h1>Hello, <%= current_user.first_name%></h1>
+<body>
+<div class = "container">
+
+  <% if user_signed_in? %>
+
+
+
+    <h2>Class Title</h2>
+  <hr>
+  <img class = "img-rounded img-middle img-responsive" src = "CS_home.jpg">
+
+
+  <br>
+  <br>
+
+  <h4>Class Description</h4>
+
+  <hr>
+
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris erat, ullamcorper eu ex nec, 
+  venenatis imperdiet erat. Praesent tincidunt, nibh ut pulvinar laoreet, leo risus maximus dui, non faucibus 
+  magna elit ac nibh. Fusce in placerat mauris. Aenean sodales fringilla elit at tincidunt. Nam luctus nunc arcu.</p>
+
+  <br>
+
+  <h4>Project Postings</h4>
+
+  <hr>
+
+  <a href = "#">Project 1</a>
+  <br>
+  <a href = "#">Project 2</a>
+  <br>
+  <a href = "#">Project 3</a>
+
 <% end %>
 
-<br>
-Nav bar with login/sign up buttons
+  <br><br><br>
 
-<br>
-<br>
-Main content - existing projects or marketing materials
+  <%#<a href = "/users/sign_in">Log In</a>%>
+  <%#<br>%>
+  <%#<a href = "/users/sign_up">Sign Up</a>%>
 
+  <%#<% if user_signed_in? %>
+    <%#<li>%>
+  <%#<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+  <%#</li>%>
+<%#<% else %>
+    <%#<li>%>
+  <%#<%= link_to('Login', new_user_session_path)  %>
+  <%#</li>%>
+<%#<% end %>
 
-<a href = "/users/sign_in">Log In</a>
-<a href = "/users/sign_up">Sign Up</a>
+</div>
+</body>
 
-
-<% if user_signed_in? %>
-  <li>
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Login', new_user_session_path)  %>
-  </li>
-<% end %>
+<html>
