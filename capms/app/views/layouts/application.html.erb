@@ -6,6 +6,68 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+<% if user_signed_in? %>
+<nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                <span class="sr-only">Toggle navigation</span>
+              </button>
+              <a class="navbar-brand" href="#">Cap MS</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html.erb">Groups</a></li>
+                <li><a href="#fakelink">Message Board</a></li>
+                <li><a href="#fakelink">Class</a></li>
+                <li><a href="#fakelink">About</a></li>
+               </ul>
+       <form class="form-inline navbar-form navbar-right">
+        
+    	<div class="btn-group btn-group-lg">
+              <button class="btn btn-inverse btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                <%= current_user.first_name%> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">My Groups</a></li>
+                <li><a href="#">Email Professor</a></li>
+                <li class="divider"></li>
+                <li><%= link_to("Logout", destroy_user_session_path, :method => :delete)%></li>
+              </ul>
+            </div>
+      </form>
+            </div><!-- /.navbar-collapse -->
+          </nav>
+
+
+
+<%else%>
+<nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                <span class="sr-only">Toggle navigation</span>
+              </button>
+              <a class="navbar-brand" href="#">Cap MS</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html.erb">Groups</a></li>
+                <li><a href="#fakelink">Class</a></li>
+                <li><a href="#fakelink">About</a></li>
+               </ul>
+               <form class="form-inline navbar-form navbar-right">
+       		<div class="btn-group btn-group-lg">
+       			
+               <%= link_to "Login", new_user_session_path, :class => "btn btn-primary btn-sm"  %>
+
+               <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-inverse btn-sm', :type =>'button' %>
+
+              
+            </div>
+        </form>
+            </div><!-- /.navbar-collapse -->
+          </nav>
+ <%end%>
 <body>
 
 <%= yield %>

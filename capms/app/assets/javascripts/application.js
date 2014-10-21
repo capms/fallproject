@@ -12,7 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
+//= require jquery-ui/button
+//= require jquery-ui/datepicker
+//= require jquery-ui/slider
+//= require jquery-ui/spinner
+//= require jquery-ui/tooltip
+//= require jquery-ui/effect
+//= require flatuipro
+//= require twitter/bootstrap
 //= require turbolinks
-//= require flat-ui
 //= require_tree .
 
