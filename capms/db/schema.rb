@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20140923204517) do
   end
 
   create_table "users", force: true do |t|
+    t.string   "pawprint"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "picture_url"
