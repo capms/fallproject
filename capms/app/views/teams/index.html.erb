@@ -36,17 +36,17 @@
 
 <div class="team-list">
 	<% Team.all.each do |team| %>
-		<% usersInGroup = User.where(team_id: team.id) %>
-		<% if !usersInGroup.blank? %>
+		<% usersInTeam = User.where(team_id: team.id) %>
+		<% if !usersInTeam.blank? %>
 			<h3 margin: '30'><%= team.name %></h3>
 			<div class="usersInTeam">
-				<% usersInGroup.each do |userInTeam| %>
+				<% usersInTeam.each do |userInTeam| %>
 					<div id="singleUser">
 						<% imageLoc = userInTeam.picture_url %>
 						<% if imageLoc != ""%>
-							<%= image_tag(imageLoc, alt: userInTeam.first_name, class: "img-thumbnail", float: 'left') %>
+							<%= link_to image_tag(imageLoc, alt: userInTeam.first_name, class: "img-thumbnail", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
 						<% else %>
-							<%= image_tag("/images/default.png", alt: userInTeam.first_name, class: "img-thumbnail", float: 'left') %>
+							<%= link_to image_tag("/images/default.png", alt: userInTeam.first_name, class: "img-thumbnail", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
 						<% end %>
 						<%= userInTeam.first_name %>
 					</div>
