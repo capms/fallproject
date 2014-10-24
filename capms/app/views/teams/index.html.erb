@@ -1,33 +1,44 @@
-<div class="team-index">
-	<div id="newteam">
-		<%= form_for @team, url: {action: "create"} do |f| %>
-			<div class="form-group">
-		      	<input id="team_name" type="text" class= "form-control input-hg" value="" placeholder="Team Name" name="team[name]">
-		    </div>
-		    <div class="form-group">
-		      	<input id="team_description" type="textarea" class= "form-control input-sm" value="" placeholder="Team Description" name="team[description]">
-		    </div>
-		    <div class="form-group">
-				<%= f.label :max_size %><br />
-		      	<%= f.number_field(:max_size, in: 2..10, step: 1, value: 2) %>
-		    </div>
-		    <div class="form-group">
-		    	<%= button_tag(class: "btn btn-sm btn-block btn-primary") do%>
-		    		<%=content_tag(:strong, 'Create Team') %>
-		    	<% end %>
-		    </div>
-		<% end %>
-	</div>
-	<div id="users">
-		<table>
-			<th>Available Users</th>
-			<tr>
-			<% @free_users.each do |freeuser| %>
-				<td> <%= freeuser.first_name %> </td>
+<script src="jquery-bigtext.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("span#fit").bigText({
+			maximumFontSize: 17
+		});
+
+	});
+</script>
+<div class="newteam">
+	<%= form_for @team, url: {action: "create"} do |f| %>
+		<div class="form-group">
+	      	<input id="team_name" type="text" class= "form-control input-hg" value="" placeholder="Team Name" name="team[name]">
+	    </div>
+	    <div class="form-group">
+	      	<input id="team_description" type="textarea" class= "form-control input-sm" value="" placeholder="Team Description" name="team[description]">
+	    </div>
+	    <div class="form-group">
+			<%= f.label :max_size %><br />
+	      	<%= f.number_field(:max_size, in: 2..10, step: 1, value: 2) %>
+	    </div>
+	    <div class="form-group">
+	    	<%= button_tag(class: "btn btn-sm btn-block btn-primary") do%>
+	    		<%=content_tag(:strong, 'Create Team') %>
+	    	<% end %>
+	    </div>
+	<% end %>
+</div>
+<div class="availableUsers">
+	<h4> Available Users </h4>
+	<% @free_users.each do |freeUser| %>
+		<div id="singleFreeUser">
+			<% imageLoc = freeUser.picture_url %>
+			<% if !imageLoc.blank?%>
+				<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-thumbnail", float: 'left'), controller: "users", action: "show", id: freeUser.id %>
+			<% else %>
+				<%= link_to image_tag("/images/default.png", alt: "Image Error", class: "img-thumbnail", float: 'left'), controller: "users", action: "show", id: freeUser.id %> 
 			<% end %>
-			</tr>
-		</table>
-	</div>
+			<span id="fit"><%= freeUser.first_name %></span>
+		</div>
+	<% end %>
 </div>
 <br>
 <br>
@@ -37,14 +48,14 @@
 		<% usersInTeam = User.where(team_id: team.id) %>
 		<% if !usersInTeam.blank? %>
 			<h3 margin: '30'><%= team.name %></h3>
-			<div class="usersInTeam">
+			<div class="usersByTeam">
 				<% usersInTeam.each do |userInTeam| %>
 					<div id="singleUser">
 						<% imageLoc = userInTeam.picture_url %>
-						<% if imageLoc != ""%>
-							<%= link_to image_tag(imageLoc, alt: userInTeam.first_name, class: "img-thumbnail", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
+						<% if !imageLoc.blank?%>
+							<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-thumbnail", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
 						<% else %>
-							<%= link_to image_tag("/images/default.png", alt: userInTeam.first_name, class: "img-thumbnail", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
+							<%= link_to image_tag("/images/default.png", alt: "Image Error", class: "img-thumbnail", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
 						<% end %>
 						<%= userInTeam.first_name %>
 					</div>
