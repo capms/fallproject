@@ -2,7 +2,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("span#fit").bigText({
-			maximumFontSize: 17
+			maximumFontSize: 17,
+			verticalAlign: "top"
 		});
 
 	});
@@ -13,13 +14,13 @@
 	      	<input id="team_name" type="text" class= "form-control input-hg" value="" placeholder="Team Name" name="team[name]">
 	    </div>
 	    <div class="form-group">
-	      	<input id="team_description" type="textarea" class= "form-control input-sm" value="" placeholder="Team Description" name="team[description]">
+	      	<%= f.text_area(:description, class: "form-control input-sm static-text-area", maxlength: '500', placeholder: 'Team Description (max 500 characters)') %>
 	    </div>
 	    <div class="form-group">
 			<%= f.label :max_size %><br />
-	      	<%= f.number_field(:max_size, in: 2..10, step: 1, value: 2) %>
+	      	<%= f.number_field(:max_size, class: "form-control bfh-number", in: 2..10, step: 1, value: 2) %>
 	    </div>
-	    <div class="form-group">
+	    <div class="form-group" >
 	    	<%= button_tag(class: "btn btn-sm btn-block btn-primary") do%>
 	    		<%=content_tag(:strong, 'Create Team') %>
 	    	<% end %>
@@ -47,7 +48,7 @@
 	<% Team.all.each do |team| %>
 		<% usersInTeam = User.where(team_id: team.id) %>
 		<% if !usersInTeam.blank? %>
-			<h3 margin: '30'><%= team.name %></h3>
+			<h4 margin: '30'><%=link_to team.name, controller: "teams", action: "show", id: team.id %></h3>
 			<div class="usersByTeam">
 				<% usersInTeam.each do |userInTeam| %>
 					<div id="singleUser">

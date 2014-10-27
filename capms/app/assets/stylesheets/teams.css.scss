@@ -1,22 +1,21 @@
 // Place all the styles related to the teams controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 .newteam {
     width: 35%;
-    height: 200px;
+    height: 300px;
     float: left;
     padding: 10px;
 }
 .availableUsers {
 	width: 65%;
     margin-left: 35%;
-    height: 200px;
+    height: 300px;
     padding: 10px;
 }
 div#singleFreeUser {
 	width: 10%;
-	height: 25%;
+	height: 30%;
 	min-width: 75px;
 	text-align: center;
 	float: left;
@@ -24,12 +23,12 @@ div#singleFreeUser {
 	padding-right: 3px;
 }
 div#singleFreeUser img{
-	height: 100%;
+	height: 60%;
 	width: auto;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	test-align: center;
+	text-align: center;
 }
 
 .team-list {
@@ -38,7 +37,7 @@ div#singleFreeUser img{
 	padding: 10px;
 }
 .usersByTeam {
-	height: 100px;
+	height: 175px;
 	margin: auto;
 }
 div#singleUser {
@@ -51,7 +50,7 @@ div#singleUser {
 	padding-right: 3px;
 }
 div#singleUser img {
-	height: 100%;
+	height: 60%;
 	width: auto;
 	display: block;
 	margin-left: auto;
@@ -78,4 +77,10 @@ div#singleUser img {
   border-radius:50%;
   overflow:hidden;
   margin:auto;
+
+.static-text-area {
+	min-width: 100%;
+	max-width: 100%;
+	min-height: 90px;
+	max-height: 90px;
 }
