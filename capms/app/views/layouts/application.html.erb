@@ -8,7 +8,7 @@
 
 </head>
 <% if user_signed_in? %>
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
                 <span class="sr-only">Toggle navigation</span>
@@ -26,10 +26,15 @@
 
     	<div class="btn-group btn-group-lg">
               <button class="btn btn-inverse btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                <% if current_user.picture_url.blank?%>
+               <span class = "text-center"> <img alt="Dude" class = "clip-circle-nav" src="/assets/icons/dude.svg"></span>
+                <%else%>
+                <span class = "text-center"><img alt="Dude" class = "clip-circle-nav" src= <%=current_user.picture_url%>></span>
+                <%end%>
                 <%= current_user.first_name%> <span class="caret"></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
-                <li><a href="#">My Profile</a></li>
+                <li><a href="/users/">My Profile</a></li>
                 <li><a href="#">My Groups</a></li>
                 <li><a href="#">Email Professor</a></li>
                 <li class="divider"></li>
@@ -43,7 +48,7 @@
 
 
 <%else%>
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
                 <span class="sr-only">Toggle navigation</span>
@@ -70,8 +75,8 @@
           </nav>
  <%end%>
 <body>
-
+<div class = "container" style="margin-top:30px">
 <%= yield %>
-
+</div>
 </body>
 </html>
