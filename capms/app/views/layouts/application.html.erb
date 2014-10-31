@@ -31,10 +31,10 @@
 
     	   <div class="btn-group btn-group-lg">
               <button class="btn btn-inverse btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                <% if current_user.picture_url.blank?%>
-                  <span class = "text-center"> <img alt="Dude" class = "clip-circle-nav" src="/assets/icons/dude.svg"></span>
+                <% if current_user.profilepicture_file_name.blank?%>
+               <span class = "text-center"> <img alt="Dude" class = "clip-circle-nav" src="/assets/icons/dude.svg"></span>
                 <%else%>
-                  <span class = "text-center"><img alt="Dude" class = "clip-circle-nav" src= <%=current_user.picture_url%>></span>
+                <span class = "text-center"><img alt="Dude" class = "clip-circle-nav" src= <%=current_user.profilepicture_file_name%>></span>
                 <%end%>
                 <%= current_user.first_name%> <span class="caret"></span>
               </button>
@@ -42,6 +42,7 @@
                 <li><a href="/users/">My Profile</a></li>
                 <li><a href="#">My Groups</a></li>
                 <li><a href="#">Email Professor</a></li>
+                <li><%= link_to("Edit Profile", edit_user_registration_path)%></li>
                 <li class="divider"></li>
                 <li><%= link_to("Logout", destroy_user_session_path, :method => :delete)%></li>
               </ul>
