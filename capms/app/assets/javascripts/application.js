@@ -22,4 +22,3 @@
 //= require flatuipro
 //= require turbolinks
 //= require_tree .
-

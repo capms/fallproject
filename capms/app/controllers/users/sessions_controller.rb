@@ -27,12 +27,11 @@ class Users::SessionsController < Devise::SessionsController
         redirect_to root_url
       #else create a new user and then sign_in(@user)
       else
-        user = User.create(pawprint: pawprint, email: email)
+        user = User.create(pawprint: pawprint, email: email, password: "password")
         sign_in(user)
         redirect_to root_url
       end
     end
-
 
     #how does new go to create? post create, what are params and how does http party use them? maybe p perams here to find out, create some sort of interrupt. without super you should be able to get in between
     #http party the params to php site

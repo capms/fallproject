@@ -17,6 +17,9 @@ class UsersController < ApplicationController
   end
 
   def update
-
+    p "here! " * 100
+    # user = User.find(params[:id])
+    # user.update_attributes!(user_params)
   end
+
 end

@@ -40,6 +40,7 @@
   <div><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
 
+  <%= f.hidden_field :current_password, :value => "password" %>
 
 
   <div><%= f.submit "Update" %></div>
