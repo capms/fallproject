@@ -1,9 +1,7 @@
-
 <% if current_user.picture_url.blank?%>
 <h1 class = "text-center"><img alt="Dude" src="/assets/icons/dude.svg"></h1>
 <% else %>
 <h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=current_user.picture_url%>></h1>
-
 <%end%>
 <section class = "white-background">
 <h1 class = "text-center"><%=current_user.first_name%> <%=current_user.last_name%></h1>
