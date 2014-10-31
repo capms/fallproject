@@ -21,23 +21,15 @@
                 <li class="active"><a href="/teams/">Teams</a></li>
                 <li><a href="#fakelink">Message Board</a></li>
                 <li><a href="#fakelink">Class</a></li>
-                <li><a href="#fakelink">Invites
-
-
-    <li><a href="#" class="btn btn-xs btn-default" data-toggle="modal" data-target="#inviteModal"> Invites</a></li>
-      
-      
-
-
+                <li><a href="#" class="active" data-toggle="modal" data-target="#inviteModal"> Invites</a></li>
                 <% if inviteCount > 0 %>
-                  <span class="navbar-new"><%=inviteCount%></span>
+                  <li class="navbar-new"><%=inviteCount%></li>
                 <% end %>
-                </a></li>
                 <li><a href="#fakelink">About</a></li>
                </ul>
        <form class="form-inline navbar-form navbar-right">
 
-    	<div class="btn-group btn-group-lg">
+    	   <div class="btn-group btn-group-lg">
               <button class="btn btn-inverse btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                 <% if current_user.picture_url.blank?%>
                   <span class = "text-center"> <img alt="Dude" class = "clip-circle-nav" src="/assets/icons/dude.svg"></span>
@@ -68,16 +60,24 @@
             <div class="modal-body">
               <% if inviteCount == 0 %>
                 <h2> You have no invites, I am sorry. </h2>
-              <% else %>
-                <h2> Add stuff here </h2>
               <% end %>
+              <% userNotifications = Notification.where(user_id: current_user.id) %>
+              <div class="InviteGroups">
+                <% userNotifications.each do |n| %>
+                  <div class="single-invite">
+                    <h6><a href="/teams/#{n.team_id}"> You have been invited to join <%=Team.find(n.team_id).name%>!</a></h6>
+                    <div class="invite-button">
+                      <%= link_to "Accept", {:controller => "users", :action => "update", :id => current_user.id, :team_id => n.team_id, :notif_id => n.id }, :method => "patch", :class => "btn btn-xs btn-default", data: {:confirm => "Are you sure?"} %>
+                    </div>
+                    <div class="invite-button">
+                      <%= link_to "Decline", {:controller => "notifications", :action => "destroy", :id => n.id}, :method => "delete", :class => "btn btn-xs btn-default", data: {:confirm => "Are you sure?"} %>
+                    </div>
+                    <button type="button" class="btn btn-xs btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
+                <% end %>
+              </div>
             </div>
             <div class="modal-footer">
-              <% userNotifications = Notification.where(user_id: current_user.id) %>
-              <% userNotifications.each do |n| %>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <%= button_to "Accept", {:controller => "users", :action => "update", :id => current_user.id, :team_id => n.team_id, :notif_id => n.id }, :method => "patch", :class => "btn btn-xs btn-default" %>
-              <% end %>
                 <!--<button type="button" class="btn btn-primary">Confirm</button>-->
             </div>
           </div>

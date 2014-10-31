@@ -20,7 +20,8 @@ div#singleFreeUser {
 	height: 40%;
 	min-width: 75px;
 	text-align: center;
-	float: left;
+	margin: auto;
+	display: inline-block;
 	padding-left: 3px;
 	padding-right: 3px;
 }
