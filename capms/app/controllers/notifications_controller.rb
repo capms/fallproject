@@ -11,6 +11,12 @@ class NotificationsController < ApplicationController
 
 	end
 
+	def destroy
+		@des_notif=Notification.delete(params[:id])
+
+		redirect_to "/teams"
+	end
+
 	private
 
 	def notif_params

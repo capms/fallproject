@@ -1,23 +1,21 @@
 <h2><%= @team.name %> </h2>
 
-<div class="team-list">
-	<% usersInTeam = User.where(team_id: @team.id) %>
-	<% if !usersInTeam.blank? %>
-		<div class="usersByTeam">
-			<% usersInTeam.each do |userInTeam| %>
-				<div id="singleUser">
-					<% imageLoc = userInTeam.picture_url %>
-					<% if !imageLoc.blank?%>
-						<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-thumbnail", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
-					<% else %>
-						<%= link_to image_tag("/images/default.png", alt: "Image Error", class: "img-thumbnail", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
-					<% end %>
-					<%= userInTeam.first_name %>
-				</div>
-			<% end %>
-		</div>
-		<h4 padding='5px'>Team Description</h4>
-		<p> <%= @team.description %> </p>
-		<br>
-	<% end %>
-</div>
+<% usersInTeam = User.where(team_id: @team.id) %>
+<% if !usersInTeam.blank? %>
+	<div class="team-show-users">
+		<% usersInTeam.each do |userInTeam| %>
+			<div id="show-user">
+				<% imageLoc = userInTeam.picture_url %>
+				<% if !imageLoc.blank?%>
+					<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
+				<% else %>
+					<%= link_to image_tag("/images/default.png", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
+				<% end %>
+				<%= userInTeam.first_name %>
+			</div>
+		<% end %>
+	</div>
+	<h4 padding='5px'>Team Description</h4>
+	<p> <%= @team.description %> </p>
+	<br>
+<% end %>
