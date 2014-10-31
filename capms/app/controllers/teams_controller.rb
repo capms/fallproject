@@ -4,6 +4,7 @@ class TeamsController < ApplicationController
     @all_teams = Team.all
     @free_users = User.where(team_id: nil)
     @team = Team.new
+    #@notification = Notification.new
   end
 
   def new
@@ -15,7 +16,7 @@ class TeamsController < ApplicationController
     if @team.save
       redirect_to @team
     else
-      render "new"
+      render "index"
     end
   end
 

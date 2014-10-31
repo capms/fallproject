@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141031231705) do
+ActiveRecord::Schema.define(version: 20141027023340) do
 
   create_table "approvals", force: true do |t|
     t.integer  "user_id"
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 20141031231705) do
   end
 
   create_table "groups", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "notifications", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.integer  "invited_by_id"
+    t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
