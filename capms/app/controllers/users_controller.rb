@@ -4,6 +4,10 @@ class UsersController < ApplicationController
 
   end
 
+  def show
+      @user = User.find(params[:id])
+  end
+
   def new
 
   end
@@ -17,9 +21,14 @@ class UsersController < ApplicationController
   end
 
   def update
-    p "here! " * 100
-    # user = User.find(params[:id])
-    # user.update_attributes!(user_params)
+      @updateUser = User.find(params[:id])
+      @notification = Notification.find(params[:notif_id])
+      if @updateUser.update_attributes(:team_id => params[:team_id])
+        @notification.destroy
+        redirect_to "/teams/"
+      else
+        redirect_to "/404/"
+      end
   end
 
 end

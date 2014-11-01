@@ -1,23 +1,37 @@
 // Place all the styles related to the teams controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-.team-index {
-    height: 200px;
-    margin: auto;
-    padding: 0px;
-    background: white;
-}
-div#newteam {
-    width: 25%;
-    height: 200px;
+.newteam {
+    width: 35%;
+    height: 300px;
     float: left;
     padding: 10px;
+    margin-top: 30px;
 }
-div#users {
-    margin-left: 25%;
-    height: 200px;
+.availableUsers {
+	width: 65%;
+    margin-left: 35%;
+    height: 300px;
     padding: 10px;
+    margin-top: 30px;
+}
+div#singleFreeUser {
+	width: 12%;
+	height: 40%;
+	min-width: 75px;
+	text-align: center;
+	margin: auto;
+	display: inline-block;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+div#singleFreeUser img{
+	height: 60%;
+	width: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 }
 
 .team-list {
@@ -25,23 +39,79 @@ div#users {
 	margin: auto;
 	padding: 10px;
 }
-.usersInTeam {
-	height: 100px;
+.usersByTeam {
+	height: 125px;
 	margin: auto;
 }
 div#singleUser {
-	width: 7.5%;
-	height: 50%;
-	min-width: 60px;
+	width: 15%;
+	height: 100%;
+	min-width: 75px;
 	text-align: center;
-	float: left;
 	padding-left: 3px;
 	padding-right: 3px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0px;
+	display: inline-block;
 }
 div#singleUser img {
+	height: 70%;
+	width: auto;
+	background-color: white;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.clip-circle{
+  background:url(URL-of-image) no-repeat;
+  background-size:720px 480px;
+  background-position:-160px 0px;
+  height:200px;
+  width:200px;
+  border-radius:50%;
+  overflow:hidden;
+  margin:auto;
+}
+
+.clip-circle-nav{
+  background:url(URL-of-image) no-repeat;
+  background-size:720px 480px;
+  background-position:-160px 0px;
+  height:30px;
+  width:30px;
+  border-radius:50%;
+  overflow:hidden;
+  margin:auto;
+}
+
+.static-text-area {
+	min-width: 100%;
+	max-width: 100%;
+	min-height: 90px;
+	max-height: 90px;
+}
+
+.team-show-users {
+	width: 100%;
+	height: 400px;
+	margin-top: 30px;
+}
+
+div#show-user {
+	width: 20%;
 	height: 100%;
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div#show-user img {
+	height: 30%;
 	width: auto;
 	display: block;
+	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
 }

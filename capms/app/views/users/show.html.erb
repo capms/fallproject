@@ -1,1 +1,19 @@
-User's Specific Page i.e. Profile Page
+
+<% if @user.picture_url.blank?%>
+	<h1 class = "text-center"><img alt="Dude" src="/assets/icons/dude.svg"></h1>
+<% else %>
+	<h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=@user.picture_url%>></h1>
+<%end%>
+
+<section class = "white-background">
+<h1 class = "text-center"><%=@user.first_name%> <%=@user.last_name%></h1>
+<p class = "text-center"><%=@user.email%></p>
+<div class = "text-center"><a class="fui-linkedin" href = <%=@user.linkedin_url%>></a>
+<a class="fui-github" href = <%= %>></a>
+</div>  
+</section>
+<section class= "dark-blue" id = "about">
+<p class = "text-center"><%=@user.about_me%></p>
+</section>
+
+

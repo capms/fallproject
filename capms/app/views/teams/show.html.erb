@@ -1,2 +1,21 @@
-<h1>Teams#show</h1>
-<p>Find me in app/views/teams/show.html.erb</p>
+<h2><%= @team.name %> </h2>
+
+<% usersInTeam = User.where(team_id: @team.id) %>
+<% if !usersInTeam.blank? %>
+	<div class="team-show-users">
+		<% usersInTeam.each do |userInTeam| %>
+			<div id="show-user">
+				<% imageLoc = userInTeam.picture_url %>
+				<% if !imageLoc.blank?%>
+					<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
+				<% else %>
+					<%= link_to image_tag("/images/default.png", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
+				<% end %>
+				<%= userInTeam.first_name %>
+			</div>
+		<% end %>
+	</div>
+	<h4 padding='5px'>Team Description</h4>
+	<p> <%= @team.description %> </p>
+	<br>
+<% end %>

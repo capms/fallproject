@@ -21,4 +21,6 @@
 //= require twitter/bootstrap
 //= require flatuipro
 //= require turbolinks
+//= require jquery-bigtext
 //= require_tree .
+
