@@ -19,6 +19,15 @@ class Users::SessionsController < Devise::SessionsController
       result_bool = body["result"]
       pawprint = body["user"]["username"]
       full_name = body["user"]["fullname"]
+      p "Full name! " * 15
+      p body
+
+      x = full_name.scan(/([a-zA-Z]*)\b/)
+
+      p "one! " * 100
+      last_name = x[0][0]
+      first_name =  x[2][0]
+            # p five
       email = body["user"]["emails"][0]
       user = User.find_by_pawprint(pawprint)
       #if user exists in DB -> sign_in(@user)
@@ -27,7 +36,7 @@ class Users::SessionsController < Devise::SessionsController
         redirect_to root_url
       #else create a new user and then sign_in(@user)
       else
-        user = User.create(pawprint: pawprint, email: email, password: "password")
+        user = User.create(pawprint: pawprint, email: email, password: "password", first_name: first_name, last_name: last_name)
         sign_in(user)
         redirect_to root_url
       end
