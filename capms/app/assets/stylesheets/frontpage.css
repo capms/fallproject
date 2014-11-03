@@ -1,12 +1,32 @@
 
 .container {
-      width: 970px !important;
-      padding-right: 15px;
+      width: 70%;
+      margin: auto;
+      text-align: center;
+      /*padding-right: 15px;
       padding-left: 15px;
       margin-right: auto;
-      margin-left: auto;
+      margin-left: auto;*/
+      font-size:
+
 }
 
+.error{
+  border-color: red;
+}
+.txt-left{
+  text-align: left;
+}
+
+.txt-center{
+  text-align: center;
+}
+.txt-right{
+  text-align: right;
+}
+.error_message{
+  color:red;
+}
 
 a {
   text-decoration: none;

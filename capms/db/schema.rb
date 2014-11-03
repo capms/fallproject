@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141103192427) do
+
+ActiveRecord::Schema.define(version: 20141031231705) do
+
 
   create_table "approvals", force: true do |t|
     t.integer  "user_id"
@@ -153,6 +155,12 @@ ActiveRecord::Schema.define(version: 20141103192427) do
   create_table "messages", force: true do |t|
     t.string   "title"
     t.text     "text"
+
+  create_table "notifications", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.integer  "invited_by_id"
+    t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -179,9 +187,9 @@ ActiveRecord::Schema.define(version: 20141103192427) do
   end
 
   create_table "users", force: true do |t|
+    t.string   "pawprint"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "picture_url"
     t.string   "semester"
     t.string   "phone"
     t.string   "resume_url"
@@ -201,9 +209,10 @@ ActiveRecord::Schema.define(version: 20141103192427) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.boolean  "forem_admin",            default: false
-    t.string   "forem_state",            default: "pending_review"
-    t.boolean  "forem_auto_subscribe",   default: false
+    t.string   "profilepicture_file_name"
+    t.string   "profilepicture_content_type"
+    t.integer  "profilepicture_file_size"
+    t.datetime "profilepicture_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

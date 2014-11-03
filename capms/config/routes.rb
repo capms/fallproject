@@ -12,11 +12,19 @@ Rails.application.routes.draw do
 
   get 'flatuipro_demo/index'
 
-  devise_for :users
+  # devise_for :users
+  Rails.application.routes.draw do
+      devise_for :users, controllers: {
+        sessions: 'users/sessions',
+        registrations: 'users/registrations'
+      }
+    end
   resources :users
   resources :groups
   resources :teams
   resources :message_board
+  resources :notifications
+
 
   root 'pages#index'
 

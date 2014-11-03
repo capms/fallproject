@@ -1,3 +1,4 @@
+
 <h2>Team Creation</h2>
 <br>
 <div class="team-index container">
@@ -26,29 +27,86 @@
 			<tr>
 			<% @free_users.each do |freeuser| %>
 				<td> <%= freeuser.first_name %> </td>
+
+<script src="jquery-bigtext.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("span#fit").bigText({
+			maximumFontSize: 17,
+			verticalAlign: "top"
+		});
+
+	});
+</script>
+
+<!--Begin Page -->
+<div class="newteam">
+	<%= form_for @team, url: {action: "create"} do |f| %>
+		<div class="form-group">
+	      	<input id="team_name" type="text" class= "form-control input-hg" value="" placeholder="Team Name" name="team[name]">
+	    </div>
+	    <div class="form-group">
+	      	<%= f.text_area(:description, class: "form-control input-sm static-text-area", maxlength: '500', placeholder: 'Team Description (max 500 characters)') %>
+	    </div>
+	    <div class="form-group">
+			<%= f.label :max_size %><br />
+	      	<%= f.number_field(:max_size, class: "form-control bfh-number", in: 2..10, step: 1, value: 2) %>
+	    </div>
+	    <div class="form-group" >
+	    	<%= button_tag(class: "btn btn-lg btn-primary") do%>
+	    		<%=content_tag(:strong, 'Create Team') %>
+	    	<% end %>
+	    </div>
+	<% end %>
+</div>
+<div class="availableUsers">
+	<h4> Available Users </h4>
+	<% @free_users.each do |freeUser| %>
+		<div id="singleFreeUser">
+			<% imageLoc = freeUser.picture_url %>
+			<% if !imageLoc.blank?%>
+				<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: freeUser.id %>
+			<% else %>
+				<%= link_to image_tag("/images/default.png", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: freeUser.id %> 
+
 			<% end %>
-			</tr>
-		</table>
-	</div>
+			<!--<span id="fit"><%= freeUser.first_name %></span>-->
+			<div class="btn-group">
+			  <button class="btn btn-inverse btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+			    <%= freeUser.first_name %> <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
+			    <li><%= link_to "Profile", {:controller => "users", :action => "show", :id => freeUser.id} %></li>
+			    <% if current_user != nil && !current_user.team_id.blank? %>
+			    	<li><%= link_to "Invite", {:controller => "notifications", :action => "create", :user_id => freeUser.id, :team_id => current_user.team_id }, :method => "post", data: { confirm: "Are you sure?"} %></li>
+			    <% end %>
+			  </ul>
+			</div>
+		</div>
+	<% end %>
 </div>
 <br>
 <br>
 
 <div class="team-list container">
 	<% Team.all.each do |team| %>
-		<% usersInGroup = User.where(team_id: team.id) %>
-		<% if !usersInGroup.blank? %>
-			<h3 margin: '30'><%= team.name %></h3>
-			<div class="usersInTeam">
-				<% usersInGroup.each do |userInTeam| %>
+		<% usersInTeam = User.where(team_id: team.id) %>
+		<% if !usersInTeam.blank? %>
+			<h4 margin: '30'><%=link_to team.name, controller: "teams", action: "show", id: team.id %></h4>
+			<div class="usersByTeam">
+				<% usersInTeam.each do |userInTeam| %>
 					<div id="singleUser">
 						<% imageLoc = userInTeam.picture_url %>
-						<% if imageLoc != ""%>
-							<%= image_tag(imageLoc, alt: userInTeam.first_name, class: "img-thumbnail", float: 'left') %>
+						<% if !imageLoc.blank?%>
+							<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
 						<% else %>
-							<%= image_tag("/images/default.png", alt: userInTeam.first_name, class: "img-thumbnail", float: 'left') %>
+							<%= link_to image_tag("/images/default.png", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
 						<% end %>
-						<%= userInTeam.first_name %>
+						<% if userInTeam.first_name.blank? %>
+							NoName
+						<% else %>
+							<%= userInTeam.first_name %>
+						<% end %>
 					</div>
 				<% end %>
 			</div>
