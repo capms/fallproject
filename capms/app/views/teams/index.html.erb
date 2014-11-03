@@ -1,6 +1,6 @@
-<h1>NavBar</h1>
+<h2>Team Creation</h2>
 <br>
-<div class="team-index">
+<div class="team-index container">
 	<div id="newteam">
 		<%= form_for @team, url: {action: "create"} do |f| %>
 			<div class="form-group">
@@ -34,7 +34,7 @@
 <br>
 <br>
 
-<div class="team-list">
+<div class="team-list container">
 	<% Team.all.each do |team| %>
 		<% usersInGroup = User.where(team_id: team.id) %>
 		<% if !usersInGroup.blank? %>

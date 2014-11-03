@@ -21,5 +21,6 @@
 //= require twitter/bootstrap
 //= require flatuipro
 //= require turbolinks
+//= require forem
 //= require_tree .
 
