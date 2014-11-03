@@ -1,4 +1,4 @@
-<% if current_user.picture_url.blank?%>
+<% if current_user.profilepicture.url.blank?%>
 <h1 class = "text-center"><img alt="Dude" src="/assets/icons/dude.svg"></h1>
 <% else %>
 <h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=current_user.picture_url%>></h1>
