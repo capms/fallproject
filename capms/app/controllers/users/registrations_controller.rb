@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
-# before_filter :configure_account_update_params, only: [:update]
+  before_filter :configure_permitted_parameters
 
   # GET /resource/sign_up
   # def new
@@ -13,14 +13,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    super
+  end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    p "here ! " * 100
+    # p "just posted update! " * 100
+    super
+  end
 
   # DELETE /resource
   # def destroy
@@ -44,9 +46,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # You can put the params you want to permit in the empty array.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.for(:account_update) << :attribute
-  # end
+   # my custom fields are :name, :heard_how
+ protected
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) do |u|
+      u.permit(:first_name, :last_name,
+        :email, :password, :password_confirmation)
+    end
+    devise_parameter_sanitizer.for(:account_update) do |u|
+      u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :picture_url, :semester, :phone, :resume_url, :about_me, :linkedin_url, :user_type, :team_id)
+    end
+  end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
