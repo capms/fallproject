@@ -15,9 +15,11 @@ class UsersController < ApplicationController
   def create
 
   end
+
   def edit
-      
+
   end
+
   def update
       @updateUser = User.find(params[:id])
       @notification = Notification.find(params[:notif_id])
@@ -28,4 +30,5 @@ class UsersController < ApplicationController
         redirect_to "/404/"
       end
   end
+
 end
