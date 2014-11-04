@@ -1,0 +1,25 @@
+<br>
+<h3>Message Board</h3>
+ 
+<%= link_to 'New message', new_message_path %>
+
+<table class = "table table-striped">
+  <tr>
+    <th>Student</th>
+    <th>Subject</th>
+    <th>Summary</th>
+    <th colspan="3"></th>
+  </tr>
+ 
+<% @message.each do |message| %>
+  <tr>
+    <th style="font-weight:normal;"><%= current_user.first_name %></th>
+    <th style="font-weight:normal;"><%= message.title %></th>
+    <th style="font-weight:normal;"><%= message.text %></th>
+    <td><%= link_to 'Comment', message_path(message) %></td>
+    <td><%= link_to 'Edit', edit_message_path(message) %></td>
+    <td><%= link_to 'Delete', message_path(message),
+                    method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>

@@ -7,13 +7,14 @@ Rails.application.routes.draw do
   # If you would like to change where this extension is mounted, simply change the :at option to something different.
   #
   # We ask that you don't use the :as option here, as Forem relies on it being the default of "forem"
-  mount Forem::Engine, :at => '/forums'
 
 
   get 'flatuipro_demo/index'
 
   # devise_for :users
   Rails.application.routes.draw do
+  get 'message_board/index'
+
       devise_for :users, controllers: {
         sessions: 'users/sessions',
         registrations: 'users/registrations'
@@ -22,7 +23,9 @@ Rails.application.routes.draw do
   resources :users
   resources :groups
   resources :teams
-  resources :message_board
+  resources :messages do
+    resources :comments
+  end
   resources :notifications
 
 
