@@ -8,9 +8,9 @@ class NotificationsController < ApplicationController
 			else
 				redirect_to "/notificationfailure"
 			end
-		else
-			flash[:notice] = "This user has already been invited to join your team"
-			redirect_to "/teams/"
+		#else
+			#flash[:notice] = "This user has already been invited to join your team"
+			#redirect_to "/teams/"
 		end
 		##Add else that lets user know somehow that this person has already by invited to team
 
