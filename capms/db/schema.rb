@@ -11,11 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104043658) do
+ActiveRecord::Schema.define(version: 20141104233051) do
 
   create_table "approvals", force: true do |t|
     t.integer  "user_id"
     t.integer  "document_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bulletins", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.integer  "invited_by_id"
+    t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -97,7 +106,6 @@ ActiveRecord::Schema.define(version: 20141104043658) do
     t.string   "pawprint"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "picture_url"
     t.string   "semester"
     t.string   "phone"
     t.string   "resume_url"
