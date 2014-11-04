@@ -27,7 +27,7 @@ class NotificationsController < ApplicationController
 	private
 
 	def notif_params
-		params.permit(:user_id, :team_id)
+		params.permit(:user_id, :team_id, :invited_by_id)
 	end
 
 end
