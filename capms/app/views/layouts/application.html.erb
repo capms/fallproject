@@ -8,7 +8,7 @@
 
 </head>
 <% if user_signed_in? %>
-  <%inviteCount=Notification.where(user_id: current_user.id).count%>
+  <%inviteCount=Bulletin.where(user_id: current_user.id).count%>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
@@ -18,7 +18,6 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse-01">
               <ul class="nav navbar-nav">
-                <li><a href="/groups">Groups</a></li>
                 <li><a href="/messages">Message Board</a></li>
                 <li><a href="/teams/">Teams</a></li>
                 <li><a href="#fakelink">Class</a></li>
@@ -63,16 +62,16 @@
               <% if inviteCount == 0 %>
                 <h2> You have no invites, I am sorry. </h2>
               <% end %>
-              <% userNotifications = Notification.where(user_id: current_user.id) %>
+              <% userBullets = Bulletin.where(user_id: current_user.id) %>
               <div class="InviteGroups">
-                <% userNotifications.each do |n| %>
+                <% userBullets.each do |n| %>
                   <div class="single-invite">
                     <h6><a href="/teams/#{n.team_id}"> You have been invited to join <%=Team.find(n.team_id).name%>!</a></h6>
                     <div class="invite-button">
-                      <%= link_to "Accept", {:controller => "users", :action => "update", :id => current_user.id, :team_id => n.team_id, :notif_id => n.id }, :method => "patch", :class => "btn btn-xs btn-default", data: {:confirm => "Are you sure?"} %>
+                      <%= link_to "Accept", {:controller => "users", :action => "update", :id => current_user.id, :team_id => n.team_id, :bullet_id => n.id }, :method => "patch", :class => "btn btn-xs btn-default", data: {:confirm => "Are you sure?"} %>
                     </div>
                     <div class="invite-button">
-                      <%= link_to "Decline", {:controller => "notifications", :action => "destroy", :id => n.id}, :method => "delete", :class => "btn btn-xs btn-default", data: {:confirm => "Are you sure?"} %>
+                      <%= link_to "Decline", {:controller => "bulletins", :action => "destroy", :id => n.id}, :method => "delete", :class => "btn btn-xs btn-default", data: {:confirm => "Are you sure?"} %>
                     </div>
                     <button type="button" class="btn btn-xs btn-default" data-dismiss="modal">Cancel</button>
                   </div>
@@ -97,7 +96,7 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse-01">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html.erb">Groups</a></li>
+                <li class="active"><a href="/teams/">Teams</a></li>
                 <li><a href="#fakelink">Class</a></li>
                 <li><a href="#fakelink">About</a></li>
                </ul>

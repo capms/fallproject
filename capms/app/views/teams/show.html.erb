@@ -5,11 +5,11 @@
 	<div class="team-show-users">
 		<% usersInTeam.each do |userInTeam| %>
 			<div id="show-user">
-				<% imageLoc = userInTeam.picture_url %>
+				<% imageLoc = userInTeam.profilepicture_file_name%>
 				<% if !imageLoc.blank?%>
 					<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
 				<% else %>
-					<%= link_to image_tag("/images/default.png", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
+					<%= link_to image_tag("icons/dude.svg", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
 				<% end %>
 				<%= userInTeam.first_name %>
 			</div>

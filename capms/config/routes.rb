@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :notifications
+  resources :bulletins
 
 
   root 'pages#index'
