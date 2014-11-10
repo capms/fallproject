@@ -20,7 +20,12 @@ Rails.application.routes.draw do
         registrations: 'users/registrations'
       }
     end
-  resources :users
+  resources :users do
+    collection do
+      put 'team_change', :action => :change_team
+    end
+  end
+
   resources :groups
   resources :teams
   resources :messages do
@@ -28,6 +33,7 @@ Rails.application.routes.draw do
   end
   resources :notifications
   resources :bulletins
+  resources :acceptable_users
 
 
   root 'pages#index'

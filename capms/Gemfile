@@ -39,7 +39,7 @@ gem 'tzinfo-data'
 
 gem 'flatui-rails'
 gem 'httparty'
-
+gem 'bootstrap-tagsinput-rails'
 
 
 

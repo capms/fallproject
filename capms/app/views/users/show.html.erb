@@ -1,19 +1,111 @@
 
-<% if @user.picture_url.blank?%>
+<% @accep_user = AcceptableUser.new %>
+<% if @user.profilepicture_file_name.blank?%>
 	<h1 class = "text-center"><img alt="Dude" src="/assets/icons/dude.svg"></h1>
 <% else %>
 	<h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=@user.picture_url%>></h1>
 <%end%>
 
 <section class = "white-background">
-<h1 class = "text-center"><%=@user.first_name%> <%=@user.last_name%></h1>
-<p class = "text-center"><%=@user.email%></p>
-<div class = "text-center"><a class="fui-linkedin" href = <%=@user.linkedin_url%>></a>
-<a class="fui-github" href = <%= %>></a>
-</div>  
+	<h1 class = "text-center"><%=@user.first_name%> <%=@user.last_name%></h1>
+	<p class = "text-center"><%=@user.email%></p>
+	<div class = "text-center"><a class="fui-linkedin" href = <%=@user.linkedin_url%>></a>
+		<a class="fui-github" href = <%= %>></a>
+	</div>  
 </section>
 <section class= "dark-blue" id = "about">
-<p class = "text-center"><%=@user.about_me%></p>
+	<p class = "text-center"><%=@user.about_me%></p>
 </section>
 
-
+<!-- If current user is an admin, show admin settings options. -->
+<% if current_user.user_type_id == 2 && @user.id == current_user.id %>
+	<div class = "student-ids">
+		<%= form_for @accep_user, to: "acceptable_users#create" do |f| %>
+		
+			<div class = "form-group">
+				<%= f.text_field :user_id %>
+			</div>
+			<div class = "form-group">
+				<%= f.hidden_field :added_by, :value => current_user.id %>
+			</div>
+			<div class="form-group" >
+		    	<%= button_tag(class: "btn btn-lg btn-primary") do%>
+		    		<%=content_tag(:strong, 'Add ID') %>
+		    	<% end %>
+		    </div>
+		<% end %>
+	</div>
+	<!-- Free Users -->
+	<div class="team-list">
+		<div class = "usersByTeam">
+			<h4> Available Users </h4>
+			<% free_users = User.where(team_id: nil) %>
+			<% free_users.each do |freeUser| %>
+				<div id="singleUser">
+					<% imageLoc = freeUser.profilepicture_file_name %>
+					<% if !imageLoc.blank?%>
+						<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: freeUser.id %>
+					<% else %>
+						<%= link_to image_tag("icons/dude.svg", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: freeUser.id %> 
+					<% end %>
+					<!-- Drop Down under user picture -->
+					<div class="btn-group">
+					  <button class="btn btn-inverse btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+					    <%= freeUser.first_name %> <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
+					    <li><%= link_to "Profile", {:controller => "users", :action => "show", :id => freeUser.id} %>
+					    </li>
+				    	<li><%= link_to "Delete User", {:controller => "users", :action => "destroy", :id => freeUser.id, :adminid => current_user.id}, :method => "delete", data: { confirm: "Are you sure you want to delete #{freeUser.first_name} #{freeUser.last_name}?"} %>
+				    	</li>
+					  </ul>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</div>
+	<!-- Teams with users -->
+	<div class="team-list">
+		<% allTeams = Team.all %>
+		<% allTeams.each do |team| %>
+			<% usersInTeam = User.where(team_id: team.id) %>
+			<% if !usersInTeam.blank? %>
+				<h4 margin: '30'><%=link_to team.name, controller: "teams", action: "show", id: team.id %></h4>
+				<div class="btn-group">
+					<%= link_to "Disban Team", {:controller => "teams", :action => "destroy", :id => team.id}, :method => "delete", class: "btn btn-default btn-xs", data: { confirm: "Are you sure you want to disban #{team.name}?"} %>
+				</div>
+				<div class="usersByTeam">
+					<% usersInTeam.each do |userInTeam| %>
+						<div id="singleUser">
+							<% imageLoc = userInTeam.profilepicture_file_name %>
+							<% if !imageLoc.blank?%>
+								<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
+							<% else %>
+								<%= link_to image_tag("icons/dude.svg", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
+							<% end %>
+							<div class="btn-group">
+							  <button class="btn btn-inverse btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+							    <%= userInTeam.first_name %> <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
+							    <li><%= link_to "Profile", {:controller => "users", :action => "show", :id => userInTeam.id} %>
+							    </li>
+							    <li><%= link_to "Remove from Team", {:controller => "users", :action => "change_team", :id => userInTeam.id, :team_id => nil}, :method => "put", data: { confirm: "Are you sure you want to remove #{userInTeam.first_name} #{userInTeam.last_name} from #{team.name}?"} %>
+						    	</li>
+						    	<li><%= link_to "Delete User", {:controller => "users", :action => "destroy", :id => userInTeam.id, :adminid => current_user.id}, :method => "delete", data: { confirm: "Are you sure you want to delete #{userInTeam.first_name} #{userInTeam.last_name}?"} %>
+						    	</li>
+							  </ul>
+							</div>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>
+<!--<label class="col-sm-3 control-label">Cities</label>
+		        <div class="col-sm-5">
+		            <select multiple data-role="tagsinput" name="id_array[]" id="paws">
+					  <option value="testpaw">testpaw</option>
+					</select>
+		        </div>-->

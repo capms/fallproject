@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104233051) do
+ActiveRecord::Schema.define(version: 20141106205435) do
+
+  create_table "acceptable_users", force: true do |t|
+    t.string   "user_id"
+    t.integer  "added_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "approvals", force: true do |t|
     t.integer  "user_id"
@@ -60,23 +67,9 @@ ActiveRecord::Schema.define(version: 20141104233051) do
     t.datetime "updated_at"
   end
 
-  create_table "groups", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "messages", force: true do |t|
     t.string   "title"
     t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "notifications", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "team_id"
-    t.integer  "invited_by_id"
-    t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -98,6 +91,7 @@ ActiveRecord::Schema.define(version: 20141104233051) do
   end
 
   create_table "user_types", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -111,7 +105,7 @@ ActiveRecord::Schema.define(version: 20141104233051) do
     t.string   "resume_url"
     t.text     "about_me"
     t.string   "linkedin_url"
-    t.integer  "user_type"
+    t.integer  "user_type_id"
     t.integer  "team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
