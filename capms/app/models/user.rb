@@ -23,7 +23,8 @@ class User < ActiveRecord::Base
 	belongs_to :user_type
 	has_many :documents
 	has_many :approvals
-	has_many :notifications
+	has_many :bulletins
+  has_many :acceptable_users
 
 
 end

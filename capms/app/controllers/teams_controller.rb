@@ -31,6 +31,15 @@ class TeamsController < ApplicationController
   end
 
   def destroy
+    @desTeam = Team.find(params[:id])
+    @usersInTeam = User.where(team_id: @desTeam.id)
+    @usersInTeam.each  do |u|
+      u.update_attribute(:team_id, nil)
+    end
+
+    Team.delete(@desTeam.id)
+
+    redirect_to (:back)
   end
 
   private
