@@ -41,8 +41,7 @@ gem 'flatui-rails'
 gem 'httparty'
 gem 'bootstrap-tagsinput-rails'
 
-
-
+gem 'refinerycms', '~> 2.1.5'
 
 # gem 'aws-sdk'
 
