@@ -1,13 +1,15 @@
 <% if current_user.profilepicture.url.blank?%>
 <h1 class = "text-center"><img alt="Dude" src="/assets/icons/dude.svg"></h1>
 <% else %>
-<h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=current_user.picture_url%>></h1>
+<h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=current_user.profilepicture.url%>></h1>
 <%end%>
 <section class = "white-background">
 <h1 class = "text-center"><%=current_user.first_name%> <%=current_user.last_name%></h1>
 <p class = "text-center"><%=current_user.email%></p>
 <div class = "text-center"><a class="fui-linkedin" href = <%=current_user.linkedin_url%>></a>
 <a class="fui-github" href = <%= %>></a>
+<div><object src=<%=current_user.resume.url%>><embed src=<%=current_user.resume.url%>></embed></div>
+
 </div>  
 </section>
 <section class= "dark-blue" id = "about">

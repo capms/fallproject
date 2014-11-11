@@ -1,19 +1,63 @@
+<script>
+function centerModal() {
+    $(this).css('display', 'block');
+    var $dialog = $(this).find(".modal-dialog");
+    var offset = ($(window).height() - $dialog.height()) / 2;
+    // Center modal vertically in window
+    $dialog.css("margin-top", offset);
+}
 
-<% if @user.picture_url.blank?%>
-	<h1 class = "text-center"><img alt="Dude" src="/assets/icons/dude.svg"></h1>
+$('.modal').on('show.bs.modal', centerModal);
+$(window).on("resize", function () {
+    $('.modal:visible').each(centerModal);
+});
+</script>
+
+<% if @user.profilepicture_file_name.blank?%>
+<h1 class = "text-center"><img alt="Dude" src="/assets/icons/dude.svg"></h1>
 <% else %>
-	<h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=@user.picture_url%>></h1>
+<h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=@user.profilepicture.url%>></h1>
 <%end%>
-
 <section class = "white-background">
 <h1 class = "text-center"><%=@user.first_name%> <%=@user.last_name%></h1>
 <p class = "text-center"><%=@user.email%></p>
-<div class = "text-center"><a class="fui-linkedin" href = <%=@user.linkedin_url%>></a>
-<a class="fui-github" href = <%= %>></a>
+
+<% if @user.linkedin_url.blank?%>
+<%else%>
+<div class = "text-center"><a class="fui-linkedin" href = <%=@user.linkedin_url%> target="_blank"></a>
+<%end%>
+
+<%if @user.github_username.blank?%>
+<%else%>
+<a class="fui-github" href = <%=@user.github_username%> target="_blank"></a>
 </div>  
+<%end%>
+<div class="text-center">
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+	Resume
+</button>
+</div>
+
 </section>
 <section class= "dark-blue" id = "about">
 <p class = "text-center"><%=@user.about_me%></p>
 </section>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div style= "height: 1200px; width: 1000px" class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Resume</h4>
+      </div>
+      <div class="modal-body">
+      <object src=<%=@user.resume.url%>><embed style= "height: 1000px; width: 900px" src=<%=@user.resume.url%>></embed>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
