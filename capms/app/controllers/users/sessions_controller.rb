@@ -8,40 +8,45 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    pawprint= params[:user][:email]
-    password = params[:user][:password]
-    string = "https://djgwdb.babbage.cs.missouri.edu/ldap_test/ldap.php?user=#{pawprint}&popcorn=#{password}"
-    response = HTTParty.get("https://djgwdb.babbage.cs.missouri.edu/ldap_test/ldap.php?user=#{pawprint}&popcorn=#{password}")
-    if response.body == "false\n"
-      redirect_to new_user_session_url, :flash => { :sign_in_errors => "Incorrect Pawprint/Password Combination" }
+
+    x = !!(params[:user][:email] =~ /[@]+/)
+    if x
+      super
     else
-      body = JSON.parse(response.body)
-      result_bool = body["result"]
-      pawprint = body["user"]["username"]
-      full_name = body["user"]["fullname"]
-      p "Full name! " * 15
-      p body
-
-      x = full_name.scan(/([a-zA-Z]*)\b/)
-
-      p "one! " * 100
-      last_name = x[0][0]
-      first_name =  x[2][0]
-            # p five
-      email = body["user"]["emails"][0]
-      user = User.find_by_pawprint(pawprint)
-      #if user exists in DB -> sign_in(@user)
-      if user
-        sign_in(user)
-        redirect_to root_url
-      #else create a new user and then sign_in(@user)
+      pawprint= params[:user][:email]
+      password = params[:user][:password]
+      string = "https://djgwdb.babbage.cs.missouri.edu/ldap_test/ldap.php?user=#{pawprint}&popcorn=#{password}"
+      response = HTTParty.get("https://djgwdb.babbage.cs.missouri.edu/ldap_test/ldap.php?user=#{pawprint}&popcorn=#{password}")
+      if response.body == "false\n"
+        redirect_to new_user_session_url, :flash => { :sign_in_errors => "Incorrect Pawprint/Password Combination" }
       else
-        user = User.create(pawprint: pawprint, email: email, password: "password", first_name: first_name, last_name: last_name)
-        sign_in(user)
-        redirect_to root_url
+        body = JSON.parse(response.body)
+        result_bool = body["result"]
+        pawprint = body["user"]["username"]
+        full_name = body["user"]["fullname"]
+        p "Full name! " * 15
+        p body
+
+        x = full_name.scan(/([a-zA-Z]*)\b/)
+
+        p "one! " * 100
+        last_name = x[0][0]
+        first_name =  x[2][0]
+              # p five
+        email = body["user"]["emails"][0]
+        user = User.find_by_pawprint(pawprint)
+        #if user exists in DB -> sign_in(@user)
+        if user
+          sign_in(user)
+          redirect_to root_url
+        #else create a new user and then sign_in(@user)
+        else
+          user = User.create(pawprint: pawprint, email: email, password: "password", first_name: first_name, last_name: last_name)
+          sign_in(user)
+          redirect_to root_url
+        end
       end
     end
-
     #how does new go to create? post create, what are params and how does http party use them? maybe p perams here to find out, create some sort of interrupt. without super you should be able to get in between
     #http party the params to php site
     #save response

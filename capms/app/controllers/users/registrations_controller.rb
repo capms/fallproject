@@ -47,6 +47,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # You can put the params you want to permit in the empty array.
    # my custom fields are :name, :heard_how
+
+
  protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
