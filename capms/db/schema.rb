@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20141106205435) do
     t.string   "pawprint"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "github_username"
     t.string   "semester"
     t.string   "phone"
     t.string   "resume_url"
@@ -123,6 +124,10 @@ ActiveRecord::Schema.define(version: 20141106205435) do
     t.string   "profilepicture_content_type"
     t.integer  "profilepicture_file_size"
     t.datetime "profilepicture_updated_at"
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
+    t.integer  "resume_file_size"
+    t.datetime "resume_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
