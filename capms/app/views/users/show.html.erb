@@ -1,37 +1,44 @@
-	<% @accep_user = AcceptableUser.new %>
+<html>
+<body>
+
+<% @accep_user = AcceptableUser.new %>
 
 <% if @user.profilepicture_file_name.blank?%>
 	<h1 class = "text-center"><img alt="Dude" src="/assets/icons/dude.svg"></h1>
 <% else %>
-<h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=@user.profilepicture.url%>></h1>
+	<h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=@user.profilepicture.url%>></h1>
 <%end%>
 <section class = "white-background">
 
-<h1 class = "text-center"><%=@user.first_name%> <%=@user.last_name%></h1>
-<p class = "text-center"><%=@user.email%></p>
+	<h1 class = "text-center"><%=@user.first_name%> <%=@user.last_name%></h1>
+	<p class = "text-center"><%=@user.email%></p>
 
-<% if @user.linkedin_url.blank?%>
-<%else%>
-<div class = "text-center"><a class="fui-linkedin" href = <%=@user.linkedin_url%> target="_blank"></a>
-<%end%>
+	<% if @user.linkedin_url.blank?%>
+	<%else%>
+		<div class = "text-center"><a class="fui-linkedin" href = <%=@user.linkedin_url%> target="_blank"></a>
+	<%end%>
 
-<%if @user.github_username.blank?%>
-<%else%>
-<a class="fui-github" href = <%=@user.github_username%> target="_blank"></a>
-</div>  
-<%end%>
-<div class="text-center">
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
-	Resume
-</button>
-</div>
+	<%if @user.github_username.blank?%>
+	<%else%>
+		<a class="fui-github" href = <%=@user.github_username%> target="_blank"></a>
+		</div>  
+	<%end%>
+
+	<div class="text-center">
+		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#resume_modal">
+		Resume
+		</button>
+	</div>
 
 </section>
+
+
+
 <section class= "dark-blue" id = "about">
 	<p class = "text-center"><%=@user.about_me%></p>
 </section>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="resume_modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div style= "height: 1200px; width: 1000px" class="modal-content">
       <div class="modal-header">
@@ -39,7 +46,7 @@
         <h4 class="modal-title" id="myModalLabel">Resume</h4>
       </div>
       <div class="modal-body">
-      <object src=<%=@user.resume.url%>><embed style= "height: 1000px; width: 900px" src=<%=@user.resume.url%>></embed>
+      	<object src=<%=@user.resume.url%>><embed style= "height: 1000px; width: 900px" src=<%=@user.resume.url%>></embed></ob
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -134,9 +141,5 @@
 		<% end %>
 	</div>
 <% end %>
-<!--<label class="col-sm-3 control-label">Cities</label>
-		        <div class="col-sm-5">
-		            <select multiple data-role="tagsinput" name="id_array[]" id="paws">
-					  <option value="testpaw">testpaw</option>
-					</select>
-		        </div>-->
+</body>
+</html>
