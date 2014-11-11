@@ -1,9 +1,0 @@
-# config/s3.yml
-
-development:
-access_key_id: AKIAIJJTZJ4ACF4AHQCQ
-secret_code: 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
-
-production:
-access_key_id: AKIAIJJTZJ4ACF4AHQCQ
-secret_code: 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
