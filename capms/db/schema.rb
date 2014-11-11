@@ -67,23 +67,9 @@ ActiveRecord::Schema.define(version: 20141106205435) do
     t.datetime "updated_at"
   end
 
-  create_table "groups", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "messages", force: true do |t|
     t.string   "title"
     t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "notifications", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "team_id"
-    t.integer  "invited_by_id"
-    t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -105,6 +91,7 @@ ActiveRecord::Schema.define(version: 20141106205435) do
   end
 
   create_table "user_types", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -113,12 +100,13 @@ ActiveRecord::Schema.define(version: 20141106205435) do
     t.string   "pawprint"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "github_username"
     t.string   "semester"
     t.string   "phone"
     t.string   "resume_url"
     t.text     "about_me"
     t.string   "linkedin_url"
-    t.integer  "user_type"
+    t.integer  "user_type_id"
     t.integer  "team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -136,6 +124,10 @@ ActiveRecord::Schema.define(version: 20141106205435) do
     t.string   "profilepicture_content_type"
     t.integer  "profilepicture_file_size"
     t.datetime "profilepicture_updated_at"
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
+    t.integer  "resume_file_size"
+    t.datetime "resume_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -19,8 +19,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    p "here ! " * 100
     # p "just posted update! " * 100
+    p params
     super
   end
 
@@ -56,7 +56,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :email, :password, :password_confirmation)
     end
     devise_parameter_sanitizer.for(:account_update) do |u|
-      u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :picture_url, :semester, :phone, :resume_url, :about_me, :linkedin_url, :user_type, :team_id)
+      u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :profilepicture, :semester, :phone, :github_username, :resume, :about_me, :linkedin_url, :user_type, :team_id)
     end
   end
 
