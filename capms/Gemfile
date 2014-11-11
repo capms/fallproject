@@ -27,6 +27,9 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'paperclip'
 
+#gem 'forem', :github => "radar/forem", :branch => "rails4"
+#gem 'kaminari', '0.15.1'
+
 gem 'devise'
 gem 'jquery-ui-rails'
 gem 'less-rails-bootstrap'
@@ -36,8 +39,13 @@ gem 'tzinfo-data'
 
 gem 'flatui-rails'
 gem 'httparty'
+gem 'bootstrap-tagsinput-rails'
+
+
+
 
 # gem 'aws-sdk'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
