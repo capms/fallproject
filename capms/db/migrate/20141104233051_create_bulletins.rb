@@ -4,7 +4,7 @@ class CreateBulletins < ActiveRecord::Migration
       t.integer :user_id
       t.integer :team_id
       t.integer :invited_by_id
-      t.string :message
+      t.integer :message_id
       t.timestamps
     end
   end

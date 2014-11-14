@@ -32,7 +32,12 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :notifications
-  resources :bulletins
+  resources :bulletins do
+    member do
+      post 'bulls_gen', :action => :gen_after_msg
+      delete 'msg_bulls_des', :action => :destroy_msg_bull
+    end
+  end
   resources :acceptable_users
 
 
