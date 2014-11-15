@@ -2,6 +2,7 @@
 <body>
 
 <% @accep_user = AcceptableUser.new %>
+<% @industry_user = User.new %>
 
 <% if @user.profilepicture_file_name.blank?%>
 	<h1 class = "text-center"><img alt="Dude" src="/assets/icons/dude.svg"></h1>
@@ -38,40 +39,30 @@
 	<p class = "text-center"><%=@user.about_me%></p>
 </section>
 
-<div id="resume_modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div style= "height: 1200px; width: 1000px" class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Resume</h4>
-      </div>
-      <div class="modal-body">
-      	<object src=<%=@user.resume.url%>><embed style= "height: 1000px; width: 900px" src=<%=@user.resume.url%>></embed></ob
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <!-- If current user is an admin, show admin settings options. -->
 <% if current_user.user_type_id == 2 && @user.id == current_user.id %>
 	<div class = "student-ids">
-		<%= form_for @accep_user, to: "acceptable_users#create" do |f| %>
-		
-			<div class = "form-group">
-				<%= f.text_field :user_id %>
-			</div>
-			<div class = "form-group">
+		<div class = "admin-forms">
+			<%= form_for @accep_user, to: "acceptable_users#create", :html => { :class => "form-inline"} do |f| %>
+				<%= f.text_field :user_id, :placeholder => "Student's ID"%>
 				<%= f.hidden_field :added_by, :value => current_user.id %>
-			</div>
-			<div class="form-group" >
 		    	<%= button_tag(class: "btn btn-lg btn-primary") do%>
 		    		<%=content_tag(:strong, 'Add ID') %>
 		    	<% end %>
-		    </div>
-		<% end %>
+			<% end %>
+		</div>
+		<div class = "admin-forms">
+			<%= form_for @industry_user, to: "users#create", :html => { :class => "form-inline"} do |f| %>
+				<%= f.text_field :email, :placeholder => 'Email'%>
+				<%= f.text_field :password, :placeholder => 'Password'%>
+				<%= f.hidden_field :user_type_id, :value => 3 %>
+		    	<%= button_tag(class: "btn btn-lg btn-primary") do%>
+		    		<%=content_tag(:strong, 'Add Professional') %>
+		    	<% end %>
+			<% end %>
+		</div>
 	</div>
 	<!-- Free Users -->
 	<div class="users-list">
@@ -141,5 +132,23 @@
 		<% end %>
 	</div>
 <% end %>
+
+<div id="resume_modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div style= "height: 1200px; width: 1000px" class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Resume</h4>
+      </div>
+      <div class="modal-body">
+      	<object src=<%=@user.resume.url%>><embed style= "height: 1000px; width: 900px" src=<%=@user.resume.url%>></embed></ob
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
