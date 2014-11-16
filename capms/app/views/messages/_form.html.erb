@@ -19,6 +19,8 @@
     <%= f.label :Summary %><br>
     <%= f.text_area :text %>
   </p>
+
+  <%= f.hidden_field :author_id, :value => current_user.id %>
  
   <p>
     <%= f.submit %>
