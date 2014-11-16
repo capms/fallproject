@@ -49,47 +49,48 @@
   
 
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
-                <span class="sr-only">Toggle navigation</span>
-              </button>
-              <a class="navbar-brand" href="../">CapMS</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse-01">
-              <ul class="nav navbar-nav">
-                <% @msg_bullets = Bulletin.where("user_id = ? AND message_id IS NOT NULL", current_user.id) %>
-                <% if @msg_bullets.blank? %>
-                  <li><a href="/messages">Message Board</a></li>
-                <% else %>
-                  <li>
-                    <%= link_to( {:controller => "bulletins", :action => "destroy_msg_bull", :id => current_user.id}, :method => "delete") do%>
-                         Message Board <span class="badge"><%=@msg_bullets.count%></span>
-                      <% end %>
-                  </li>
-                <% end %>
-                <li><a href="/teams/">Teams</a></li>
-                <li><a href="#fakelink">Class</a></li>
-                <li><a href="#" class="active" data-toggle="modal" data-target="#inviteModal"> Invites</a></li>
-                <% if inviteCount > 0 %>
-                  <li class="navbar-new"><%=inviteCount%></li>
-                <% end %>
-                <li><a href="#fakelink">About</a></li>
-               </ul>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+      <a class="navbar-brand" href="../">CapMS</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+      <ul class="nav navbar-nav">
+        <% @msg_bullets = Bulletin.where("user_id = ? AND message_id IS NOT NULL", current_user.id) %>
+        <% if @msg_bullets.blank? %>
+          <li><a href="/messages">Message Board</a></li>
+        <% else %>
+          <li>
+            <%= link_to( {:controller => "bulletins", :action => "destroy_msg_bull", :id => current_user.id}, :method => "delete") do%>
+                 Message Board <span class="badge"><%=@msg_bullets.count%></span>
+              <% end %>
+          </li>
+        <% end %>
+        <li><a href="/teams/">Teams</a></li>
+        <li><a href="#fakelink">Class</a></li>
+        <li><a href="#" class="active" data-toggle="modal" data-target="#inviteModal"> Invites</a></li>
+        <% if inviteCount > 0 %>
+          <li class="navbar-new"><%=inviteCount%></li>
+        <% end %>
+        <li><a href="#fakelink">About</a></li>
+       </ul>
        <form class="form-inline navbar-form navbar-right" >
-
     	   <div class="btn-group btn-group-lg">
             <button class="btn btn-inverse btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
               <% if current_user.profilepicture_file_name.blank?%>
-             <span class = "text-center"> <img alt="Dude" class = "clip-circle-nav" src="/assets/icons/dude.svg"></span>
+                <span class = "text-center"> <img alt="Dude" class = "clip-circle-nav" src="/assets/icons/dude.svg"></span>
               <%else%>
-              <span class = "text-center">
-              <img alt="Dude" class = "clip-circle-nav" src= <%=current_user.profilepicture.url%>></span>
+                <span class = "text-center">
+                <img alt="Dude" class = "clip-circle-nav" src= <%=current_user.profilepicture.url%>></span>
               <%end%>
               <%= current_user.first_name%> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
               <li><a href=<%= user_path(current_user.id)%> >My Profile</a></li>
-              <li><a href="/groups/">My Groups</a></li>
+              <% if current_user.team_id != nil %>
+               <li><%= link_to("My Team", team_path(current_user.team_id)) %></li>
+              <% end %>
               <li><a href="#">Email Professor</a></li>
               <li><%= link_to("Edit Profile", edit_user_registration_path)%></li>
               <li class="divider"></li>
@@ -97,8 +98,8 @@
             </ul>
           </div>
       </form>
-            </div><!-- /.navbar-collapse -->
-          </nav>
+    </div><!-- /.navbar-collapse -->
+  </nav>
       
 
 <%else%>

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       put 'team_change', :action => :change_team
+      put 'team_leave', :action => :leave_team
     end
   end
 

@@ -46,7 +46,7 @@ class Users::SessionsController < Devise::SessionsController
             redirect_to root_url
           #else create a new user and then sign_in(@user)
           else
-            user = User.create(pawprint: pawprint, email: email, password: "password", first_name: first_name, last_name: last_name)
+            user = User.create(pawprint: pawprint, email: email, password: "password", first_name: first_name, last_name: last_name, user_type_id: 1)
             sign_in(user)
             redirect_to root_url
           end
