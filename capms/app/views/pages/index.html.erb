@@ -5,16 +5,16 @@
 
 <body>
   <br>
+
 <div class = "container">
 
   <% if user_signed_in? %>
 
 
-
   <h2>Class Title</h2>
   <hr>
   <img class = "img-rounded img-middle img-responsive" src = "CS_home.jpg">
-
+</div>
 
   <br>
   <br>
@@ -40,36 +40,13 @@
   <a href = "#">Project 3</a>
   <br>
 
-MAIN LOGIN PAGE
 
 
-<% if user_signed_in? %>
-<h1>Hello, <%= current_user.first_name%></h1>
-<% end %>
 
-<br>
-Nav bar with login/sign up buttons
+</html>
 
 
-<html>
-
-<br>
-<br>
-Main content - existing projects or marketing materials
 
 
-<a href = "/users/sign_in">Log In</a>
-<a href = "/users/sign_up">Sign Up</a>
-
-
-<% if user_signed_in? %>
-  <li>
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-  </li>
-<% else %>
-  <li>
-  <%= link_to('Login', new_user_session_path)  %>
-  </li>
-<% end %>
 
 <% end %>

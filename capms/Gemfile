@@ -44,7 +44,6 @@ gem 'aws-s3', :require => 'aws/s3'
 gem 'asset_sync'
 gem 'bootstrap-tagsinput-rails'
 
-gem 'refinerycms', '~> 2.1.5'
 
 # gem 'aws-sdk'
 # Use ActiveModel has_secure_password
