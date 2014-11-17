@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(version: 20141106205435) do
 
+  create_table "acceptable_students", force: true do |t|
+    t.string   "studentId"
+    t.integer  "addedBy"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "acceptable_users", force: true do |t|
     t.string   "user_id"
     t.integer  "added_by"
@@ -31,7 +38,7 @@ ActiveRecord::Schema.define(version: 20141106205435) do
     t.integer  "user_id"
     t.integer  "team_id"
     t.integer  "invited_by_id"
-    t.string   "message"
+    t.integer  "message_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

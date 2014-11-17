@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
 
-	http_basic_authenticate_with name: "admin", password: "secret", except: [:index, :show, :new] 
+	#http_basic_authenticate_with name: "admin", password: "secret", except: [:index, :show, :new] 
 
 	def index
   		@message = Message.all
@@ -17,9 +17,14 @@ class MessagesController < ApplicationController
 	def create
 		p message_params
 		@message = Message.new(message_params)
- 
  		if @message.save
-    		redirect_to messages_path
+    		@allUsers = User.all
+			@allUsers.each do |u|
+				if u.id != current_user.id
+					Bulletin.new(user_id: u.id, message_id: @message.id).save
+				end
+			end
+			redirect_to '/messages/'
   		else
     		render 'new'
   		end
@@ -33,6 +38,12 @@ class MessagesController < ApplicationController
 	  	@message = Message.find(params[:id])
 	 
 	  	if @message.update(message_params)
+	  		@allUsers = User.all
+			@allUsers.each do |u|
+				if u.id != current_user.id
+					Bulletin.new(user_id: u.id, message_id: @message.id).save
+				end
+			end
 	    	redirect_to @message
 	 	 else
 	    	render 'edit'
