@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20141106205435) do
   end
 
   create_table "messages", force: true do |t|
+    t.integer  "author_id"
     t.string   "title"
     t.text     "text"
     t.datetime "created_at"
