@@ -6,6 +6,13 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
+  <style>
+    .sticky {
+      position: absolute;
+      bottom: 0;
+    }
+  </style>
+
 </head>
 <% if user_signed_in? %>
   <%inviteCount=Bulletin.where(user_id: current_user.id).count%>
@@ -119,6 +126,10 @@
 
 <%= yield %>
 </div>
+
+<footer class = 'footer sticky'>
+  jaslkjfdsa;kjf
+  </footer>
 </body>
 </html>
 
