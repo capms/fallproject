@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def update
       @updateUser = User.find(params[:id])
-      @bulletin = Bulletin.find(params[:notif_id])
+      @bulletin = Bulletin.find(params[:bullet_id])
       if @updateUser.update_attributes(:team_id => params[:team_id])
         @bulletin.destroy
         redirect_to "/teams/"

@@ -37,3 +37,8 @@ Team.create(id: 2, name: 'The Second Team', description: "Months of on-the-groun
 Team.create(id: 3, name: 'The Third Team', description: "Months of on-the-ground campaigning and a whopping $4 billion in spending culminate tonight in a midterm election that will determine control of the U.S. Senate and the fate of President Obama's legislative agenda for his final two years in the White House. Republicans need to pick up just six seats to gain control, and while political oddsmakers say such a gain is likely, analysts have been confounded by an aggressive get-out-the-vote operation and persistent questions about whether traditional polling methods capture a younger, more diverse electorate that doesn't own landline t",
 			completion_status_id: 0, max_size: 7)
 
+AcceptableUser.create(user_id: 'jmcgdd')
+AcceptableUser.create(user_id: 'vltn7d')
+AcceptableUser.create(user_id: 'djgwdb')
+AcceptableUser.create(user_id: 'dsr8wf')
+

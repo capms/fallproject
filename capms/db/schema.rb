@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20141117190948) do
 
   create_table "approvals", force: true do |t|
     t.integer  "user_id"
-    t.integer  "document_id"
+    t.string   "file_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20141117190948) do
     t.integer  "team_id"
     t.integer  "invited_by_id"
     t.integer  "message_id"
+    t.integer  "approval_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
