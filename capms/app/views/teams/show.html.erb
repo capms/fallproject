@@ -34,25 +34,184 @@
 	Update 
 </button>
 </div>
-<%if !@team.files_file_name.blank?%>
-  <%=link_to(@team.files.url)%>
-<%end%>
-<%if !@team.files1_file_name.blank?%>
-  <%=link_to(@team.files.url)%>
-<%end%>
-<%if !@team.files2_file_name.blank?%>
-  <%=link_to(@team.files.url)%>
-<%end%>
-<%if !@team.files3_file_name.blank?%>
-  <%=link_to(@team.files.url)%>
-<%end%>
-<%if !@team.files4_file_name.blank?%>
-  <%=link_to(@team.files.url)%>
-<%end%>
-<%end%>
- 
 
- <%= link_to "Delete link url: url1", 
+<div style ="padding: 10px;">
+<%if !@team.files_file_name.blank?%>
+  <div style: "width:70%" float:'left'>
+    <h4 padding='5px' align = 'left'><%=@team.fileTitle%></h4>
+    <%= link_to image_tag(@team.files.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+
+    <p align = 'left' style="width: 55%;"> <%= @team.file_description %> </p>
+  </div>
+</div> 
+<br>
+<button class="btn btn-primary">Publish</button>
+<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">
+  Edit 
+</button>
+<button class="btn btn-danger">Delete</button>
+<%end%>
+
+<div style ="padding: 10px;">
+<%if !@team.files1_file_name.blank?%>
+  <div style: "width:70%" float:'left'>
+    <h4 padding='5px' align = 'left'><%=@team.file1Title%></h4>
+    <%= link_to image_tag(@team.files1.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+
+    <p align = 'left' style="width: 55%;"> <%= @team.file1_description %> </p>
+  </div>
+</div>
+<br>
+<div style = "width :auto;">
+<button class="btn btn-primary">Publish</button>
+<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit1Modal">
+  Edit 
+</button>
+<button class="btn btn-danger">Delete</button>
+</div>
+<%end%>
+
+<div style ="padding: 10px;">
+<%if !@team.files2_file_name.blank?%>
+  <div style: "width:70%" float:'left'>
+    <h4 padding='5px' align = 'left'><%=@team.file2Title%></h4>
+    <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+
+    <p align = 'left' style="width: 55%;"> <%= @team.file2_description %> </p>
+  </div>
+</div> 
+<br>
+<button class="btn btn-primary">Publish</button>
+<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit2Modal">
+  Edit 
+</button>
+<button class="btn btn-danger">Delete</button>
+<%end%>
+
+ <div style ="padding: 10px;">
+<%if !@team.files3_file_name.blank?%>
+  <div style: "width:70%" float:'left'>
+    <h4 padding='5px' align = 'left'><%=@team.file3Title%></h4>
+    <%= link_to image_tag(@team.files3.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+
+    <p align = 'left' style="width: 55%;" > <%= @team.file3_description %> </p>
+  </div>
+</div> 
+<br>
+<button class="btn btn-primary">Publish</button>
+<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit3Modal">
+  Edit 
+</button>
+<button class="btn btn-danger">Delete</button>
+<%end%>
+
+ <div>
+<%if !@team.files4_file_name.blank?%>
+  <div style: "width:70%" float:'left'>
+    <h4 padding='5px' align = 'left'><%=@team.file4Title%></h4>
+    <%= link_to image_tag(@team.files4.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+
+    <p align = 'left' style="width: 55%;" > <%= @team.file4_description %> </p>
+  </div>
+</div> 
+<br>
+<button class="btn btn-primary">Publish</button>
+<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit4Modal">
+  Edit 
+</button>
+<button class="btn btn-danger">Delete</button>
+<%end%>
+
+
+ <div>
+<%if !@team.files5_file_name.blank?%>
+  <div style: "width:70%" float:'left'>
+    <h4 padding='5px' align = 'left'><%=@team.file5Title%></h4>
+    <%= link_to image_tag(@team.files5.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+
+    <p align = 'left' style="width: 55%;" > <%= @team.file5_description %> </p>
+  </div>
+</div> 
+<br>
+<button class="btn btn-primary">Publish</button>
+<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit5Modal">
+  Edit 
+</button>
+<button class="btn btn-danger">Delete</button>
+<%end%>
+
+
+ <div>
+<%if !@team.files6_file_name.blank?%>
+  <div style: "width:70%" float:'left'>
+    <h4 padding='5px' align = 'left'><%=@team.file6Title%></h4>
+    <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+
+    <p align = 'left' style="width: 55%;" > <%= @team.file6_description %> </p>
+  </div>
+</div> 
+<br>
+<button class="btn btn-primary">Publish</button>
+<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit6Modal">
+  Edit 
+</button>
+<button class="btn btn-danger">Delete</button>
+<%end%>
+
+
+ <div>
+<%if !@team.files7_file_name.blank?%>
+  <div style: "width:70%" float:'left'>
+    <h4 padding='5px' align = 'left'><%=@team.file7Title%></h4>
+    <%= link_to image_tag(@team.files7.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+
+    <p align = 'left' style="width: 55%;" > <%= @team.file7_description %> </p>
+  </div>
+</div> 
+<br>
+<button class="btn btn-primary">Publish</button>
+<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit7Modal">
+  Edit 
+</button>
+<button class="btn btn-danger">Delete</button>
+<%end%>
+
+ <div>
+<%if !@team.files8_file_name.blank?%>
+  <div style: "width:70%" float:'left'>
+    <h4 padding='5px' align = 'left'><%=@team.file8Title%></h4>
+    <%= link_to image_tag(@team.files8.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+
+    <p align = 'left' style="width: 55%;" > <%= @team.file8_description %> </p>
+  </div>
+</div> 
+<br>
+<button class="btn btn-primary">Publish</button>
+<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit8Modal">
+  Edit 
+</button>
+<button class="btn btn-danger">Delete</button>
+<%end%>
+
+ <div>
+<%if !@team.files9_file_name.blank?%>
+  <div style: "width:70%" float:'left'>
+    <h4 padding='5px' align = 'left'><%=@team.file9Title%></h4>
+    <%= link_to image_tag(@team.files9.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+
+    <p align = 'left' style="width: 55%;" > <%= @team.file9_description %> </p>
+  </div>
+</div> 
+<br>
+<button class="btn btn-primary">Publish</button>
+<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit9Modal">
+  Edit 
+</button>
+<button class="btn btn-danger">Delete</button>
+<%end%>
+<%end%>
+
+<br>
 <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm" style= "z-index: 1060">
     <div class="modal-content">
@@ -64,6 +223,93 @@
 
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
       <div class="modal-body">
+        <div><%= f.label "Title" %><br />
+        <%if !@team.files_file_name.blank?%>
+          <%if !@team.files1_file_name.blank?%>
+            <%if !@team.files2_file_name.blank?%>
+              <%if !@team.files3_file_name.blank?%>
+                <%if !@team.files4_file_name.blank?%>
+                  <%if !@team.files5_file_name.blank?%>
+                    <%if !@team.files6_file_name.blank?%>
+                      <%if !@team.files7_file_name.blank?%>
+                        <%if !@team.files8_file_name.blank?%>
+                          <%if !@team.files9_file_name.blank?%>
+                           <%=p Error%>
+                          <%else%>
+                            <%= f.text_field :file9Title %></div>
+                          <%end%>
+                        <%else%>
+                          <%= f.text_field :file8Title %></div>
+                        <%end%>
+                      <%else%>
+                       <%= f.text_field :file7Title %></div>
+                      <%end%>
+                    <%else%>
+                      <%= f.text_field :file6Title %></div>
+                    <%end%>
+                  <%else%>
+                    <%= f.text_field :file5Title %></div>
+                  <%end%>
+                <%else%>
+                  <%= f.text_field :file4Title %></div>
+                <%end%>  
+              <%else%>
+                <%= f.text_field :file3Title %></div>
+              <%end%>
+            <%else%>
+              <%= f.text_field :file2Title %></div>
+            <%end%>
+          <%else%>
+            <%= f.text_field :file1Title %></div>
+          <%end%>
+        <%else%>
+          <%= f.text_field :fileTitle %></div>
+        <%end%>
+
+      <div><%= f.label "Description" %><br />
+      <%if !@team.files_file_name.blank?%>
+          <%if !@team.files1_file_name.blank?%>
+            <%if !@team.files2_file_name.blank?%>
+              <%if !@team.files3_file_name.blank?%>
+                <%if !@team.files4_file_name.blank?%>
+                  <%if !@team.files5_file_name.blank?%>
+                    <%if !@team.files6_file_name.blank?%>
+                      <%if !@team.files7_file_name.blank?%>
+                        <%if !@team.files8_file_name.blank?%>
+                          <%if !@team.files9_file_name.blank?%>
+                           <%=p Error%>
+                          <%else%>
+                            <%= f.text_area :file9_description %></div>
+                          <%end%>
+                        <%else%>
+                          <%= f.text_area :file8_description %></div>
+                        <%end%>
+                      <%else%>
+                       <%= f.text_area :file7_description %></div>
+                      <%end%>
+                    <%else%>
+                      <%= f.text_area :file6_description %></div>
+                    <%end%>
+                  <%else%>
+                    <%= f.text_area :file5_description %></div>
+                  <%end%>
+                <%else%>
+                  <%= f.text_area :file4_description %></div>
+                <%end%>  
+              <%else%>
+                <%= f.text_area :file3_description %></div>
+              <%end%>
+            <%else%>
+              <%= f.text_area :file2_description %></div>
+            <%end%>
+          <%else%>
+            <%= f.text_area :file1_description %></div>
+          <%end%>
+        <%else%>
+          <%= f.text_area :file_description %></div>
+        <%end%>
+       
+
     <div><%= f.label "File" %><br/>
       <div class="form-group">
   <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -81,7 +327,27 @@
             <%if !@team.files2_file_name.blank?%>
               <%if !@team.files3_file_name.blank?%>
                 <%if !@team.files4_file_name.blank?%>
-                  <%=p Error%>
+                  <%if !@team.files5_file_name.blank?%>
+                    <%if !@team.files6_file_name.blank?%>
+                      <%if !@team.files7_file_name.blank?%>
+                        <%if !@team.files8_file_name.blank?%>
+                          <%if !@team.files9_file_name.blank?%>
+                           <%=p Error%>
+                          <%else%>
+                            <%= f.file_field :files9 %>
+                          <%end%>
+                        <%else%>
+                          <%= f.file_field :files8 %>
+                        <%end%>
+                      <%else%>
+                       <%= f.file_field :files7 %>
+                      <%end%>
+                    <%else%>
+                      <%= f.file_field :files6 %>
+                    <%end%>
+                  <%else%>
+                    <%= f.file_field :files5 %>
+                  <%end%>
                 <%else%>
                   <%= f.file_field :files4 %>
                 <%end%>  
@@ -144,8 +410,532 @@
       </div>
     </div>
   </div>
+
+<div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+       
+      <div><%= f.label :Title %><br />
+      <%= f.text_field :fileTitle %></div>
+
+      <div><%= f.label "Description" %><br />
+      <%= f.text_area :file_description %></div>
+
+      <div><%= f.label "File" %><br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+
+          <%= f.file_field :files %>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
 </div>
 
 
+<div class="modal" id="edit1Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+       
+      <div><%= f.label :Title %><br />
+      <%= f.text_field :file1Title %></div>
+
+      <div><%= f.label "Description" %><br />
+      <%= f.text_area :file1_description %></div>
+
+      <div><%= f.label "File" %><br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
 
 
+          <%= f.file_field :files1 %>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal" id="edit2Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+       
+      <div><%= f.label :Title %><br />
+      <%= f.text_field :file2Title %></div>
+
+      <div><%= f.label "Description" %><br />
+      <%= f.text_area :file2_description %></div>
+
+      <div><%= f.label "File" %><br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+
+          <%= f.file_field :files2 %>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal" id="edit3Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+       
+      <div><%= f.label :Title %><br />
+      <%= f.text_field :file3Title %></div>
+
+      <div><%= f.label "Description" %><br />
+      <%= f.text_area :file3_description %></div>
+
+      <div><%= f.label "File" %><br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+
+          <%= f.file_field :files3 %>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal" id="edit4Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+       
+      <div><%= f.label :Title %><br />
+      <%= f.text_field :file4Title %></div>
+
+      <div><%= f.label "Description" %><br />
+      <%= f.text_area :file4_description %></div>
+
+      <div><%= f.label "File" %><br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+
+          <%= f.file_field :files4 %>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal" id="edit5Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+       
+      <div><%= f.label :Title %><br />
+      <%= f.text_field :file5Title %></div>
+
+      <div><%= f.label "Description" %><br />
+      <%= f.text_area :file5_description %></div>
+
+      <div><%= f.label "File" %><br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+
+          <%= f.file_field :files5 %>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal" id="edit6Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+       
+      <div><%= f.label :Title %><br />
+      <%= f.text_field :file6Title %></div>
+
+      <div><%= f.label "Description" %><br />
+      <%= f.text_area :file6_description %></div>
+
+      <div><%= f.label "File" %><br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+
+          <%= f.file_field :files6 %>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal" id="edit7Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+       
+      <div><%= f.label :Title %><br />
+      <%= f.text_field :file7Title %></div>
+
+      <div><%= f.label "Description" %><br />
+      <%= f.text_area :file7_description %></div>
+
+      <div><%= f.label "File" %><br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+
+          <%= f.file_field :files7 %>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal" id="edit8Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+       
+      <div><%= f.label :Title %><br />
+      <%= f.text_field :file8Title %></div>
+
+      <div><%= f.label "Description" %><br />
+      <%= f.text_area :file8_description %></div>
+
+      <div><%= f.label "File" %><br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+
+          <%= f.file_field :files8 %>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal" id="edit9Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+       
+      <div><%= f.label :Title %><br />
+      <%= f.text_field :file9Title %></div>
+
+      <div><%= f.label "Description" %><br />
+      <%= f.text_area :file9_description %></div>
+
+      <div><%= f.label "File" %><br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+
+          <%= f.file_field :files9 %>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
