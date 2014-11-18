@@ -15,6 +15,7 @@ class MessagesController < ApplicationController
 	end
 
 	def create
+		p message_params
 		@message = Message.new(message_params)
  		if @message.save
     		@allUsers = User.all
@@ -58,7 +59,7 @@ class MessagesController < ApplicationController
 
 	private
   		def message_params
-    		params.require(:message).permit(:title, :text)
+    		params.require(:message).permit(:title, :text, :author_id)
   		end
 
 

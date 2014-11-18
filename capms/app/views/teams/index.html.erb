@@ -11,44 +11,28 @@
 
 <!--Begin Page - Logged in -->
 <% if user_signed_in? %>
-	<div class="newteam">
-		<%= form_for @team, url: {action: "create"} do |f| %>
-			<div class="form-group">
-		      	<input id="team_name" type="text" class= "form-control input-hg" value="" placeholder="Team Name" name="team[name]">
-		    </div>
-		    <div class="form-group">
-		      	<%= f.text_area(:description, class: "form-control input-sm static-text-area", maxlength: '500', placeholder: 'Team Description (max 500 characters)') %>
-		    </div>
-		    <div class="form-group">
-				<%= f.label :max_size %><br />
-		      	<%= f.number_field(:max_size, class: "form-control bfh-number", in: 2..10, step: 1, value: 2) %>
-		    </div>
-		    <div class="form-group" >
-		    	<%= button_tag(class: "btn btn-lg btn-primary") do%>
-		    		<%=content_tag(:strong, 'Create Team') %>
-		    	<% end %>
-		    </div>
-		<% end %>
-	</div>
 	<div class="availableUsers">
 		<h4> Available Users </h4>
 		<% @free_users.each do |freeUser| %>
 			<div id="singleFreeUser">
 				<% imageLoc = freeUser.profilepicture_file_name %>
 				<% if !imageLoc.blank?%>
-					<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: freeUser.id %>
+					<%= link_to image_tag(freeUser.profilepicture.url, alt: "Image Error", class: "clip-circle", float: 'left'), controller: "users", action: "show", id: freeUser.id %>
 				<% else %>
 					<%= link_to image_tag("icons/dude.svg", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: freeUser.id %> 
 				<% end %>
 				<!-- Drop Down under user picture -->
 				<div class="btn-group">
+			    <% if current_user != nil && !current_user.team_id.blank? %>
 				  <button class="btn btn-inverse btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
 				    <%= freeUser.first_name %> <span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu dropdown-menu-inverse" role="menu">
-				    <li><%= link_to "Profile", {:controller => "users", :action => "show", :id => freeUser.id} %></li>
-				    <% if current_user != nil && !current_user.team_id.blank? %>
 				    	<li><%= link_to "Invite", {:controller => "bulletins", :action => "create", :user_id => freeUser.id, :team_id => current_user.team_id, :invited_by_id => current_user.id }, :method => "post", data: { confirm: "Are you sure?"} %></li>
+				 <%else%>
+				 <button class="btn btn-inverse btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+				    <%= freeUser.first_name %>
+				  </button>
 				    <% end %>
 				  </ul>
 				</div>
@@ -57,6 +41,13 @@
 	</div>
 	<br>
 	<br>
+
+<div class="text-center">
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+	Create Team
+</button>
+</div>
+
 <% end %>
 	<div class="team-list">
 		<% allTeams = Team.all %>
@@ -69,7 +60,7 @@
 						<div id="singleUser">
 							<% imageLoc = userInTeam.profilepicture_file_name %>
 							<% if !imageLoc.blank?%>
-								<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
+								<%= link_to image_tag(userInTeam.profilepicture.url, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
 							<% else %>
 								<%= link_to image_tag("icons/dude.svg", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
 							<% end %>
@@ -91,7 +82,7 @@
 			<div id="singleUser">
 				<% imageLoc = u.profilepicture_file_name %>
 				<% if !imageLoc.blank?%>
-					<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: u.id %>
+					<%= link_to image_tag(u.profilepicture.url, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: u.id %>
 				<% else %>
 					<%= link_to image_tag("icons/dude.svg", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: u.id %> 
 				<% end %>
@@ -104,3 +95,36 @@
 		<% end %>
 	</div>
 <% end %>
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title" id="myModalLabel">Create New Team</h4>
+      </div>
+      <div class="modal-body">
+		<%= form_for @team, url: {action: "create"} do |f| %>
+			<div class="form-group">
+		      	<input id="team_name" type="text" class= "form-control input-hg" value="" placeholder="Team Name" name="team[name]">
+		    </div>
+		    <div class="form-group">
+		      	<%= f.text_area(:description, class: "form-control input-sm static-text-area", maxlength: '500', placeholder: 'Team Description (max 500 characters)') %>
+		    </div>
+		    <div class="form-group">
+				<%= f.label :max_size %><br />
+		      	<%= f.number_field(:max_size, class: "form-control bfh-number", in: 2..10, step: 1, value: 2) %>
+		    </div>
+		    <div class="form-group" >
+		    	<%= button_tag(class: "btn btn-lg btn-primary") do%>
+		    		<%=content_tag(:strong, 'Create Team') %>
+		    	<% end %>
+		    </div>
+		    <%end%>
+		</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
