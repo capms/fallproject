@@ -15,7 +15,12 @@ class UsersController < ApplicationController
   end
 
   def create
-
+    @industry_user = User.new(params[:email, :password])
+    if @industry_user.save
+      redirect_to (:back)
+    else
+      redirect_to "/404/"
+    end
   end
 
   def edit
@@ -23,7 +28,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    p "1" *100
       @updateUser = User.find(params[:id])
       @bulletin = Bulletin.find(params[:notif_id])
       if @updateUser.update_attributes(:team_id => params[:team_id])
@@ -33,6 +37,23 @@ class UsersController < ApplicationController
         redirect_to "/404/"
       end
   end
+
+  def leave_team
+    @mutineer = User.find(params[:id])
+    previousTeam = @mutineer.team_id
+    if @mutineer.update_attributes(:team_id => nil)
+      if User.find_by(team_id: previousTeam) == nil
+        Team.destroy(previousTeam)
+        redirect_to "/teams/"
+      else
+        redirect_to "/teams/#{previousTeam}"
+      end
+      #redirect_to "/teams/"
+    else
+      redirect_to "/failure_page"
+    end
+  end
+
   protected
   # def configure_permitted_parameters
   #   devise_parameter_sanitizer.for(:sign_up) do |u|

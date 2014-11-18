@@ -24,10 +24,26 @@ class BulletinsController < ApplicationController
 		redirect_to "/teams/"
 	end
 
+	def gen_after_msg
+		@allUsers = User.all
+		@allUsers.each do |u|
+			Bulletin.new(user_id: u.id, message_id: params[:id]).save
+		end
+		redirect_to '/messages/'
+	end
+
+	def destroy_msg_bull
+		@bulls = Bulletin.where("user_id = ? AND message_id IS NOT NULL", params[:id])
+		@bulls.each do |b|
+			Bulletin.delete(b.id)
+		end
+		redirect_to '/messages/'
+	end
+	
 	private
 
 	def bullet_params
-		params.permit(:user_id, :team_id, :invited_by_id)
+		params.permit(:user_id, :team_id, :invited_by_id, :new_message)
 	end
 
 end

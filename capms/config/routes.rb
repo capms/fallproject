@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       put 'team_change', :action => :change_team
+      put 'team_leave', :action => :leave_team
     end
   end
 
@@ -32,7 +33,12 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :notifications
-  resources :bulletins
+  resources :bulletins do
+    member do
+      post 'bulls_gen', :action => :gen_after_msg
+      delete 'msg_bulls_des', :action => :destroy_msg_bull
+    end
+  end
   resources :acceptable_users
 
 

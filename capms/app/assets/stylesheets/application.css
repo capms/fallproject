@@ -13,9 +13,6 @@
  *= require twitter/bootstrap
  *= require forem
  *= require_tree .
- *= require_self
- *= require twitter/bootstrap
- *= require bootstrap-tagsinput
  */
 
 

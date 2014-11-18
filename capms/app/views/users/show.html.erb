@@ -1,21 +1,23 @@
-
+<html>
+<body>
 
 <% @accep_user = AcceptableUser.new %>
+<% @industry_user = User.new %>
 
 <% if @user.profilepicture_file_name.blank?%>
 	<h1 class = "text-center"><img alt="Dude" src="/assets/icons/dude.svg"></h1>
 <% else %>
-<h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=@user.profilepicture.url%>></h1>
+	<h1 class = "text-center"><img alt="Dude" class = "clip-circle" src= <%=@user.profilepicture.url%>></h1>
 <%end%>
 <section class = "white-background">
 
-<h1 class = "text-center"><%=@user.first_name%> <%=@user.last_name%></h1>
-<p class = "text-center"><%=@user.email%></p>
+	<h1 class = "text-center"><%=@user.first_name%> <%=@user.last_name%></h1>
+	<p class = "text-center"><%=@user.email%></p>
 
-<% if @user.linkedin_url.blank?%>
-<%else%>
-<div class = "text-center"><a class="fui-linkedin" href = <%=@user.linkedin_url%> target="_blank"></a>
-<%end%>
+	<% if @user.linkedin_url.blank?%>
+	<%else%>
+		<div class = "text-center"><a class="fui-linkedin" href = <%=@user.linkedin_url%> target="_blank"></a>
+	<%end%>
 
 <%if @user.github_username.blank?%>
 <%else%>
@@ -31,36 +33,43 @@
 </div>
 <%end%>
 </section>
+
+
+
 <section class= "dark-blue" id = "about">
 	<p class = "text-center"><%=@user.about_me%></p>
 </section>
 
-
 <!-- If current user is an admin, show admin settings options. -->
 <% if current_user.user_type_id == 2 && @user.id == current_user.id %>
 	<div class = "student-ids">
-		<%= form_for @accep_user, to: "acceptable_users#create" do |f| %>
-		
-			<div class = "form-group">
-				<%= f.text_field :user_id %>
-			</div>
-			<div class = "form-group">
+		<div class = "admin-forms">
+			<%= form_for @accep_user, to: "acceptable_users#create", :html => { :class => "form-inline"} do |f| %>
+				<%= f.text_field :user_id, :placeholder => "Student's ID"%>
 				<%= f.hidden_field :added_by, :value => current_user.id %>
-			</div>
-			<div class="form-group" >
 		    	<%= button_tag(class: "btn btn-lg btn-primary") do%>
 		    		<%=content_tag(:strong, 'Add ID') %>
 		    	<% end %>
-		    </div>
-		<% end %>
+			<% end %>
+		</div>
+		<div class = "admin-forms">
+			<%= form_for @industry_user, to: "users#create", :html => { :class => "form-inline"} do |f| %>
+				<%= f.text_field :email, :placeholder => 'Email'%>
+				<%= f.text_field :password, :placeholder => 'Password'%>
+				<%= f.hidden_field :user_type_id, :value => 3 %>
+		    	<%= button_tag(class: "btn btn-lg btn-primary") do%>
+		    		<%=content_tag(:strong, 'Add Professional') %>
+		    	<% end %>
+			<% end %>
+		</div>
 	</div>
 	<!-- Free Users -->
-	<div class="team-list">
-		<div class = "usersByTeam">
+	<div class="users-list">
+		<div class = "users-list-team">
 			<h4> Available Users </h4>
 			<% free_users = User.where(team_id: nil) %>
 			<% free_users.each do |freeUser| %>
-				<div id="singleUser">
+				<div id="single-user">
 					<% imageLoc = freeUser.profilepicture_file_name %>
 					<% if !imageLoc.blank?%>
 						<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: freeUser.id %>
@@ -84,7 +93,7 @@
 		</div>
 	</div>
 	<!-- Teams with users -->
-	<div class="team-list">
+	<div class="users-list">
 		<% allTeams = Team.all %>
 		<% allTeams.each do |team| %>
 			<% usersInTeam = User.where(team_id: team.id) %>
@@ -93,9 +102,9 @@
 				<div class="btn-group">
 					<%= link_to "Disban Team", {:controller => "teams", :action => "destroy", :id => team.id}, :method => "delete", class: "btn btn-default btn-xs", data: { confirm: "Are you sure you want to disban #{team.name}?"} %>
 				</div>
-				<div class="usersByTeam">
+				<div class="users-list-team">
 					<% usersInTeam.each do |userInTeam| %>
-						<div id="singleUser">
+						<div id="single-user">
 							<% imageLoc = userInTeam.profilepicture_file_name %>
 							<% if !imageLoc.blank?%>
 								<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
@@ -122,12 +131,6 @@
 		<% end %>
 	</div>
 <% end %>
-<!--<label class="col-sm-3 control-label">Cities</label>
-		        <div class="col-sm-5">
-		            <select multiple data-role="tagsinput" name="id_array[]" id="paws">
-					  <option value="testpaw">testpaw</option>
-					</select>
-		        </div>-->
 
 
 <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -141,9 +144,15 @@
       <object src=<%=@user.resume.url%>>
       <embed style= "height: 1000px; width: 900px" src=<%=@user.resume.url%> > </embed>
  	 </object>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
+
+</body>
+</html>
+
