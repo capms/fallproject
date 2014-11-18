@@ -12,8 +12,11 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    @user = User.find(current_user.id)
 
     if @team.save
+      @user.team_id = @team.id
+      @user.save
       redirect_to @team
     else
       render "index"
@@ -25,9 +28,12 @@ class TeamsController < ApplicationController
   end
 
   def edit
+    @updateTeam = Team.find(params[:id])
   end
 
   def update
+     @updateTeam = Team.find(params[:id]).update_attributes(team_params)
+      redirect_to("/teams/#{params[:id]}")
   end
 
   def destroy
@@ -45,7 +51,9 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, :description, :max_size)
+    params.require(:team).permit(:name, :description, :max_size, :files, :files1, :files2, :files3, :files4)
+    #params.require(:team).permit(:files)
+
   end
 
 end

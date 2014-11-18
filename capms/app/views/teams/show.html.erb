@@ -9,7 +9,7 @@
 			<div id="show-user">
 				<% imageLoc = userInTeam.profilepicture_file_name%>
 				<% if !imageLoc.blank?%>
-					<%= link_to image_tag(imageLoc, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
+					<%= link_to image_tag(userInTeam.profilepicture.url, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
 				<% else %>
 					<%= link_to image_tag("icons/dude.svg", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
 				<% end %>
@@ -22,4 +22,128 @@
 		<p> <%= @team.description %> </p>
 	</div>
 	<br>
+	<%else%>
 <% end %>
+
+<%if current_user.team_id = @team.id %>
+	<div class="text-center">
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+	Upload 
+</button>
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#updateModal">
+	Update 
+</button>
+</div>
+<%if !@team.files_file_name.blank?%>
+  <%=link_to(@team.files.url)%>
+<%end%>
+<%if !@team.files1_file_name.blank?%>
+  <%=link_to(@team.files.url)%>
+<%end%>
+<%if !@team.files2_file_name.blank?%>
+  <%=link_to(@team.files.url)%>
+<%end%>
+<%if !@team.files3_file_name.blank?%>
+  <%=link_to(@team.files.url)%>
+<%end%>
+<%if !@team.files4_file_name.blank?%>
+  <%=link_to(@team.files.url)%>
+<%end%>
+<%end%>
+ 
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Upload New File</h4>
+      </div>
+
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+      <div class="modal-body">
+    <div><%= f.label "File" %><br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+        <%if !@team.files_file_name.blank?%>
+          <%if !@team.files1_file_name.blank?%>
+            <%if !@team.files2_file_name.blank?%>
+              <%if !@team.files3_file_name.blank?%>
+                <%if !@team.files4_file_name.blank?%>
+                  <%=p Error%>
+                <%else%>
+                  <%= f.file_field :files4 %>
+                <%end%>  
+              <%else%>
+                <%= f.file_field :files3 %>
+              <%end%>
+            <%else%>
+              <%= f.file_field :files2 %>
+            <%end%>
+          <%else%>
+            <%= f.file_field :files1 %>
+          <%end%>
+        <%else%>
+          <%= f.file_field :files %>
+        <%end%>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+
+    </div>
+  </div>
+</div>
+</div>
+  <div><%= f.submit "Upload" %></div>
+<%end%>
+		</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+  <div><%= f.label :name %><br />
+  <%= f.text_field :name %></div>
+
+      <div><%= f.label :description %><br />
+      <%= f.text_area :description %></div>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+		</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
