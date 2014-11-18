@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141117190948) do
+ActiveRecord::Schema.define(version: 20141118141214) do
 
   create_table "acceptable_students", force: true do |t|
     t.string   "studentId"
@@ -116,6 +116,46 @@ ActiveRecord::Schema.define(version: 20141117190948) do
     t.string   "files4_content_type"
     t.integer  "files4_file_size"
     t.datetime "files4_updated_at"
+    t.string   "files5_file_name"
+    t.string   "files5_content_type"
+    t.integer  "files5_file_size"
+    t.datetime "files5_updated_at"
+    t.string   "files6_file_name"
+    t.string   "files6_content_type"
+    t.integer  "files6_file_size"
+    t.datetime "files6_updated_at"
+    t.string   "files7_file_name"
+    t.string   "files7_content_type"
+    t.integer  "files7_file_size"
+    t.datetime "files7_updated_at"
+    t.string   "files8_file_name"
+    t.string   "files8_content_type"
+    t.integer  "files8_file_size"
+    t.datetime "files8_updated_at"
+    t.string   "files9_file_name"
+    t.string   "files9_content_type"
+    t.integer  "files9_file_size"
+    t.datetime "files9_updated_at"
+    t.string   "fileTitle"
+    t.string   "file2Title"
+    t.string   "file3Title"
+    t.string   "file4Title"
+    t.string   "file5Title"
+    t.string   "file6Title"
+    t.string   "file7Title"
+    t.string   "file8Title"
+    t.string   "file9Title"
+    t.string   "file_description"
+    t.string   "file1_description"
+    t.string   "file2_description"
+    t.string   "file3_description"
+    t.string   "file4_description"
+    t.string   "file5_description"
+    t.string   "file6_description"
+    t.string   "file7_description"
+    t.string   "file8_description"
+    t.string   "file9_description"
+    t.string   "file1Title"
   end
 
   create_table "user_types", force: true do |t|

@@ -51,7 +51,10 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, :description, :max_size, :files, :files1, :files2, :files3, :files4)
+    params.require(:team).permit(:name, :description, :max_size, :files, :files1, :files2, :files3, :files4, 
+      :files5, :files6, :files7, :files8, :files9, :fileTitle, :file1Title, :file2Title, :file3Title, :file4Title,
+      :file5Title, :file6Title, :file7Title, :file8Title, :file9Title, :file_description, :file1_description, :file2_description,
+      :file3_description, :file4_description, :file5_description, :file6_description, :file7_description, :file8_description, :file9_description)
     #params.require(:team).permit(:files)
 
   end
