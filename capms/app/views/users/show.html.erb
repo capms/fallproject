@@ -19,18 +19,19 @@
 		<div class = "text-center"><a class="fui-linkedin" href = <%=@user.linkedin_url%> target="_blank"></a>
 	<%end%>
 
-	<%if @user.github_username.blank?%>
-	<%else%>
-		<a class="fui-github" href = <%=@user.github_username%> target="_blank"></a>
-		</div>  
-	<%end%>
+<%if @user.github_username.blank?%>
+<%else%>
+<a class="fui-github" href = <%=@user.github_username%> target="_blank"></a>
+</div>  
+<%end%>
 
-	<div class="text-center">
-		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#resume_modal">
-		Resume
-		</button>
-	</div>
-
+<%if !@user.resume_file_name.blank?%>
+<div class="text-center">
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+	Resume
+</button>
+</div>
+<%end%>
 </section>
 
 
@@ -38,8 +39,6 @@
 <section class= "dark-blue" id = "about">
 	<p class = "text-center"><%=@user.about_me%></p>
 </section>
-
-
 
 <!-- If current user is an admin, show admin settings options. -->
 <% if current_user.user_type_id == 2 && @user.id == current_user.id %>
@@ -133,15 +132,19 @@
 	</div>
 <% end %>
 
-<div id="resume_modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style= "z-index: 1060">
     <div style= "height: 1200px; width: 1000px" class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
         <h4 class="modal-title" id="myModalLabel">Resume</h4>
       </div>
       <div class="modal-body">
-      	<object src=<%=@user.resume.url%>><embed style= "height: 1000px; width: 900px" src=<%=@user.resume.url%>></embed></ob
+      <object src=<%=@user.resume.url%>>
+      <embed style= "height: 1000px; width: 900px" src=<%=@user.resume.url%> > </embed>
+ 	 </object>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -152,3 +155,4 @@
 
 </body>
 </html>
+
