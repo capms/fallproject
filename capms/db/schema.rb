@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106205435) do
+ActiveRecord::Schema.define(version: 20141117190948) do
 
   create_table "acceptable_users", force: true do |t|
     t.string   "user_id"
@@ -88,6 +88,26 @@ ActiveRecord::Schema.define(version: 20141106205435) do
     t.integer  "max_size"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "files_file_name"
+    t.string   "files_content_type"
+    t.integer  "files_file_size"
+    t.datetime "files_updated_at"
+    t.string   "files1_file_name"
+    t.string   "files1_content_type"
+    t.integer  "files1_file_size"
+    t.datetime "files1_updated_at"
+    t.string   "files2_file_name"
+    t.string   "files2_content_type"
+    t.integer  "files2_file_size"
+    t.datetime "files2_updated_at"
+    t.string   "files3_file_name"
+    t.string   "files3_content_type"
+    t.integer  "files3_file_size"
+    t.datetime "files3_updated_at"
+    t.string   "files4_file_name"
+    t.string   "files4_content_type"
+    t.integer  "files4_file_size"
+    t.datetime "files4_updated_at"
   end
 
   create_table "user_types", force: true do |t|
