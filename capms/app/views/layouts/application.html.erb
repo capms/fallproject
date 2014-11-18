@@ -9,8 +9,8 @@
 
 <% if user_signed_in? %>
   <%inviteCount=Bulletin.where(user_id: current_user.id, team_id: !nil).count%>
-  
-  
+
+
   <div class="modal fade" id="inviteModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" style="z-index: 1060">
       <div class="modal-content">
@@ -46,7 +46,7 @@
   </div>
 
 
-  
+
 
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-header">
@@ -91,7 +91,7 @@
               <% if current_user.team_id != nil %>
                <li><%= link_to("My Team", team_path(current_user.team_id)) %></li>
               <% end %>
-              <li><a href="#">Email Professor</a></li>
+              <li><a href="mailto:djgwdb@mail.missouri.edu">Email Professor</a></li>
               <li><%= link_to("Edit Profile", edit_user_registration_path)%></li>
               <li class="divider"></li>
               <li><%= link_to("Logout", destroy_user_session_path, :method => :delete)%></li>
@@ -100,7 +100,7 @@
       </form>
     </div><!-- /.navbar-collapse -->
   </nav>
-      
+
 
 <%else%>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -131,9 +131,41 @@
 <%end%>
 <body>
 <div class = "container" style="margin-top:30px">
-
   <%= yield %>
 </div>
-</body>
-</html>
 
+
+
+
+
+
+</body>
+<div class="footer" class="mtl pbl">
+    <div class="bottom-menu bottom-menu-inverse">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-sm-2">
+                    <a href=<%= root_url %> class="bottom-menu-brand">CapMS</a>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                    <ul class="bottom-menu-list">
+                        <li><a href="https://github.com/capms/fallproject">Source Code</a></li>
+                        <li><a href="#fakelink">About</a></li>
+                        <li><a href="#fakelink">Subscribe</a></li>
+                        <li><a href="#fakelink">Pricing</a></li>
+                    </ul>
+
+                    <ul class="bottom-menu-list">
+                        <li>Created by:  <a href="https://github.com/johncurley44"> John Curley</a></li>
+                        <li><a href="http://dannyglover.herokuapp.com/">Danny Glover</a></li>
+                        <li><a href="https://github.com/victortran620">Victor Tran</a></li>
+                        <li><a href="https://github.com/drodenberg">Daniel Rodenberg</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
