@@ -9,7 +9,7 @@
 
 <% if user_signed_in? %>
   <% inviteCount = Bulletin.where(user_id: current_user.id, team_id: !nil).count %>
-  <% approvalCount = Approval.where(user_id: current_user.id).count %>
+  <% approvalCount = Bulletin.where(user_id: current_user.id, approval_pending: !nil).count %>
   
   <div class="modal fade" id="notifModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" style="z-index: 1060">
@@ -23,7 +23,6 @@
             <h4> You do not have any notifications. </h4>
           <% end %>
           <% inviteBullets = Bulletin.where(user_id: current_user.id, team_id: !nil) %>
-          <% approvalBullets = Approval.where(user_id: current_user.id) %>
           <div class="NotifGroups">
             <% inviteBullets.each do |n| %>
               <div class="single-notif">
@@ -40,15 +39,17 @@
           </div>
           <div class="NotifGroups">
             <div class="single-notif">
-              <h6>
-                You have been requested to approve the publication of <%= approvalCount %>
-                <% if approvalCount == 1 %>
-                  file.
-                <% else %>
-                  files.
-                <% end %>
-              </h6>
-              <%= link_to "View Here", "/teams/#{current_user.team_id}", :class => "btn btn-xs btn-default" %>
+              <% if approvalCount > 0 %>
+                <h6>
+                  You have been requested to approve the publication of <%= approvalCount %>
+                  <% if approvalCount == 1 %>
+                    file.
+                  <% else %>
+                    files.
+                  <% end %>
+                </h6>
+                <%= link_to "View Here", "/teams/#{current_user.team_id}", :class => "btn btn-xs btn-default" %>
+              <% end %>
             </div>
           </div>
         </div>

@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20141118141214) do
     t.integer  "team_id"
     t.integer  "invited_by_id"
     t.integer  "message_id"
-    t.integer  "approval_id"
+    t.boolean  "approval_pending", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,5 +1,5 @@
 <h2><%= @team.name %> </h2>
-<% if current_user.team_id == @team.id %>
+<% if current_user != nil && current_user.team_id == @team.id %>
 	<%= link_to "Leave Team", {:controller => "users", :action => "leave_team", :id => current_user.id}, :method => "put", :class => "btn btn-primary btn-sm", data: { confirm: "Are you sure you want to leave #{@team.name}?"} %> 
 <% end %>
 <% usersInTeam = User.where(team_id: @team.id) %>
@@ -25,191 +25,227 @@
 	<%else%>
 <% end %>
 
-<%if current_user.team_id = @team.id %>
-	<div class="text-center">
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
-	Upload 
-</button>
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#updateModal">
-	Update 
-</button>
-</div>
-
-<div style ="padding: 10px;">
-<%if !@team.files_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.fileTitle%></h4>
-    <%= link_to image_tag(@team.files.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;"> <%= @team.file_description %> </p>
+<%if current_user != nil && current_user.team_id == @team.id %>
+  <div class="text-center">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+    	Upload 
+    </button>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#updateModal">
+    	Update 
+    </button>
   </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
+<% end %>
 
-<div style ="padding: 10px;">
-<%if !@team.files1_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file1Title%></h4>
-    <%= link_to image_tag(@team.files1.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+<% approvals = Approval.where(file_url: @team.files.url) %>
+<% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
+  <!-- File 0 -->
+  <%if !@team.files_file_name.blank?%>
+    <div style ="padding: 10px;">
+      <div style: "width:70%" float:'left'>
+        <h4 padding='5px' align = 'left'><%=@team.fileTitle%></h4>
+        <%= link_to image_tag(@team.files.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
 
-    <p align = 'left' style="width: 55%;"> <%= @team.file1_description %> </p>
+        <p align = 'left' style="width: 55%;"> <%= @team.file_description %> </p>
+      </div>
+    </div> 
+    <br>
+    <!-- If current user on team -->
+    <% if current_user != nil && current_user.team_id == @team.id %>
+      <!-- If there are no approvals yet -->
+      <% if approvals.count == 0 %>
+        <%= link_to "Publish", {:controller => "bulletins", :action => "publish_request", :team_id => @team.id, :file_url => @team.files.url }, :method => "post", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+      <% else %>
+        <!-- approvals exist but private still -->
+        <% if approvals.count < usersInTeam.count %>
+          <!-- current user has not approved yet -->
+          <% if approvals.find_by(user_id: current_user.id) == nil %>
+            <%= link_to "Agree to Publish", {:controller => "bulletins", :action => "publish_agree", :team_id => @team.id, :file_url => @team.files.url }, :method => "delete", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <!-- current user has approved -->
+          <% else %>
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <% end %>
+        <!-- public -->
+        <% else %>
+          <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will make the public file private. Only one person choosing to revert publication will make a file private. Do you wish to continue?"} %>
+        <% end %>
+      <% end %>
+      <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">
+        Edit 
+      </button>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
+    <!-- Admin view -->
+    <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
+      <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+    <% end %>
+  <%end%>
+<% end %>
+  <!-- File 1 -->
+  <div style ="padding: 10px;">
+  <%if !@team.files1_file_name.blank?%>
+    <div style: "width:70%" float:'left'>
+      <h4 padding='5px' align = 'left'><%=@team.file1Title%></h4>
+      <%= link_to image_tag(@team.files1.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+
+      <p align = 'left' style="width: 55%;"> <%= @team.file1_description %> </p>
+    </div>
   </div>
-</div>
-<br>
-<div style = "width :auto;">
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit1Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-</div>
-<%end%>
-
-<div style ="padding: 10px;">
-<%if !@team.files2_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file2Title%></h4>
-    <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;"> <%= @team.file2_description %> </p>
+  <br>
+  <div style = "width :auto;">
+  <button class="btn btn-primary">Publish</button>
+  <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit1Modal">
+    Edit 
+  </button>
+  <button class="btn btn-danger">Delete</button>
   </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit2Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
+  <%end%>
 
- <div style ="padding: 10px;">
-<%if !@team.files3_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file3Title%></h4>
-    <%= link_to image_tag(@team.files3.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+  <!-- File 2 -->
+  <div style ="padding: 10px;">
+  <%if !@team.files2_file_name.blank?%>
+    <div style: "width:70%" float:'left'>
+      <h4 padding='5px' align = 'left'><%=@team.file2Title%></h4>
+      <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
 
-    <p align = 'left' style="width: 55%;" > <%= @team.file3_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit3Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
+      <p align = 'left' style="width: 55%;"> <%= @team.file2_description %> </p>
+    </div>
+  </div> 
+  <br>
+  <button class="btn btn-primary">Publish</button>
+  <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit2Modal">
+    Edit 
+  </button>
+  <button class="btn btn-danger">Delete</button>
+  <%end%>
 
- <div>
-<%if !@team.files4_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file4Title%></h4>
-    <%= link_to image_tag(@team.files4.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+  <!-- File 3 -->
+   <div style ="padding: 10px;">
+  <%if !@team.files3_file_name.blank?%>
+    <div style: "width:70%" float:'left'>
+      <h4 padding='5px' align = 'left'><%=@team.file3Title%></h4>
+      <%= link_to image_tag(@team.files3.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
 
-    <p align = 'left' style="width: 55%;" > <%= @team.file4_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit4Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
+      <p align = 'left' style="width: 55%;" > <%= @team.file3_description %> </p>
+    </div>
+  </div> 
+  <br>
+  <button class="btn btn-primary">Publish</button>
+  <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit3Modal">
+    Edit 
+  </button>
+  <button class="btn btn-danger">Delete</button>
+  <%end%>
 
+  <!-- File 4 -->
+   <div style ="padding: 10px;">
+  <%if !@team.files4_file_name.blank?%>
+    <div style: "width:70%" float:'left'>
+      <h4 padding='5px' align = 'left'><%=@team.file4Title%></h4>
+      <%= link_to image_tag(@team.files4.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
 
- <div>
-<%if !@team.files5_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file5Title%></h4>
-    <%= link_to image_tag(@team.files5.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+      <p align = 'left' style="width: 55%;" > <%= @team.file4_description %> </p>
+    </div>
+  </div> 
+  <br>
+  <button class="btn btn-primary">Publish</button>
+  <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit4Modal">
+    Edit 
+  </button>
+  <button class="btn btn-danger">Delete</button>
+  <%end%>
 
-    <p align = 'left' style="width: 55%;" > <%= @team.file5_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit5Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
+  <!-- File 5 -->
+   <div style ="padding: 10px;">
+  <%if !@team.files5_file_name.blank?%>
+    <div style: "width:70%" float:'left'>
+      <h4 padding='5px' align = 'left'><%=@team.file5Title%></h4>
+      <%= link_to image_tag(@team.files5.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
 
+      <p align = 'left' style="width: 55%;" > <%= @team.file5_description %> </p>
+    </div>
+  </div> 
+  <br>
+  <button class="btn btn-primary">Publish</button>
+  <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit5Modal">
+    Edit 
+  </button>
+  <button class="btn btn-danger">Delete</button>
+  <%end%>
 
- <div>
-<%if !@team.files6_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file6Title%></h4>
-    <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+  <!-- File 6 -->
+   <div style ="padding: 10px;">
+  <%if !@team.files6_file_name.blank?%>
+    <div style: "width:70%" float:'left'>
+      <h4 padding='5px' align = 'left'><%=@team.file6Title%></h4>
+      <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
 
-    <p align = 'left' style="width: 55%;" > <%= @team.file6_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit6Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
+      <p align = 'left' style="width: 55%;" > <%= @team.file6_description %> </p>
+    </div>
+  </div> 
+  <br>
+  <button class="btn btn-primary">Publish</button>
+  <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit6Modal">
+    Edit 
+  </button>
+  <button class="btn btn-danger">Delete</button>
+  <%end%>
 
+  <!-- File 7 -->
+   <div style ="padding: 10px;">
+  <%if !@team.files7_file_name.blank?%>
+    <div style: "width:70%" float:'left'>
+      <h4 padding='5px' align = 'left'><%=@team.file7Title%></h4>
+      <%= link_to image_tag(@team.files7.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
 
- <div>
-<%if !@team.files7_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file7Title%></h4>
-    <%= link_to image_tag(@team.files7.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+      <p align = 'left' style="width: 55%;" > <%= @team.file7_description %> </p>
+    </div>
+  </div> 
+  <br>
+  <button class="btn btn-primary">Publish</button>
+  <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit7Modal">
+    Edit 
+  </button>
+  <button class="btn btn-danger">Delete</button>
+  <%end%>
 
-    <p align = 'left' style="width: 55%;" > <%= @team.file7_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit7Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
+  <!-- File 8 -->
+   <div style ="padding: 10px;">
+  <%if !@team.files8_file_name.blank?%>
+    <div style: "width:70%" float:'left'>
+      <h4 padding='5px' align = 'left'><%=@team.file8Title%></h4>
+      <%= link_to image_tag(@team.files8.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
 
- <div>
-<%if !@team.files8_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file8Title%></h4>
-    <%= link_to image_tag(@team.files8.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+      <p align = 'left' style="width: 55%;" > <%= @team.file8_description %> </p>
+    </div>
+  </div> 
+  <br>
+  <button class="btn btn-primary">Publish</button>
+  <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit8Modal">
+    Edit 
+  </button>
+  <button class="btn btn-danger">Delete</button>
+  <%end%>
 
-    <p align = 'left' style="width: 55%;" > <%= @team.file8_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit8Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
+  <!-- File 9 -->
+   <div style ="padding: 10px;">
+  <%if !@team.files9_file_name.blank?%>
+    <div style: "width:70%" float:'left'>
+      <h4 padding='5px' align = 'left'><%=@team.file9Title%></h4>
+      <%= link_to image_tag(@team.files9.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
 
- <div>
-<%if !@team.files9_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file9Title%></h4>
-    <%= link_to image_tag(@team.files9.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;" > <%= @team.file9_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit9Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
-<%end%>
+      <p align = 'left' style="width: 55%;" > <%= @team.file9_description %> </p>
+    </div>
+  </div> 
+  <br>
+  <button class="btn btn-primary">Publish</button>
+  <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit9Modal">
+    Edit 
+  </button>
+  <button class="btn btn-danger">Delete</button>
+  <%end%>
+<!-- end was here -->
 
 <br>
 <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
