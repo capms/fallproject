@@ -1,7 +1,12 @@
+
+    <% @commenter = User.find(comment.commenter_id) %>
+
 <p>
-  <strong>Commenter:</strong>
-  <%= comment.commenter %>
-</p>
+ 
+
+  
+    <%= @commenter.first_name %><br>
+
  
 <p>
   <strong>Comment:</strong>

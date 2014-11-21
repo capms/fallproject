@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-	http_basic_authenticate_with name: "admin", password: "secret", only: :destroy
 
 	def create
     	@message = Message.find(params[:message_id])
@@ -22,6 +21,6 @@ class CommentsController < ApplicationController
  
   	private
     	def comment_params
-      	params.require(:comment).permit(:commenter, :body)
+      	params.require(:comment).permit(:commenter, :body, :commenter_id)
     end
 end
