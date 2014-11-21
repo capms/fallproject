@@ -54,8 +54,8 @@ class BulletinsController < ApplicationController
 
 	#Called when user agrees to publish file. Creates approval for current user and delete bulletin.
 	def publish_agree
-		@bulletinToDestroy = Bulletin.where(user_id: current_user.id, approval_pending: true)
-		Bulletin.destroy(@bulletinToDestroy)
+		@bulletinToDestroy = Bulletin.find_by(user_id: current_user.id, approval_pending: true)
+		Bulletin.destroy(@bulletinToDestroy.id)
 		@newApproval = Approval.new(user_id: current_user.id, file_url: params[:file_url]).save
 		redirect_to "/teams/#{current_user.team_id}"
 	end
