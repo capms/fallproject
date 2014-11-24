@@ -42,6 +42,7 @@ gem 'httparty'
 gem 'aws-sdk'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'asset_sync'
+gem "paperclip-ffmpeg"
 gem 'bootstrap-tagsinput-rails'
 
 

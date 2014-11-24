@@ -9,66 +9,76 @@ class Team < ActiveRecord::Base
                                   :secret_access_key => "JQH7uOHNyF65DDy1SC61pQqclpRHL9WF4sRbnKFp"},
               					  :bucket => "capms"
             )
-validates_attachment :files, content_type: { content_type: [ "application/pdf","application/vnd.ms-excel",     
+
+validates_attachment :files, content_type: { content_type: [ "application/pdf", "application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-             "application/msword", 
+             "application/msword", "application/vnd.ms-powerpoint",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
-             "text/plain", "video/mp4", "video.mov", "video/mpeg","video/mpeg4", "image/jpg", "image/jpeg",
+             "text/plain", "video/mp4", "video/mov", "video/mpeg","video/mpeg4", "video/quicktime", "image/jpg", "image/jpeg",
              "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'
-] }
+] },:processors => [:ffmpeg]
+
 has_attached_file(:files1,
               :storage => :s3,
               :s3_credentials => {:access_key_id => "AKIAIJJTZJ4ACF4AHQCQ",
                                   :secret_access_key => "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"},
                           :bucket => "capms"
             )
-validates_attachment :files1, content_type: { content_type: ["application/pdf","application/vnd.ms-excel",     
+validates_attachment :files1, content_type: { content_type: [ "application/pdf", "application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-             "application/msword", 
+             "application/msword", "application/vnd.ms-powerpoint",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
-             "text/plain", "video/mp4", "video.mov", "video/mpeg","video/mpeg4", "image/jpg", "image/jpeg",
-             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'] }
+             "text/plain", "video/mp4", "video/mov", "video/mpeg","video/mpeg4", "video/quicktime", "image/jpg", "image/jpeg",
+             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'
+] },:processors => [:ffmpeg]
+
 has_attached_file(:files2,
               :storage => :s3,
               :s3_credentials => {:access_key_id => "AKIAIJJTZJ4ACF4AHQCQ",
                                   :secret_access_key => "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"},
                           :bucket => "capms"
             )
-validates_attachment :files2, content_type: { content_type: ["application/pdf","application/vnd.ms-excel",     
+validates_attachment :files2, content_type: { content_type: [ "application/pdf", "application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-             "application/msword", 
+             "application/msword", "application/vnd.ms-powerpoint",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
-             "text/plain", "video/mp4", "video.mov", "video/mpeg","video/mpeg4", "image/jpg", "image/jpeg",
-             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'] }
+             "text/plain", "video/mp4", "video/mov", "video/mpeg","video/mpeg4", "video/quicktime", "image/jpg", "image/jpeg",
+             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'
+] },:processors => [:ffmpeg]
+
 has_attached_file(:files3,
               :storage => :s3,
               :s3_credentials => {:access_key_id => "AKIAIJJTZJ4ACF4AHQCQ",
                                   :secret_access_key => "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"},
                           :bucket => "capms"
             )
-validates_attachment :files3, content_type: { content_type: ["application/pdf","application/vnd.ms-excel",     
+validates_attachment :files3, content_type: { content_type: [ "application/pdf", "application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-             "application/msword", 
+             "application/msword", "application/vnd.ms-powerpoint",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
-             "text/plain", "video/mp4", "video.mov", "video/mpeg","video/mpeg4", "image/jpg", "image/jpeg",
-             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'] }
+             "text/plain", "video/mp4", "video/mov", "video/mpeg","video/mpeg4", "video/quicktime", "image/jpg", "image/jpeg",
+             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'
+] },:processors => [:ffmpeg]
+
 has_attached_file(:files4,
               :storage => :s3,
               :s3_credentials => {:access_key_id => "AKIAIJJTZJ4ACF4AHQCQ",
                                   :secret_access_key => "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"},
                           :bucket => "capms"
             )
-validates_attachment :files4, content_type: { content_type: ["application/pdf","application/vnd.ms-excel",     
+validates_attachment :files4, content_type: { content_type: [ "application/pdf", "application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-             "application/msword", 
+             "application/msword", "application/vnd.ms-powerpoint",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
-             "text/plain", "video/mp4", "video.mov", "video/mpeg","video/mpeg4", "image/jpg", "image/jpeg",
-             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'] }
+             "text/plain", "video/mp4", "video/mov", "video/mpeg","video/mpeg4", "video/quicktime", "image/jpg", "image/jpeg",
+             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'
+] },:processors => [:ffmpeg]
+
 has_attached_file(:files5,
               :storage => :s3,
               :s3_credentials => {:access_key_id => "AKIAIJJTZJ4ACF4AHQCQ",
@@ -76,13 +86,15 @@ has_attached_file(:files5,
                           :bucket => "capms"
             )             
 
-validates_attachment :files5, content_type: { content_type: ["application/pdf","application/vnd.ms-excel",     
+validates_attachment :files5, content_type: { content_type: [ "application/pdf", "application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-             "application/msword", 
+             "application/msword", "application/vnd.ms-powerpoint",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
-             "text/plain", "video/mp4", "video.mov", "video/mpeg","video/mpeg4", "image/jpg", "image/jpeg",
-             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'] }
+             "text/plain", "video/mp4", "video/mov", "video/mpeg","video/mpeg4", "video/quicktime", "image/jpg", "image/jpeg",
+             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'
+] },:processors => [:ffmpeg]
+
 has_attached_file(:files6,
               :storage => :s3,
               :s3_credentials => {:access_key_id => "AKIAIJJTZJ4ACF4AHQCQ",
@@ -90,13 +102,15 @@ has_attached_file(:files6,
                           :bucket => "capms"
             )             
 
-validates_attachment :files6, content_type: { content_type: ["application/pdf","application/vnd.ms-excel",     
+validates_attachment :files6, content_type: { content_type: [ "application/pdf", "application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-             "application/msword", 
+             "application/msword", "application/vnd.ms-powerpoint",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
-             "text/plain", "video/mp4", "video.mov", "video/mpeg","video/mpeg4", "image/jpg", "image/jpeg",
-             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'] }
+             "text/plain", "video/mp4", "video/mov", "video/mpeg","video/mpeg4", "video/quicktime", "image/jpg", "image/jpeg",
+             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'
+] },:processors => [:ffmpeg]
+
 has_attached_file(:files7,
               :storage => :s3,
               :s3_credentials => {:access_key_id => "AKIAIJJTZJ4ACF4AHQCQ",
@@ -104,13 +118,15 @@ has_attached_file(:files7,
                           :bucket => "capms"
             )
 
-validates_attachment :files7, content_type: { content_type: ["application/pdf","application/vnd.ms-excel",     
+validates_attachment :files7, content_type: { content_type: [ "application/pdf", "application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-             "application/msword", 
+             "application/msword", "application/vnd.ms-powerpoint",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
-             "text/plain", "video/mp4", "video.mov", "video/mpeg","video/mpeg4", "image/jpg", "image/jpeg",
-             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'] }
+             "text/plain", "video/mp4", "video/mov", "video/mpeg","video/mpeg4", "video/quicktime", "image/jpg", "image/jpeg",
+             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'
+] },:processors => [:ffmpeg]
+
 has_attached_file(:files8,
               :storage => :s3,
               :s3_credentials => {:access_key_id => "AKIAIJJTZJ4ACF4AHQCQ",
@@ -118,13 +134,15 @@ has_attached_file(:files8,
                           :bucket => "capms"
             )
 
-validates_attachment :files8, content_type: { content_type: ["application/pdf","application/vnd.ms-excel",     
+validates_attachment :files8, content_type: { content_type: [ "application/pdf", "application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-             "application/msword", 
+             "application/msword", "application/vnd.ms-powerpoint",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
-             "text/plain", "video/mp4", "video.mov", "video/mpeg","video/mpeg4", "image/jpg", "image/jpeg",
-             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'] }
+             "text/plain", "video/mp4", "video/mov", "video/mpeg","video/mpeg4", "video/quicktime", "image/jpg", "image/jpeg",
+             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'
+] },:processors => [:ffmpeg]
+
 has_attached_file(:files9,
               :storage => :s3,
               :s3_credentials => {:access_key_id => "AKIAIJJTZJ4ACF4AHQCQ",
@@ -132,16 +150,16 @@ has_attached_file(:files9,
                           :bucket => "capms"
             )
 
-validates_attachment :files9, content_type: { content_type: ["application/pdf","application/vnd.ms-excel",     
+validates_attachment :files9, content_type: { content_type: [ "application/pdf", "application/vnd.ms-excel",     
              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-             "application/msword", 
+             "application/msword", "application/vnd.ms-powerpoint",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
-             "text/plain", "video/mp4", "video.mov", "video/mpeg","video/mpeg4", "image/jpg", "image/jpeg",
-             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'] }
+             "text/plain", "video/mp4", "video/mov", "video/mpeg","video/mpeg4", "video/quicktime", "image/jpg", "image/jpeg",
+             "image/jpg", "image/jpeg", "image/png", "image/gif", "video/avi", 'Audio/mp3'
+] },:processors => [:ffmpeg]
 
 end
-
 class Asset < ActiveRecord::Base
   belongs_to :Team
 end

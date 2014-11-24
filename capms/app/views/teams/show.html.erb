@@ -39,9 +39,16 @@
 <%if !@team.files_file_name.blank?%>
   <div style: "width:70%" float:'left'>
     <h4 padding='5px' align = 'left'><%=@team.fileTitle%></h4>
-    <%= link_to image_tag(@team.files.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+    <%if @team.files_content_type == "video/mp4" || @team.files_content_type == "video/mov" || @team.files_content_type == "video/mpeg" || @team.files_content_type == "video/mpeg4" || @team.files_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files.url, :target =>  "_blank"%>
+    <% elsif @team.files_content_type == "image/jpg" || @team.files_content_type == "image/jpeg" || @team.files_content_type == "image/png" || @team.files_content_type == "image/gif" || @team.files_content_type == "video/avi" || @team.files_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files.url, :target =>  "_blank"%>
+    <%end%>
 
     <p align = 'left' style="width: 55%;"> <%= @team.file_description %> </p>
+    <br>
   </div>
 </div> 
 <br>
@@ -56,8 +63,14 @@
 <%if !@team.files1_file_name.blank?%>
   <div style: "width:70%" float:'left'>
     <h4 padding='5px' align = 'left'><%=@team.file1Title%></h4>
-    <%= link_to image_tag(@team.files1.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
+    <%if @team.files1_content_type == "video/mp4" || @team.files1_content_type == "video/mov" || @team.files1_content_type == "video/mpeg" || @team.files1_content_type == "video/mpeg4" || @team.files1_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files1.url, :target =>  "_blank"%>
+    <% elsif @team.files1_content_type == "image/jpg" || @team.files1_content_type == "image/jpeg" || @team.files1_content_type == "image/png" || @team.files1_content_type == "image/gif" || @team.files1_content_type == "video/avi" || @team.files1_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files1.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files1.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files1.url, :target =>  "_blank"%>
+    <%end%>
+    
     <p align = 'left' style="width: 55%;"> <%= @team.file1_description %> </p>
   </div>
 </div>
@@ -75,8 +88,14 @@
 <%if !@team.files2_file_name.blank?%>
   <div style: "width:70%" float:'left'>
     <h4 padding='5px' align = 'left'><%=@team.file2Title%></h4>
-    <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
+    
+    <%if @team.files2_content_type == "video/mp4" || @team.files2_content_type == "video/mov" || @team.files2_content_type == "video/mpeg" || @team.files2_content_type == "video/mpeg4" || @team.files2_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files2.url, :target =>  "_blank"%>
+    <% elsif @team.files2_content_type == "image/jpg" || @team.files2_content_type == "image/jpeg" || @team.files2_content_type == "image/png" || @team.files2_content_type == "image/gif" || @team.files2_content_type == "video/avi" || @team.files2_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files2.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files2.url, :target =>  "_blank"%>
+    <%end%>
     <p align = 'left' style="width: 55%;"> <%= @team.file2_description %> </p>
   </div>
 </div> 
@@ -92,8 +111,14 @@
 <%if !@team.files3_file_name.blank?%>
   <div style: "width:70%" float:'left'>
     <h4 padding='5px' align = 'left'><%=@team.file3Title%></h4>
-    <%= link_to image_tag(@team.files3.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
 
+    <%if @team.files3_content_type == "video/mp4" || @team.files3_content_type == "video/mov" || @team.files3_content_type == "video/mpeg" || @team.files3_content_type == "video/mpeg4" || @team.files3_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files3.url, :target =>  "_blank"%>
+    <% elsif @team.files3_content_type == "image/jpg" || @team.files3_content_type == "image/jpeg" || @team.files3_content_type == "image/png" || @team.files3_content_type == "image/gif" || @team.files3_content_type == "video/avi" || @team.files3_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files3.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files3.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files3.url, :target =>  "_blank"%>
+    <%end%>
     <p align = 'left' style="width: 55%;" > <%= @team.file3_description %> </p>
   </div>
 </div> 
@@ -109,8 +134,14 @@
 <%if !@team.files4_file_name.blank?%>
   <div style: "width:70%" float:'left'>
     <h4 padding='5px' align = 'left'><%=@team.file4Title%></h4>
-    <%= link_to image_tag(@team.files4.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
 
+    <%if @team.files4_content_type == "video/mp4" || @team.files4_content_type == "video/mov" || @team.files4_content_type == "video/mpeg" || @team.files4_content_type == "video/mpeg4" || @team.files4_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files4.url, :target =>  "_blank"%>
+    <% elsif @team.files4_content_type == "image/jpg" || @team.files4_content_type == "image/jpeg" || @team.files4_content_type == "image/png" || @team.files4_content_type == "image/gif" || @team.files4_content_type == "video/avi" || @team.files4_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files4.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files4.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files4.url, :target =>  "_blank"%>
+    <%end%>
     <p align = 'left' style="width: 55%;" > <%= @team.file4_description %> </p>
   </div>
 </div> 
@@ -127,7 +158,14 @@
 <%if !@team.files5_file_name.blank?%>
   <div style: "width:70%" float:'left'>
     <h4 padding='5px' align = 'left'><%=@team.file5Title%></h4>
-    <%= link_to image_tag(@team.files5.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+    
+    <%if @team.files5_content_type == "video/mp4" || @team.files5_content_type == "video/mov" || @team.files5_content_type == "video/mpeg" || @team.files5_content_type == "video/mpeg4" || @team.files5_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files5.url, :target =>  "_blank"%>
+    <% elsif @team.files5_content_type == "image/jpg" || @team.files5_content_type == "image/jpeg" || @team.files5_content_type == "image/png" || @team.files5_content_type == "image/gif" || @team.files5_content_type == "video/avi" || @team.files5_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files5.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files5.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files5.url, :target =>  "_blank"%>
+    <%end%>
 
     <p align = 'left' style="width: 55%;" > <%= @team.file5_description %> </p>
   </div>
@@ -145,7 +183,14 @@
 <%if !@team.files6_file_name.blank?%>
   <div style: "width:70%" float:'left'>
     <h4 padding='5px' align = 'left'><%=@team.file6Title%></h4>
-    <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+    
+    <%if @team.files6_content_type == "video/mp4" || @team.files6_content_type == "video/mov" || @team.files6_content_type == "video/mpeg" || @team.files6_content_type == "video/mpeg4" || @team.files6_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files6.url, :target =>  "_blank"%>
+    <% elsif @team.files6_content_type == "image/jpg" || @team.files6_content_type == "image/jpeg" || @team.files6_content_type == "image/png" || @team.files6_content_type == "image/gif" || @team.files6_content_type == "video/avi" || @team.files6_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files6.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files6.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files6.url, :target =>  "_blank"%>
+    <%end%>
 
     <p align = 'left' style="width: 55%;" > <%= @team.file6_description %> </p>
   </div>
@@ -163,7 +208,14 @@
 <%if !@team.files7_file_name.blank?%>
   <div style: "width:70%" float:'left'>
     <h4 padding='5px' align = 'left'><%=@team.file7Title%></h4>
-    <%= link_to image_tag(@team.files7.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+    
+    <%if @team.files7_content_type == "video/mp4" || @team.files7_content_type == "video/mov" || @team.files7_content_type == "video/mpeg" || @team.files7_content_type == "video/mpeg4" || @team.files7_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files7.url, :target =>  "_blank"%>
+    <% elsif @team.files7_content_type == "image/jpg" || @team.files7_content_type == "image/jpeg" || @team.files7_content_type == "image/png" || @team.files7_content_type == "image/gif" || @team.files7_content_type == "video/avi" || @team.files7_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files7.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files7.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files7.url, :target =>  "_blank"%>
+    <%end%>
 
     <p align = 'left' style="width: 55%;" > <%= @team.file7_description %> </p>
   </div>
@@ -180,7 +232,14 @@
 <%if !@team.files8_file_name.blank?%>
   <div style: "width:70%" float:'left'>
     <h4 padding='5px' align = 'left'><%=@team.file8Title%></h4>
-    <%= link_to image_tag(@team.files8.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+    
+    <%if @team.files8_content_type == "video/mp4" || @team.files8_content_type == "video/mov" || @team.files8_content_type == "video/mpeg" || @team.files8_content_type == "video/mpeg4" || @team.files8_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files8.url, :target =>  "_blank"%>
+    <% elsif @team.files8_content_type == "image/jpg" || @team.files8_content_type == "image/jpeg" || @team.files8_content_type == "image/png" || @team.files8_content_type == "image/gif" || @team.files8_content_type == "video/avi" || @team.files8_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files8.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files8.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files8.url, :target =>  "_blank"%>
+    <%end%>
 
     <p align = 'left' style="width: 55%;" > <%= @team.file8_description %> </p>
   </div>
@@ -197,7 +256,14 @@
 <%if !@team.files9_file_name.blank?%>
   <div style: "width:70%" float:'left'>
     <h4 padding='5px' align = 'left'><%=@team.file9Title%></h4>
-    <%= link_to image_tag(@team.files9.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
+    
+    <%if @team.files9_content_type == "video/mp4" || @team.files9_content_type == "video/mov" || @team.files9_content_type == "video/mpeg" || @team.files9_content_type == "video/mpeg4" || @team.files9_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files9.url, :target =>  "_blank"%>
+    <% elsif @team.files9_content_type == "image/jpg" || @team.files9_content_type == "image/jpeg" || @team.files9_content_type == "image/png" || @team.files9_content_type == "image/gif" || @team.files9_content_type == "video/avi" || @team.files9_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files9.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files9.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files9.url, :target =>  "_blank"%>
+    <%end%>
 
     <p align = 'left' style="width: 55%;" > <%= @team.file9_description %> </p>
   </div>
@@ -213,8 +279,8 @@
 
 
 <br>
-<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
@@ -311,7 +377,8 @@
         <%end%>
        
 
-    <div><%= f.label "File" %><br/>
+    <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+<br/>
       <div class="form-group">
   <div class="fileinput fileinput-new" data-provides="fileinput">
     <div class="input-group">
@@ -384,8 +451,8 @@
 </div>
 
 
-<div class="modal" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
@@ -406,19 +473,16 @@
 <% end %>
 
 		</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
 
-<div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -429,24 +493,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -454,24 +518,19 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit1Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+
+<div class="modal fade" id="edit1Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -482,49 +541,41 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file1_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files1 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files1 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
-      
+    </div>      
   <br>
 
   <div><%= f.submit "Update" %></div>
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit2Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit2Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -535,24 +586,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file2_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files2 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files2 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -560,24 +611,18 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit3Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+
+<div class="modal fade" id="edit3Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Eidt File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -588,24 +633,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file3_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files3 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files3 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -618,19 +663,15 @@
       </div>
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit4Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit4Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -641,24 +682,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file4_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files4 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files4 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -666,24 +707,18 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit5Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+
+<div class="modal fade" id="edit5Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -694,24 +729,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file5_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files5 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files5 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -719,24 +754,17 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit6Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit6Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -747,24 +775,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file6_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files6 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files6 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -772,24 +800,18 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit7Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+
+<div class="modal fade" id="edit7Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit Team</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -800,24 +822,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file7_description %></div>
 
-      <div><%= f.label "File" %><br/>
+    <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files7 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files7 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -825,24 +847,17 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit8Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit8Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -853,24 +868,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file8_description %></div>
 
-      <div><%= f.label "File" %><br/>
+     <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files8 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files8 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -878,24 +893,17 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit9Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit9Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit Team</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -906,24 +914,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file9_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files9 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files9 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -931,12 +939,30 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
-</div>
-</div>
-</div>
+
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">View File</h4>
+      </div>
+      
+      <div class="demo-row demo-video">
+        <div class="demo-title">
+          <h3 class="demo-panel-title">Video</h3>
+        </div>
+        <div class="demo-content-wide">
+          <video class="video-js" preload="auto" poster="assets/img/video/poster.jpg" data-setup="{}">
+            <source src="http://iurevych.github.com/Flat-UI-videos/big_buck_bunny.mp4" type="video/mp4">
+            <source src="http://iurevych.github.com/Flat-UI-videos/big_buck_bunny.webm" type="video/webm">
+          </video>
+        </div> <!-- /video -->
+      </div>
+
+    </div>
+  </div>
 </div>
