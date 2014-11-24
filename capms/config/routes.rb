@@ -37,6 +37,9 @@ Rails.application.routes.draw do
     member do
       post 'bulls_gen', :action => :gen_after_msg
       delete 'msg_bulls_des', :action => :destroy_msg_bull
+      post 'publish_request', :action => :publish_request
+      delete 'publish_agree', :action => :publish_agree
+      delete 'publish_decline', :action => :publish_decline
     end
   end
   resources :acceptable_users
