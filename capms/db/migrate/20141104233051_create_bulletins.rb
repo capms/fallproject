@@ -5,6 +5,7 @@ class CreateBulletins < ActiveRecord::Migration
       t.integer :team_id
       t.integer :invited_by_id
       t.integer :message_id
+      t.boolean :approval_pending, :default => false
       t.timestamps
     end
   end
