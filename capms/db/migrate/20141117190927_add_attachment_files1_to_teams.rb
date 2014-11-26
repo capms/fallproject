@@ -4,6 +4,6 @@ class AddAttachmentFiles1ToTeams < ActiveRecord::Migration
     end
 
   def self.down
-    remove_attachment :teams, :files1
+     remove_attachment :teams, :files1
   end
 end
