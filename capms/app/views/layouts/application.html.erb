@@ -94,7 +94,7 @@
             <li class="navbar-new"><%=inviteCount%></li>
           <% end %>
         <% end %>
-        <li><a href="#fakelink">About</a></li>
+        <li><a href="#" class="active" data-toggle="modal" data-target="#aboutModal">About</a></li>
        </ul>
        <form class="form-inline navbar-form navbar-right" >
          <div class="btn-group btn-group-lg">
@@ -181,7 +181,7 @@
                 <div class="col-md-8 col-sm-8">
                     <ul class="bottom-menu-list">
                         <li><a href="https://github.com/capms/fallproject">Source Code</a></li>
-                        <li><a href="#fakelink">About</a></li>
+                        <li><a href="#" class="active" data-toggle="modal" data-target="#aboutModal">About</a></li>
                         <li><a href="#fakelink">Subscribe</a></li>
                         <li><a href="#fakelink">Pricing</a></li>
                     </ul>
@@ -199,4 +199,20 @@
     </div>
 </div>
 
+ <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="z-index: 1060">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">x</button>
+          <h4 class="modal-title" id="modalLabel">About</h4>
+        </div>
+        <div class="modal-body">
+          <p>CapMS is an open-source project created by John Curley, Daniel Glover, Daniel Rodenberg, and Victor Tran during the Computer Science/Information Technology capstone course at the University of Missouri-Columbia under the supervision of Dale Musser and Joseph Guilliams. </p>
+        </div>
+        <div class="modal-footer">
+            <!--<button type="button" class="btn btn-primary">Confirm</button>-->
+        </div>
+      </div>
+    </div>
+  </div>
 </html>
