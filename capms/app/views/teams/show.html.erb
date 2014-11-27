@@ -630,34 +630,34 @@
                           <%if !@team.files9_file_name.blank?%>
                            <%=p Error%>
                           <%else%>
-                            <%= f.text_field :file9Title %></div>
+                            <%= f.text_field :file9Title, :class => "form-control", :placeholder => "File Name"%></div>
                           <%end%>
                         <%else%>
-                          <%= f.text_field :file8Title %></div>
+                          <%= f.text_field :file8Title, :class => "form-control", :placeholder => "File Name"%></div>
                         <%end%>
                       <%else%>
-                       <%= f.text_field :file7Title %></div>
+                       <%= f.text_field :file7Title, :class => "form-control", :placeholder => "File Name"%></div>
                       <%end%>
                     <%else%>
-                      <%= f.text_field :file6Title %></div>
+                      <%= f.text_field :file6Title, :class => "form-control", :placeholder => "File Name"%></div>
                     <%end%>
                   <%else%>
-                    <%= f.text_field :file5Title %></div>
+                    <%= f.text_field :file5Title, :class => "form-control", :placeholder => "File Name"%></div>
                   <%end%>
                 <%else%>
-                  <%= f.text_field :file4Title %></div>
+                  <%= f.text_field :file4Title, :class => "form-control", :placeholder => "File Name"%></div>
                 <%end%>  
               <%else%>
-                <%= f.text_field :file3Title %></div>
+                <%= f.text_field :file3Title, :class => "form-control", :placeholder => "File Name"%></div>
               <%end%>
             <%else%>
-              <%= f.text_field :file2Title %></div>
+              <%= f.text_field :file2Title, :class => "form-control", :placeholder => "File Name"%></div>
             <%end%>
           <%else%>
-            <%= f.text_field :file1Title %></div>
+            <%= f.text_field :file1Title, :class => "form-control", :placeholder => "File Name"%></div>
           <%end%>
         <%else%>
-          <%= f.text_field :fileTitle %></div>
+          <%= f.text_field :fileTitle, :class => "form-control", :placeholder => "File Name"%></div>
         <%end%>
 
       <div><%= f.label "Description" %><br />
@@ -673,34 +673,34 @@
                           <%if !@team.files9_file_name.blank?%>
                            <%=p Error%>
                           <%else%>
-                            <%= f.text_area :file9_description %></div>
+                            <%= f.text_area :file9_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                           <%end%>
                         <%else%>
-                          <%= f.text_area :file8_description %></div>
+                          <%= f.text_area :file8_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                         <%end%>
                       <%else%>
-                       <%= f.text_area :file7_description %></div>
+                       <%= f.text_area :file7_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                       <%end%>
                     <%else%>
-                      <%= f.text_area :file6_description %></div>
+                      <%= f.text_area :file6_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                     <%end%>
                   <%else%>
-                    <%= f.text_area :file5_description %></div>
+                    <%= f.text_area :file5_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                   <%end%>
                 <%else%>
-                  <%= f.text_area :file4_description %></div>
+                  <%= f.text_area :file4_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                 <%end%>  
               <%else%>
-                <%= f.text_area :file3_description %></div>
+                <%= f.text_area :file3_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
               <%end%>
             <%else%>
-              <%= f.text_area :file2_description %></div>
+              <%= f.text_area :file2_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
             <%end%>
           <%else%>
-            <%= f.text_area :file1_description %></div>
+            <%= f.text_area :file1_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
           <%end%>
         <%else%>
-          <%= f.text_area :file_description %></div>
+          <%= f.text_area :file_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
         <%end%>
        
 
@@ -791,10 +791,10 @@
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
   <div><%= f.label :name %><br />
-  <%= f.text_field :name %></div>
+  <%= f.text_field :name, :class => "form-control"  %></div>
 
       <div><%= f.label :description %><br />
-      <%= f.text_area :description %></div>
+      <%= f.text_area :description, :class => "form-control" %></div>
       
   <br>
 
@@ -821,10 +821,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :fileTitle %></div>
+      <%= f.text_field :fileTitle, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file_description %></div>
+      <%= f.text_area :file_description, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -871,10 +871,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file1Title %></div>
+      <%= f.text_field :file1Title, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file1_description %></div>
+      <%= f.text_area :file1_description, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -919,10 +919,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file2Title %></div>
+      <%= f.text_field :file2Title, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file2_description %></div>
+      <%= f.text_area :file2_description, :class => "form-control" %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -969,10 +969,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file3Title %></div>
+      <%= f.text_field :file3Title, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file3_description %></div>
+      <%= f.text_area :file3_description, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1017,10 +1017,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file4Title %></div>
+      <%= f.text_field :file4Title, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file4_description %></div>
+      <%= f.text_area :file4_description, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1065,10 +1065,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file5Title %></div>
+      <%= f.text_field :file5Title, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file5_description %></div>
+      <%= f.text_area :file5_description, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1113,10 +1113,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file6Title %></div>
+      <%= f.text_field :file6Title, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file6_description %></div>
+      <%= f.text_area :file6_description, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1161,10 +1161,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file7Title %></div>
+      <%= f.text_field :file7Title, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file7_description %></div>
+      <%= f.text_area :file7_description, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1209,10 +1209,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file8Title %></div>
+      <%= f.text_field :file8Title, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file8_description %></div>
+      <%= f.text_area :file8_description, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1258,10 +1258,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file9Title %></div>
+      <%= f.text_field :file9Title, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file9_description %></div>
+      <%= f.text_area :file9_description, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
