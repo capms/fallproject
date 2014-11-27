@@ -1,220 +1,587 @@
 <h2><%= @team.name %> </h2>
-<% if current_user.team_id == @team.id %>
-	<%= link_to "Leave Team", {:controller => "users", :action => "leave_team", :id => current_user.id}, :method => "put", :class => "btn btn-primary btn-sm", data: { confirm: "Are you sure you want to leave #{@team.name}?"} %> 
+<% if current_user != nil && current_user.team_id == @team.id %>
+  <%= link_to "Leave Team", {:controller => "users", :action => "leave_team", :id => current_user.id}, :method => "put", :class => "btn btn-primary btn-sm", data: { confirm: "Are you sure you want to leave #{@team.name}?"} %> 
 <% end %>
 <% usersInTeam = User.where(team_id: @team.id) %>
 <% if !usersInTeam.blank? %>
-	<div class="team-show-users">
-		<% usersInTeam.each do |userInTeam| %>
-			<div id="show-user">
-				<% imageLoc = userInTeam.profilepicture_file_name%>
-				<% if !imageLoc.blank?%>
-					<%= link_to image_tag(userInTeam.profilepicture.url, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
-				<% else %>
-					<%= link_to image_tag("icons/dude.svg", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
-				<% end %>
-				<%= userInTeam.first_name %>
-			</div>
-		<% end %>
-	</div>
-	<div>
-		<h4 padding='5px'>Team Description</h4>
-		<p> <%= @team.description %> </p>
-	</div>
-	<br>
-	<%else%>
+  <div class="team-show-users">
+    <% usersInTeam.each do |userInTeam| %>
+      <div id="show-user">
+        <% imageLoc = userInTeam.profilepicture_file_name%>
+        <% if !imageLoc.blank?%>
+          <%= link_to image_tag(userInTeam.profilepicture.url, alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %>
+        <% else %>
+          <%= link_to image_tag("icons/dude.svg", alt: "Image Error", class: "img-circle", float: 'left'), controller: "users", action: "show", id: userInTeam.id %> 
+        <% end %>
+        <%= userInTeam.first_name %>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <h4 padding='5px'>Team Description</h4>
+    <p> <%= @team.description %> </p>
+  </div>
+  <br>
+  <%else%>
 <% end %>
 
-<%if current_user.team_id = @team.id %>
-	<div class="text-center">
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
-	Upload 
-</button>
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#updateModal">
-	Update 
-</button>
-</div>
 
-<div style ="padding: 10px;">
-<%if !@team.files_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.fileTitle%></h4>
-    <%= link_to image_tag(@team.files.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;"> <%= @team.file_description %> </p>
+<%if current_user != nil && current_user.team_id == @team.id %>
+  <div class="text-center">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+      Upload 
+    </button>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#updateModal">
+      Update 
+    </button>
   </div>
-</div> 
+<% end %>
+
+<!-- File 0 -->
+<% approvals = Approval.where(file_url: @team.files.url) %>
+<% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
+  <%if !@team.files_file_name.blank?%>
+    <div style ="padding: 10px;">
+      <div style: "width:70%" float:'left'>
+        <h4 padding='5px' align = 'left'><%=@team.fileTitle%></h4>
+        <%if @team.files_content_type == "video/mp4" || @team.files_content_type == "video/mov" || @team.files_content_type == "video/mpeg" || @team.files_content_type == "video/mpeg4" || @team.files_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files.url, :target =>  "_blank"%>
+    <% elsif @team.files_content_type == "image/jpg" || @team.files_content_type == "image/jpeg" || @team.files_content_type == "image/png" || @team.files_content_type == "image/gif" || @team.files_content_type == "video/avi" || @team.files_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files.url, :target =>  "_blank"%>
+    <%end%>
+
+        <p align = 'left' style="width: 55%;"> <%= @team.file_description %> </p>
+      </div>
+    </div> 
+    <br>
+    <!-- If current user on team -->
+    <% if current_user != nil && current_user.team_id == @team.id %>
+      <!-- If there are no approvals yet -->
+      <% if approvals.count == 0 %>
+        <%= link_to "Publish", {:controller => "bulletins", :action => "publish_request", :team_id => @team.id, :file_url => @team.files.url }, :method => "post", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+      <% else %>
+        <!-- approvals exist but private still -->
+        <% if approvals.count < usersInTeam.count %>
+          <!-- current user has not approved yet -->
+          <% if approvals.find_by(user_id: current_user.id) == nil %>
+            <%= link_to "Agree to Publish", {:controller => "bulletins", :action => "publish_agree", :team_id => @team.id, :file_url => @team.files.url }, :method => "delete", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <!-- current user has approved -->
+          <% else %>
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <% end %>
+        <!-- public -->
+        <% else %>
+          <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will make the public file private. Only one person choosing to revert publication will make a file private. Do you wish to continue?"} %>
+        <% end %>
+      <% end %>
+      <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">
+        Edit 
+      </button>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
+    <!-- Admin view -->
+    <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
+      <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+    <% end %>
+  <%end%>
+<% end %>
+
+<!-- File 1 -->
+
+<% approvals = Approval.where(file_url: @team.files1.url) %>
+<% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
+  <%if !@team.files1_file_name.blank?%>
+    <div style ="padding: 10px;">
+      <div style: "width:70%" float:'left'>
+        <h4 padding='5px' align = 'left'><%=@team.file1Title%></h4>
+        <%if @team.files1_content_type == "video/mp4" || @team.files1_content_type == "video/mov" || @team.files1_content_type == "video/mpeg" || @team.files1_content_type == "video/mpeg4" || @team.files1_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files1.url, :target =>  "_blank"%>
+    <% elsif @team.files1_content_type == "image/jpg" || @team.files1_content_type == "image/jpeg" || @team.files1_content_type == "image/png" || @team.files1_content_type == "image/gif" || @team.files1_content_type == "video/avi" || @team.files1_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files1.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files1.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files1.url, :target =>  "_blank"%>
+    <%end%>
+        <p align = 'left' style="width: 55%;"> <%= @team.file1_description %> </p>
+      </div>
+    </div> 
+    <br>
+    <!-- If current user on team -->
+    <% if current_user != nil && current_user.team_id == @team.id %>
+      <!-- If there are no approvals yet -->
+      <% if approvals.count == 0 %>
+        <%= link_to "Publish", {:controller => "bulletins", :action => "publish_request", :team_id => @team.id, :file_url => @team.files1.url }, :method => "post", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+      <% else %>
+        <!-- approvals exist but private still -->
+        <% if approvals.count < usersInTeam.count %>
+          <!-- current user has not approved yet -->
+          <% if approvals.find_by(user_id: current_user.id) == nil %>
+            <%= link_to "Agree to Publish", {:controller => "bulletins", :action => "publish_agree", :team_id => @team.id, :file_url => @team.files1.url }, :method => "delete", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files1.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <!-- current user has approved -->
+          <% else %>
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files1.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <% end %>
+        <!-- public -->
+        <% else %>
+          <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files1.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will make the public file private. Only one person choosing to revert publication will make a file private. Do you wish to continue?"} %>
+        <% end %>
+      <% end %>
+      <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit1Modal">
+        Edit 
+      </button>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
+    <!-- Admin view -->
+    <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
+      <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files1.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+    <% end %>
+  <%end%>
+<% end %>
+
+  <!-- File 2 -->
+
+<% approvals = Approval.where(file_url: @team.files2.url) %>
+<% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
+  <%if !@team.files2_file_name.blank?%>
+    <div style ="padding: 10px;">
+      <div style: "width:70%" float:'left'>
+        <h4 padding='5px' align = 'left'><%=@team.file2Title%></h4>
+        
+        <%if @team.files2_content_type == "video/mp4" || @team.files2_content_type == "video/mov" || @team.files2_content_type == "video/mpeg" || @team.files2_content_type == "video/mpeg4" || @team.files2_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files2.url, :target =>  "_blank"%>
+    <% elsif @team.files2_content_type == "image/jpg" || @team.files2_content_type == "image/jpeg" || @team.files2_content_type == "image/png" || @team.files2_content_type == "image/gif" || @team.files2_content_type == "video/avi" || @team.files2_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files2.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files2.url, :target =>  "_blank"%>
+    <%end%>
+        <p align = 'left' style="width: 55%;"> <%= @team.file2_description %> </p>
+      </div>
+    </div> 
+    <br>
+    <!-- If current user on team -->
+    <% if current_user != nil && current_user.team_id == @team.id %>
+      <!-- If there are no approvals yet -->
+      <% if approvals.count == 0 %>
+        <%= link_to "Publish", {:controller => "bulletins", :action => "publish_request", :team_id => @team.id, :file_url => @team.files2.url }, :method => "post", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+      <% else %>
+        <!-- approvals exist but private still -->
+        <% if approvals.count < usersInTeam.count %>
+          <!-- current user has not approved yet -->
+          <% if approvals.find_by(user_id: current_user.id) == nil %>
+            <%= link_to "Agree to Publish", {:controller => "bulletins", :action => "publish_agree", :team_id => @team.id, :file_url => @team.files2.url }, :method => "delete", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files2.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <!-- current user has approved -->
+          <% else %>
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files2.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <% end %>
+        <!-- public -->
+        <% else %>
+          <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files2.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will make the public file private. Only one person choosing to revert publication will make a file private. Do you wish to continue?"} %>
+        <% end %>
+      <% end %>
+      <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit2Modal">
+        Edit 
+      </button>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
+    <!-- Admin view -->
+    <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
+      <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files2.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+    <% end %>
+  <%end%>
+<% end %>
+
+  <!-- File 3 -->
+
+<% approvals = Approval.where(file_url: @team.files3.url) %>
+<% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
+  <%if !@team.files3_file_name.blank?%>
+    <div style ="padding: 10px;">
+      <div style: "width:70%" float:'left'>
+        <h4 padding='5px' align = 'left'><%=@team.file3Title%></h4>
+        <%if @team.files3_content_type == "video/mp4" || @team.files3_content_type == "video/mov" || @team.files3_content_type == "video/mpeg" || @team.files3_content_type == "video/mpeg4" || @team.files3_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files3.url, :target =>  "_blank"%>
+    <% elsif @team.files3_content_type == "image/jpg" || @team.files3_content_type == "image/jpeg" || @team.files3_content_type == "image/png" || @team.files3_content_type == "image/gif" || @team.files3_content_type == "video/avi" || @team.files3_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files3.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files3.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files3.url, :target =>  "_blank"%>
+    <%end%>
+        
+        <p align = 'left' style="width: 55%;"> <%= @team.file3_description %> </p>
+      </div>
+    </div> 
+    <br>
+    <!-- If current user on team -->
+    <% if current_user != nil && current_user.team_id == @team.id %>
+      <!-- If there are no approvals yet -->
+      <% if approvals.count == 0 %>
+        <%= link_to "Publish", {:controller => "bulletins", :action => "publish_request", :team_id => @team.id, :file_url => @team.files3.url }, :method => "post", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+      <% else %>
+        <!-- approvals exist but private still -->
+        <% if approvals.count < usersInTeam.count %>
+          <!-- current user has not approved yet -->
+          <% if approvals.find_by(user_id: current_user.id) == nil %>
+            <%= link_to "Agree to Publish", {:controller => "bulletins", :action => "publish_agree", :team_id => @team.id, :file_url => @team.files3.url }, :method => "delete", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files3.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <!-- current user has approved -->
+          <% else %>
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files3.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <% end %>
+        <!-- public -->
+        <% else %>
+          <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files3.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will make the public file private. Only one person choosing to revert publication will make a file private. Do you wish to continue?"} %>
+        <% end %>
+      <% end %>
+      <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit3Modal">
+        Edit 
+      </button>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
+    <!-- Admin view -->
+    <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
+      <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files3.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+    <% end %>
+  <%end%>
+<% end %>
+
+  <!-- File 4 -->
+
+<% approvals = Approval.where(file_url: @team.files4.url) %>
+<% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
+  <%if !@team.files4_file_name.blank?%>
+    <div style ="padding: 10px;">
+      <div style: "width:70%" float:'left'>
+        <h4 padding='5px' align = 'left'><%=@team.file4Title%></h4>
+        <%if @team.files4_content_type == "video/mp4" || @team.files4_content_type == "video/mov" || @team.files4_content_type == "video/mpeg" || @team.files4_content_type == "video/mpeg4" || @team.files4_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files4.url, :target =>  "_blank"%>
+    <% elsif @team.files4_content_type == "image/jpg" || @team.files4_content_type == "image/jpeg" || @team.files4_content_type == "image/png" || @team.files4_content_type == "image/gif" || @team.files4_content_type == "video/avi" || @team.files4_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files4.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files4.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files4.url, :target =>  "_blank"%>
+    <%end%>
+        <p align = 'left' style="width: 55%;"> <%= @team.file4_description %> </p>
+      </div>
+    </div> 
+    <br>
+    <!-- If current user on team -->
+    <% if current_user != nil && current_user.team_id == @team.id %>
+      <!-- If there are no approvals yet -->
+      <% if approvals.count == 0 %>
+        <%= link_to "Publish", {:controller => "bulletins", :action => "publish_request", :team_id => @team.id, :file_url => @team.files4.url }, :method => "post", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+      <% else %>
+        <!-- approvals exist but private still -->
+        <% if approvals.count < usersInTeam.count %>
+          <!-- current user has not approved yet -->
+          <% if approvals.find_by(user_id: current_user.id) == nil %>
+            <%= link_to "Agree to Publish", {:controller => "bulletins", :action => "publish_agree", :team_id => @team.id, :file_url => @team.files4.url }, :method => "delete", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files4.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <!-- current user has approved -->
+          <% else %>
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files4.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <% end %>
+        <!-- public -->
+        <% else %>
+          <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files4.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will make the public file private. Only one person choosing to revert publication will make a file private. Do you wish to continue?"} %>
+        <% end %>
+      <% end %>
+      <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit4Modal">
+        Edit 
+      </button>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
+    <!-- Admin view -->
+    <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
+      <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files4.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+    <% end %>
+  <%end%>
+<% end %>
+
+  <!-- File 5 -->
+
+<% approvals = Approval.where(file_url: @team.files5.url) %>
+<% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
+  <%if !@team.files5_file_name.blank?%>
+    <div style ="padding: 10px;">
+      <div style: "width:70%" float:'left'>
+        <h4 padding='5px' align = 'left'><%=@team.file5Title%></h4>
+        
+        <%if @team.files5_content_type == "video/mp4" || @team.files5_content_type == "video/mov" || @team.files5_content_type == "video/mpeg" || @team.files5_content_type == "video/mpeg4" || @team.files5_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files5.url, :target =>  "_blank"%>
+    <% elsif @team.files5_content_type == "image/jpg" || @team.files5_content_type == "image/jpeg" || @team.files5_content_type == "image/png" || @team.files5_content_type == "image/gif" || @team.files5_content_type == "video/avi" || @team.files5_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files5.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files5.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files5.url, :target =>  "_blank"%>
+    <%end%>
+
+        <p align = 'left' style="width: 55%;"> <%= @team.file5_description %> </p>
+      </div>
+    </div> 
+    <br>
+    <!-- If current user on team -->
+    <% if current_user != nil && current_user.team_id == @team.id %>
+      <!-- If there are no approvals yet -->
+      <% if approvals.count == 0 %>
+        <%= link_to "Publish", {:controller => "bulletins", :action => "publish_request", :team_id => @team.id, :file_url => @team.files5.url }, :method => "post", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+      <% else %>
+        <!-- approvals exist but private still -->
+        <% if approvals.count < usersInTeam.count %>
+          <!-- current user has not approved yet -->
+          <% if approvals.find_by(user_id: current_user.id) == nil %>
+            <%= link_to "Agree to Publish", {:controller => "bulletins", :action => "publish_agree", :team_id => @team.id, :file_url => @team.files5.url }, :method => "delete", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files5.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <!-- current user has approved -->
+          <% else %>
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files5.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <% end %>
+        <!-- public -->
+        <% else %>
+          <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files5.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will make the public file private. Only one person choosing to revert publication will make a file private. Do you wish to continue?"} %>
+        <% end %>
+      <% end %>
+      <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit5Modal">
+        Edit 
+      </button>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
+    <!-- Admin view -->
+    <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
+      <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files5.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+    <% end %>
+  <%end%>
+<% end %>
+
+  <!-- File 6 -->
+
+<% approvals = Approval.where(file_url: @team.files6.url) %>
+<% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
+  <%if !@team.files6_file_name.blank?%>
+    <div style ="padding: 10px;">
+      <div style: "width:70%" float:'left'>
+        <h4 padding='5px' align = 'left'><%=@team.file6Title%></h4>
+        
+        <%if @team.files6_content_type == "video/mp4" || @team.files6_content_type == "video/mov" || @team.files6_content_type == "video/mpeg" || @team.files6_content_type == "video/mpeg4" || @team.files6_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files6.url, :target =>  "_blank"%>
+    <% elsif @team.files6_content_type == "image/jpg" || @team.files6_content_type == "image/jpeg" || @team.files6_content_type == "image/png" || @team.files6_content_type == "image/gif" || @team.files6_content_type == "video/avi" || @team.files6_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files6.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files6.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files6.url, :target =>  "_blank"%>
+    <%end%>
+
+        <p align = 'left' style="width: 55%;"> <%= @team.file6_description %> </p>
+      </div>
+    </div> 
+    <br>
+    <!-- If current user on team -->
+    <% if current_user != nil && current_user.team_id == @team.id %>
+      <!-- If there are no approvals yet -->
+      <% if approvals.count == 0 %>
+        <%= link_to "Publish", {:controller => "bulletins", :action => "publish_request", :team_id => @team.id, :file_url => @team.files6.url }, :method => "post", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+      <% else %>
+        <!-- approvals exist but private still -->
+        <% if approvals.count < usersInTeam.count %>
+          <!-- current user has not approved yet -->
+          <% if approvals.find_by(user_id: current_user.id) == nil %>
+            <%= link_to "Agree to Publish", {:controller => "bulletins", :action => "publish_agree", :team_id => @team.id, :file_url => @team.files6.url }, :method => "delete", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files6.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <!-- current user has approved -->
+          <% else %>
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files6.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <% end %>
+        <!-- public -->
+        <% else %>
+          <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files6.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will make the public file private. Only one person choosing to revert publication will make a file private. Do you wish to continue?"} %>
+        <% end %>
+      <% end %>
+      <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit6Modal">
+        Edit 
+      </button>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
+    <!-- Admin view -->
+    <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
+      <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files6.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+    <% end %>
+  <%end%>
+<% end %>
+
+  <!-- File 7 -->
+
+<% approvals = Approval.where(file_url: @team.files7.url) %>
+<% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
+  <%if !@team.files7_file_name.blank?%>
+    <div style ="padding: 10px;">
+      <div style: "width:70%" float:'left'>
+        <h4 padding='5px' align = 'left'><%=@team.file7Title%></h4>
+        
+        <%if @team.files7_content_type == "video/mp4" || @team.files7_content_type == "video/mov" || @team.files7_content_type == "video/mpeg" || @team.files7_content_type == "video/mpeg4" || @team.files7_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files7.url, :target =>  "_blank"%>
+    <% elsif @team.files7_content_type == "image/jpg" || @team.files_content_type == "image/jpeg" || @team.files7_content_type == "image/png" || @team.files7_content_type == "image/gif" || @team.files7_content_type == "video/avi" || @team.files7_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files7.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files7.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files7.url, :target =>  "_blank"%>
+    <%end%>
+
+        <p align = 'left' style="width: 55%;"> <%= @team.file7_description %> </p>
+      </div>
+    </div> 
+    <br>
+    <!-- If current user on team -->
+    <% if current_user != nil && current_user.team_id == @team.id %>
+      <!-- If there are no approvals yet -->
+      <% if approvals.count == 0 %>
+        <%= link_to "Publish", {:controller => "bulletins", :action => "publish_request", :team_id => @team.id, :file_url => @team.files7.url }, :method => "post", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+      <% else %>
+        <!-- approvals exist but private still -->
+        <% if approvals.count < usersInTeam.count %>
+          <!-- current user has not approved yet -->
+          <% if approvals.find_by(user_id: current_user.id) == nil %>
+            <%= link_to "Agree to Publish", {:controller => "bulletins", :action => "publish_agree", :team_id => @team.id, :file_url => @team.files7.url }, :method => "delete", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files7.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <!-- current user has approved -->
+          <% else %>
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files7.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <% end %>
+        <!-- public -->
+        <% else %>
+          <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files7.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will make the public file private. Only one person choosing to revert publication will make a file private. Do you wish to continue?"} %>
+        <% end %>
+      <% end %>
+      <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit7Modal">
+        Edit 
+      </button>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
+    <!-- Admin view -->
+    <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
+      <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files7.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+    <% end %>
+  <%end%>
+<% end %>
+
+  <!-- File 8 -->
+
+<% approvals = Approval.where(file_url: @team.files8.url) %>
+<% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
+  <%if !@team.files8_file_name.blank?%>
+    <div style ="padding: 10px;">
+      <div style: "width:70%" float:'left'>
+        <h4 padding='5px' align = 'left'><%=@team.file8Title%></h4>
+        
+        <%if @team.files8_content_type == "video/mp4" || @team.files8_content_type == "video/mov" || @team.files8_content_type == "video/mpeg" || @team.files8_content_type == "video/mpeg4" || @team.files8_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files8.url, :target =>  "_blank"%>
+    <% elsif @team.files8_content_type == "image/jpg" || @team.files8_content_type == "image/jpeg" || @team.files8_content_type == "image/png" || @team.files8_content_type == "image/gif" || @team.files8_content_type == "video/avi" || @team.files8_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files8.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files8.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files8.url, :target =>  "_blank"%>
+    <%end%>
+
+        <p align = 'left' style="width: 55%;"> <%= @team.file8_description %> </p>
+      </div>
+    </div> 
+    <br>
+    <!-- If current user on team -->
+    <% if current_user != nil && current_user.team_id == @team.id %>
+      <!-- If there are no approvals yet -->
+      <% if approvals.count == 0 %>
+        <%= link_to "Publish", {:controller => "bulletins", :action => "publish_request", :team_id => @team.id, :file_url => @team.files8.url }, :method => "post", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+      <% else %>
+        <!-- approvals exist but private still -->
+        <% if approvals.count < usersInTeam.count %>
+          <!-- current user has not approved yet -->
+          <% if approvals.find_by(user_id: current_user.id) == nil %>
+            <%= link_to "Agree to Publish", {:controller => "bulletins", :action => "publish_agree", :team_id => @team.id, :file_url => @team.files8.url }, :method => "delete", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files8.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <!-- current user has approved -->
+          <% else %>
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files8.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <% end %>
+        <!-- public -->
+        <% else %>
+          <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files8.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will make the public file private. Only one person choosing to revert publication will make a file private. Do you wish to continue?"} %>
+        <% end %>
+      <% end %>
+      <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit8Modal">
+        Edit 
+      </button>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
+    <!-- Admin view -->
+    <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
+      <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files8.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+    <% end %>
+  <%end%>
+<% end %>
+
+  <!-- File 9 -->
+
+<% approvals = Approval.where(file_url: @team.files9.url) %>
+<% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
+  <%if !@team.files9_file_name.blank?%>
+    <div style ="padding: 10px;">
+      <div style: "width:70%" float:'left'>
+        <h4 padding='5px' align = 'left'><%=@team.file9Title%></h4>
+        
+        <%if @team.files9_content_type == "video/mp4" || @team.files9_content_type == "video/mov" || @team.files9_content_type == "video/mpeg" || @team.files9_content_type == "video/mpeg4" || @team.files9_content_type == "video/quicktime"%>
+      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files9.url, :target =>  "_blank"%>
+    <% elsif @team.files9_content_type == "image/jpg" || @team.files_content_type == "image/jpeg" || @team.files9_content_type == "image/png" || @team.files9_content_type == "image/gif" || @team.files9_content_type == "video/avi" || @team.files9_content_type == 'Audio/mp3'%>
+      <%= link_to image_tag(@team.files9.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files9.url, :target =>  "_blank"%>
+    <%else%>
+      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files9.url, :target =>  "_blank"%>
+    <%end%>
+
+        <p align = 'left' style="width: 55%;"> <%= @team.file9_description %> </p>
+      </div>
+    </div> 
+    <br>
+    <!-- If current user on team -->
+    <% if current_user != nil && current_user.team_id == @team.id %>
+      <!-- If there are no approvals yet -->
+      <% if approvals.count == 0 %>
+        <%= link_to "Publish", {:controller => "bulletins", :action => "publish_request", :team_id => @team.id, :file_url => @team.files9.url }, :method => "post", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+      <% else %>
+        <!-- approvals exist but private still -->
+        <% if approvals.count < usersInTeam.count %>
+          <!-- current user has not approved yet -->
+          <% if approvals.find_by(user_id: current_user.id) == nil %>
+            <%= link_to "Agree to Publish", {:controller => "bulletins", :action => "publish_agree", :team_id => @team.id, :file_url => @team.files9.url }, :method => "delete", :class => "btn btn-primary", data: {:confirm => "Are you sure you wish to make this file public?"} %>
+
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files9.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <!-- current user has approved -->
+          <% else %>
+            <%= link_to "Halt Pending Publication", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files9.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will keep the file private. Only one person choosing to decline publication will keep a file private. Do you wish to continue?"} %>
+          <% end %>
+        <!-- public -->
+        <% else %>
+          <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files9.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "This will make the public file private. Only one person choosing to revert publication will make a file private. Do you wish to continue?"} %>
+        <% end %>
+      <% end %>
+      <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit9Modal">
+        Edit 
+      </button>
+      <button class="btn btn-danger">Delete</button>
+    <% end %>
+    <!-- Admin view -->
+    <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
+      <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files9.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+    <% end %>
+  <%end%>
+<% end %>
+
 <br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
-
-<div style ="padding: 10px;">
-<%if !@team.files1_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file1Title%></h4>
-    <%= link_to image_tag(@team.files1.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;"> <%= @team.file1_description %> </p>
-  </div>
-</div>
-<br>
-<div style = "width :auto;">
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit1Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-</div>
-<%end%>
-
-<div style ="padding: 10px;">
-<%if !@team.files2_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file2Title%></h4>
-    <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;"> <%= @team.file2_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit2Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
-
- <div style ="padding: 10px;">
-<%if !@team.files3_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file3Title%></h4>
-    <%= link_to image_tag(@team.files3.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;" > <%= @team.file3_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit3Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
-
- <div>
-<%if !@team.files4_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file4Title%></h4>
-    <%= link_to image_tag(@team.files4.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;" > <%= @team.file4_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit4Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
-
-
- <div>
-<%if !@team.files5_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file5Title%></h4>
-    <%= link_to image_tag(@team.files5.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;" > <%= @team.file5_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit5Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
-
-
- <div>
-<%if !@team.files6_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file6Title%></h4>
-    <%= link_to image_tag(@team.files2.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;" > <%= @team.file6_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit6Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
-
-
- <div>
-<%if !@team.files7_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file7Title%></h4>
-    <%= link_to image_tag(@team.files7.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;" > <%= @team.file7_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit7Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
-
- <div>
-<%if !@team.files8_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file8Title%></h4>
-    <%= link_to image_tag(@team.files8.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;" > <%= @team.file8_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit8Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
-
- <div>
-<%if !@team.files9_file_name.blank?%>
-  <div style: "width:70%" float:'left'>
-    <h4 padding='5px' align = 'left'><%=@team.file9Title%></h4>
-    <%= link_to image_tag(@team.files9.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")%>
-
-    <p align = 'left' style="width: 55%;" > <%= @team.file9_description %> </p>
-  </div>
-</div> 
-<br>
-<button class="btn btn-primary">Publish</button>
-<button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit9Modal">
-  Edit 
-</button>
-<button class="btn btn-danger">Delete</button>
-<%end%>
-<%end%>
-
-
-<br>
-<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
@@ -311,7 +678,8 @@
         <%end%>
        
 
-    <div><%= f.label "File" %><br/>
+    <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+<br/>
       <div class="form-group">
   <div class="fileinput fileinput-new" data-provides="fileinput">
     <div class="input-group">
@@ -373,10 +741,10 @@
   </div>
 </div>
 </div>
-  <div><%= f.submit "Upload" %></div>
-<%end%>
-		</div>
+    </div>
       <div class="modal-footer">
+      <%= f.submit "Upload", :class => "btn btn-default" %>
+  <%end%>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -384,8 +752,8 @@
 </div>
 
 
-<div class="modal" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
@@ -405,20 +773,17 @@
   <div><%= f.submit "Update" %></div>
 <% end %>
 
-		</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+    </div>
     </div>
   </div>
 
-<div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -429,24 +794,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -454,24 +819,64 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit1Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
+      </div>
+     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
+
+       
+      <div><%= f.label :Title %><br />
+      <%= f.text_field :fileTitle %></div>
+
+      <div><%= f.label "Description" %><br />
+      <%= f.text_area :file_description %></div>
+
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
+      <div class="form-group">
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
+      </div>
+    </div>
+      
+  <br>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+    </div>
+      
+    </div>
+  </div>
+
+<div class="modal fade" id="edit1Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -482,24 +887,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file1_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files1 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files1 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -507,24 +912,17 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
-
-<div class="modal" id="edit2Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit2Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -535,24 +933,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file2_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files2 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files2 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -560,24 +958,19 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
 </div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit3Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit3Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -588,24 +981,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file3_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files3 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files3 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -613,24 +1006,17 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
-
-<div class="modal" id="edit4Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit4Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -641,24 +1027,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file4_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files4 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files4 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -666,24 +1052,17 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
-
-<div class="modal" id="edit5Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit5Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -694,24 +1073,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file5_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files5 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files5 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -719,24 +1098,17 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
-
-<div class="modal" id="edit6Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit6Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -747,24 +1119,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file6_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files6 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files6 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -772,24 +1144,17 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
-
-<div class="modal" id="edit7Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit7Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -800,24 +1165,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file7_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files7 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files7 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -825,24 +1190,17 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
-
-<div class="modal" id="edit8Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit8Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -853,24 +1211,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file8_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files8 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files8 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -878,24 +1236,18 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="modal" id="edit9Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" style= "z-index: 1060">
+<div class="modal fade" id="edit9Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 
-        <h4 class="modal-title" id="myModalLabel">Update Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
       </div>
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
@@ -906,24 +1258,24 @@
       <div><%= f.label "Description" %><br />
       <%= f.text_area :file9_description %></div>
 
-      <div><%= f.label "File" %><br/>
+      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <div class="input-group">
+            <div class="form-control uneditable-input" data-trigger="fileinput">
+              <span class="fui-clip fileinput-exists"></span>
+              <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-btn btn-file">               
+              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+            <%= f.file_field :files9 %>
+              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+            </span>             
+          </div>
+        </div>
       </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
-
-          <%= f.file_field :files9 %>
-
-
-        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-      </span>
+    </div>
       
   <br>
 
@@ -931,12 +1283,6 @@
 <% end %>
 
     </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
-</div>
-</div>
-</div>
-</div>
