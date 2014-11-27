@@ -85,7 +85,6 @@
           <li class="navbar-new"><%=@msg_bullets.count%></li>
         <% end %>
         <li><a href="/teams/">Teams</a></li>
-        <li><a href="#fakelink">Class</a></li>
         <li><a href="#" class="active" data-toggle="modal" data-target="#notifModal"> Notifications</a></li>
         <% if inviteCount > 0 || approvalCount > 0%>
           <% if approvalCount > 0 %>
@@ -134,16 +133,12 @@
       <div class="collapse navbar-collapse" id="navbar-collapse-01">
         <ul class="nav navbar-nav">
           <li class="active"><a href="/teams/">Teams</a></li>
-          <li><a href="#fakelink">Class</a></li>
           <li><a href="#fakelink">About</a></li>
          </ul>
           <form class="form-inline navbar-form navbar-right">
              <div class="btn-group btn-group-lg">
 
               <%= link_to "Login", new_user_session_path, :class => "btn btn-primary btn-sm"  %>
-
-              <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-inverse btn-sm', :type =>'button' %>
-
 
               </div>
           </form>
