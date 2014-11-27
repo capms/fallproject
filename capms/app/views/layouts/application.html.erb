@@ -64,18 +64,18 @@
 
 
 
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <nav class="navbar dark-blue-background navbar-fixed-top" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
         <span class="sr-only">Toggle navigation</span>
       </button>
-      <a class="navbar-brand" href="../">CapMS</a>
+      <a class="navbar-brand white-text" href="../">CapMS</a>
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-01">
       <ul class="nav navbar-nav">
         <% @msg_bullets = Bulletin.where("user_id = ? AND message_id IS NOT NULL", current_user.id) %>
         <% if @msg_bullets.blank? %>
-          <li><a href="/messages">Message Board</a></li>
+          <li><a class="white-text" href="/messages">Message Board</a></li>
         <% else %>
           <li>
             <%= link_to( {:controller => "bulletins", :action => "destroy_msg_bull", :id => current_user.id}, :method => "delete") do%>
@@ -84,21 +84,22 @@
           </li>
           <li class="navbar-new"><%=@msg_bullets.count%></li>
         <% end %>
-        <li><a href="/teams/">Teams</a></li>
-        <li><a href="#fakelink">Class</a></li>
-        <li><a href="#" class="active" data-toggle="modal" data-target="#notifModal"> Notifications</a></li>
+        <li><a class="white-text" href="/teams/">Teams</a></li>
+        <li><a class="white-text" href="#fakelink">Class</a></li>
+        <li><a class="white-text" href="#" class="active" data-toggle="modal" data-target="#notifModal"> Notifications</a></li>
         <% if inviteCount > 0 || approvalCount > 0%>
           <% if approvalCount > 0 %>
-            <li class="navbar-new"><%=inviteCount + 1%></li>
+            <li class="navbar-new white-text"><%=inviteCount + 1%></li>
           <% else %>
-            <li class="navbar-new"><%=inviteCount%></li>
+            <li class="navbar-new white-text"><%=inviteCount%></li>
           <% end %>
         <% end %>
         <li><a href="#" class="active" data-toggle="modal" data-target="#aboutModal">About</a></li>
+
        </ul>
        <form class="form-inline navbar-form navbar-right" >
          <div class="btn-group btn-group-lg">
-            <button class="btn btn-inverse btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+            <button class="btn white-background btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
               <% if current_user.profilepicture_file_name.blank?%>
                 <span class = "text-center"> <img alt="Dude" class = "clip-circle-nav" src="/assets/icons/dude.svg"></span>
               <%else%>

@@ -1,15 +1,18 @@
 <html>
+
+</div>
+
 <body>
 
 <% @accep_user = AcceptableUser.new %>
 <% @industry_user = User.new %>
-
+<section class = "white-background" style ="padding: 5px 0px;">
 <% if @user.profilepicture_file_name.blank?%>
 	<h1 class = "text-center" style="margin-top: 50px;"><img alt="Dude" class="clip-circle" src="/assets/icons/dude.svg"></h1>
 <% else %>
 	<h1 class = "text-center" style="margin-top: 50px;"><img alt="Dude" class = "clip-circle" src= <%=@user.profilepicture.url%>></h1>
 <%end%>
-<section class = "white-background" style="padding: 5px 0px;">
+
 
 	<h1 class = "text-center" style="margin-top: 10px;"><%=@user.first_name%> <%=@user.last_name%></h1>
 	<p class = "text-center"><%=@user.email%></p>
@@ -32,7 +35,7 @@
 </button>
 </div>
 <%end%>
-</section>
+
 
 
 <% if !@user.about_me.blank? %>
@@ -182,4 +185,4 @@
 <br/>
 </body>
 </html>
-
+</section>
