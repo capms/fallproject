@@ -45,7 +45,7 @@ class BulletinsController < ApplicationController
 		@teamUsers = User.where(team_id: params[:team_id])
 		@teamUsers.each do |u|
 			if current_user.id != u.id
-				Bulletin.new(user_id: u.id, approval_pending: true).save
+				Bulletin.new(user_id: u.id, invited_by_id: current_user.id, approval_pending: true).save
 			end
 		end
 		@approval = Approval.new(user_id: current_user.id, file_url: params[:file_url]).save

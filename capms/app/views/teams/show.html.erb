@@ -1,3 +1,6 @@
+</div>
+<section class = "white-background">
+  <div class = "container">
 <h2><%= @team.name %> </h2>
 <% if current_user != nil && current_user.team_id == @team.id %>
   <%= link_to "Leave Team", {:controller => "users", :action => "leave_team", :id => current_user.id}, :method => "put", :class => "btn btn-primary btn-sm", data: { confirm: "Are you sure you want to leave #{@team.name}?"} %> 
@@ -17,6 +20,11 @@
       </div>
     <% end %>
   </div>
+</div>
+</section>
+
+<section class = "silver-background">
+  <div class = "container">
   <div>
     <h4 padding='5px'>Team Description</h4>
     <p> <%= @team.description %> </p>
@@ -24,8 +32,11 @@
   <br>
   <%else%>
 <% end %>
+</div>
+</section>
 
-
+<section class = "dark-blue-background white-text">
+  <div class = "container">
 <%if current_user != nil && current_user.team_id == @team.id %>
   <div class="text-center">
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
@@ -1263,4 +1274,8 @@
       </div>
     </div>
   </div>
+  
 </div>
+</section>
+<br/>
+<br/>
