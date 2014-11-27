@@ -35,7 +35,7 @@
 </div>
 </section>
 
-<section class = "dark-blue-background">
+<section class = "dark-blue-background white-text">
   <div class = "container">
 <%if current_user != nil && current_user.team_id == @team.id %>
   <div class="text-center">
@@ -753,8 +753,9 @@
 </div>
 </div>
     </div>
+    <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
       <div class="modal-footer">
-      <%= f.submit "Upload", :class => "btn btn-default" %>
+      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
   <%end%>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
@@ -781,12 +782,14 @@
       
   <br>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
+  <div class="modal-footer">
+      <%= f.submit "Update", :class => "btn btn-default" %>
+        <%end%>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
+</div>
 
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" style= "z-index: 1060">
@@ -826,60 +829,17 @@
       
   <br>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
-      
-    </div>
-  </div>
-
-
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md" style= "z-index: 1060">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
-
-        <h4 class="modal-title" id="myModalLabel">Edit File</h4>
-      </div>
-     <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
-
-       
-      <div><%= f.label :Title %><br />
-      <%= f.text_field :fileTitle %></div>
-
-      <div><%= f.label "Description" %><br />
-      <%= f.text_area :file_description %></div>
-
-      <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
-      <div class="form-group">
-        <div class="fileinput fileinput-new" data-provides="fileinput">
-          <div class="input-group">
-            <div class="form-control uneditable-input" data-trigger="fileinput">
-              <span class="fui-clip fileinput-exists"></span>
-              <span class="fileinput-filename"></span>
-            </div>
-            <span class="input-group-btn btn-file">               
-              <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-              <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-            <%= f.file_field :files %>
-              <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
-            </span>             
-          </div>
-        </div>
+  <p style="visibility: hidden; color: red;" id="wait"> <i>Please wait while your file is being uploaded...</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('wait');" %>
+        <%end%>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
-      
-  <br>
-
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
-      
-    </div>
   </div>
+</div>
+
+
 
 <div class="modal fade" id="edit1Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" style= "z-index: 1060">
@@ -919,13 +879,15 @@
       
   <br>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
-      
+  <p style="visibility: hidden; color: red;" id="wait1"> <i>Please wait while your file is being uploaded...</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('wait1');" %>
+        <%end%>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
+</div>
 
 <div class="modal fade" id="edit2Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" style= "z-index: 1060">
@@ -965,14 +927,16 @@
       
   <br>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
-      
+  <p style="visibility: hidden; color: red;" id="wait2"> <i>Please wait while your file is being uploaded...</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('wait2');" %>
+        <%end%>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
 </div>
+
 
 
 <div class="modal fade" id="edit3Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
@@ -1013,13 +977,15 @@
       
   <br>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
-      
+  <p style="visibility: hidden; color: red;" id="wait3"> <i>Please wait while your file is being uploaded...</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('wait3');" %>
+        <%end%>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
+</div>
 
 <div class="modal fade" id="edit4Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" style= "z-index: 1060">
@@ -1059,13 +1025,15 @@
       
   <br>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
-      
+  <p style="visibility: hidden; color: red;" id="wait4"> <i>Please wait while your file is being uploaded...</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('wait4');" %>
+        <%end%>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
+</div>
 
 <div class="modal fade" id="edit5Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" style= "z-index: 1060">
@@ -1105,13 +1073,15 @@
       
   <br>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
-      
+  <p style="visibility: hidden; color: red;" id="wait5"> <i>Please wait while your file is being uploaded...</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('wait5');" %>
+        <%end%>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
+</div>
 
 <div class="modal fade" id="edit6Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" style= "z-index: 1060">
@@ -1151,13 +1121,15 @@
       
   <br>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
-      
+  <p style="visibility: hidden; color: red;" id="wait6"> <i>Please wait while your file is being uploaded...</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('wait6');" %>
+        <%end%>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
+</div>
 
 <div class="modal fade" id="edit7Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" style= "z-index: 1060">
@@ -1197,13 +1169,15 @@
       
   <br>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
-      
+  <p style="visibility: hidden; color: red;" id="wait7"> <i>Please wait while your file is being uploaded...</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('wait7');" %>
+        <%end%>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
+</div>
 
 <div class="modal fade" id="edit8Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" style= "z-index: 1060">
@@ -1243,13 +1217,15 @@
       
   <br>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
-      
+  <p style="visibility: hidden; color: red;" id="wait8"> <i>Please wait while your file is being uploaded...</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('wait8');" %>
+        <%end%>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
+</div>
 
 
 <div class="modal fade" id="edit9Modal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
@@ -1290,15 +1266,15 @@
       
   <br>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-    </div>
-      
+  <p style="visibility: hidden; color: red;" id="wait9"> <i>Please wait while your file is being uploaded...</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('wait9');" %>
+        <%end%>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
   
-
 </div>
 </section>
 <br/>
