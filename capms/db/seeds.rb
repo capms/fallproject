@@ -26,7 +26,7 @@ User.create(first_name: 'Bugs', last_name: 'Bunny', email: 'someone11@somewhere.
 User.create(first_name: 'Yosemite', last_name: 'Sam', email: 'someone12@somewhere.com', password: 'password', user_type_id: 1, team_id: 3)
 User.create(first_name: 'Mario', last_name: 'Luigi', email: 'someone13@somewhere.com', password: 'password', user_type_id: 1, team_id: 3)
 
-User.create(first_name: 'Administrator', last_name: 'Bossman', email: 'someone14@somewhere.com', password: 'password', user_type_id: 2)
+User.create(first_name: 'Admin', last_name: 'Istrator', email: 'admin@somewhere.com', password: 'password', user_type_id: 2)
 
 User.create(first_name: 'Industry', last_name: 'Professional', email: 'someone15@somewhere.com', password: 'password', user_type_id: 3)
 

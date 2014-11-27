@@ -15,8 +15,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @industry_user = User.new(params[:email, :password])
-    if @industry_user.save
+    #@industryUser = User.new(first_name: 'Your first name', last_name: 'Your last name', email: params[:email], password: params[:password], user_type_id: 3)
+    @industryUser = User.new(indus_params)
+    if @industryUser.save
       redirect_to (:back)
     else
       redirect_to "/404/"
@@ -30,6 +31,13 @@ class UsersController < ApplicationController
   def update
       @updateUser = User.find(params[:id])
       @bulletin = Bulletin.find(params[:bullet_id])
+      newTeam = Team.find(params[:team_id])
+
+      User.where(team_id: newTeam.id).each do |u|
+        Bulletin.destroy_all(user_id: u.id, approval_pending: true)
+        Approval.destroy_all(user_id: u.id)
+      end
+
       if @updateUser.update_attributes(:team_id => params[:team_id])
         @bulletin.destroy
         redirect_to "/teams/"
@@ -41,6 +49,13 @@ class UsersController < ApplicationController
   def leave_team
     @mutineer = User.find(params[:id])
     previousTeam = @mutineer.team_id
+    usersOnOldTeam = User.where(team_id: previousTeam)
+
+    usersOnOldTeam.each do |u|
+        Bulletin.destroy_all(user_id: u.id, approval_pending: true)
+        Approval.destroy_all(user_id: u.id)
+    end
+
     if @mutineer.update_attributes(:team_id => nil)
       if User.find_by(team_id: previousTeam) == nil
         Team.destroy(previousTeam)
@@ -52,6 +67,39 @@ class UsersController < ApplicationController
     else
       redirect_to "/failure_page"
     end
+  end
+
+  def change_team
+      @changeTeamUser = User.find(params[:id])
+      oldTeam = Team.find(@changeTeamUser.team_id)
+      usersOnOldTeam = User.where(team_id: oldTeam.id)
+      usersOnOldTeam.each do |u|
+        Bulletin.destroy_all(user_id: u.id, approval_pending: true)
+        Approval.destroy_all(user_id: u.id)
+      end
+
+      if @changeTeamUser.update_attributes(:team_id => nil)
+        if User.find_by(team_id: oldTeam.id) == nil
+          Team.destroy(oldTeam.id)
+        end
+        redirect_to("/users/#{current_user.id}")
+      else
+        redirect_to "/404/"
+      end
+
+  end
+
+  def destroy
+      @userToDestroy = User.find(params[:id])
+      if @userToDestroy.team_id != nil
+        usersOnOldTeam = User.where(team_id: @userToDestroy.team_id)
+        usersOnOldTeam.each do |u|
+          Bulletin.destroy_all(user_id: u.id, approval_pending: true)
+          Approval.destroy_all(user_id: u.id)
+        end
+      end
+      @destroyUser = User.delete(params[:id])
+      redirect_to ("/users/#{params[:adminid]}")
   end
 
   protected
@@ -70,17 +118,9 @@ class UsersController < ApplicationController
     params.require(:user).permit(:resume)
   end
 
-  def destroy
-      @destroyUser = User.delete(params[:id])
-      redirect_to ("/users/#{params[:adminid]}")
+  def indus_params
+    params.require(:user).permit(:email, :password, :user_type_id)
   end
-  def change_team
-      @changeTeamUser = User.find(params[:id])
-      if @changeTeamUser.update_attributes(:team_id => nil)
-        redirect_to("/users/#{current_user.id}")
-      else
-        redirect_to "/404/"
-      end
-  end
+
 
 end
