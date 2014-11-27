@@ -39,7 +39,11 @@ class TeamsController < ApplicationController
   def destroy
     @desTeam = Team.find(params[:id])
     @usersInTeam = User.where(team_id: @desTeam.id)
+    Bulletin.destroy_all(team_id: params[:id])
+
     @usersInTeam.each  do |u|
+      Bulletin.destroy_all(user_id: u.id, approval_pending: true)
+      Approval.destroy_all(user_id: u.id)
       u.update_attribute(:team_id, nil)
     end
 

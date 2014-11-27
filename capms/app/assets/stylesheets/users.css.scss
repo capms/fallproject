@@ -1,5 +1,5 @@
 .student-ids {
-	height: 125px;
+	height: auto;
 }
 
 .admin-forms {
@@ -12,9 +12,11 @@
 	padding: 10px;
 }
 .users-list-team {
-	height: 125px;
+	height: auto;
 	margin: auto;
+	padding: 3px 0px;
 }
+
 div#single-user {
 	width: 15%;
 	height: 100%;
@@ -28,10 +30,13 @@ div#single-user {
 	display: inline-block;
 }
 div#single-user img {
-	height: 50%;
-	width: auto;
-	background-color: white;
+	background:url(URL-of-image) no-repeat;
+	background-size:720px 480px;
+	background-position:-160px 0px;
+	height:100px;
+	width:100px;
+	border-radius:50%;
+	overflow:hidden;
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
+	margin:auto;
 }
