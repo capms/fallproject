@@ -36,6 +36,7 @@
 </div>
 <%end%>
 
+</section>
 
 
 <% if !@user.about_me.blank? %>
@@ -43,11 +44,15 @@
 		<p class = "text-center"><%=@user.about_me%></p>
 	</section>
 <% end %>
+<section class = "silver-background">
+	<div class = "container">
 
 <% if !@user.team_id.blank? %>
-	<h6>Member of: <%=link_to "#{Team.find(@user.team_id).name}", team_path(@user.team_id) %></h6>
+	<h6>Member of: </h6>
+	<img alt="Image Error" class="img-circle" float="left" src="http://lorempixel.com/200/200/animals/<%= @rand %>">
+	<h6><%=link_to "#{Team.find(@user.team_id).name}", team_path(@user.team_id) %></h6>
 <% end %>
-
+ 
 <% if current_user != nil && @user.user_type_id != 2 && current_user.team_id != nil && current_user.user_type_id != 2 && current_user.id != @user.id && current_user.team_id != @user.team_id && @user.team_id == nil%>
 	<%= link_to "Invite", {:controller => "bulletins", :action => "create", :user_id => @user.id, :team_id => current_user.team_id, :invited_by_id => current_user.id }, :method => "post", :class => "btn btn-info", data: { confirm: "Are you sure you wish to invite #{@user.first_name} to #{Team.find(current_user.team_id).name}?"} %>
 <% end %>
@@ -185,4 +190,6 @@
 <br/>
 </body>
 </html>
+</div>
 </section>
+
