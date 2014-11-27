@@ -124,25 +124,25 @@
 
 
 <%else%>
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <nav class="navbar dark-blue-background navbar-fixed-top" role="navigation">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
           <span class="sr-only">Toggle navigation</span>
         </button>
-        <a class="navbar-brand" href="#">Cap MS</a>
+        <a class="navbar-brand white-text" href="#">Cap MS</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse-01">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="/teams/">Teams</a></li>
-          <li><a href="#fakelink">Class</a></li>
-          <li><a href="#fakelink">About</a></li>
+          <li class="active white-text"><a href="/teams/">Teams</a></li>
+          <li><a class = "white-text" href="#fakelink">Class</a></li>
+          <li><a class = "white-text" href="#fakelink">About</a></li>
          </ul>
           <form class="form-inline navbar-form navbar-right">
              <div class="btn-group btn-group-lg">
 
-              <%= link_to "Login", new_user_session_path, :class => "btn btn-primary btn-sm"  %>
+              <%= link_to "Login", new_user_session_path, :class => "btn white-background btn-sm"  %>
 
-              <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-inverse btn-sm', :type =>'button' %>
+              <%= link_to "Sign up", new_user_registration_path, :class => 'btn silver-background btn-sm', :type =>'button' %>
 
 
               </div>
