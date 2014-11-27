@@ -8,7 +8,10 @@
 
 	});
 </script>
+</div>
 
+<section class = "white-background">
+<div class = "container">
 <!--Begin Page - Logged in -->
 <% if user_signed_in? %>
 	<div class="availableUsers">
@@ -47,7 +50,11 @@
 	Create Team
 </button>
 </div>
+</div>
+</section>
 
+<section class = "silver-background">
+	<div class = "container">
 <% end %>
 	<div class="team-list">
 		<% allTeams = Team.all %>
@@ -95,6 +102,8 @@
 		<% end %>
 	</div>
 <% end %>
+</div>
+</section>
 
 <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm" style= "z-index: 1060">
