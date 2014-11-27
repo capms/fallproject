@@ -1,11 +1,15 @@
+<!-- Needed, do not remove -->
 </div>
 <section class = "white-background">
   <div class = "container">
+<!-- Team title and option to leave team if current user is on team -->
 <h2><%= @team.name %> </h2>
 <% if current_user != nil && current_user.team_id == @team.id %>
-  <%= link_to "Leave Team", {:controller => "users", :action => "leave_team", :id => current_user.id}, :method => "put", :class => "btn btn-primary btn-sm", data: { confirm: "Are you sure you want to leave #{@team.name}?"} %> 
+  <%= link_to "Edit Team Info", edit_team_path(@team.id), :class => "btn btn-primary btn-sm" %>
+  <%= link_to "Leave Team", {:controller => "users", :action => "leave_team", :id => current_user.id}, :method => "put", :class => "btn btn-primary btn-sm", data: { confirm: "Are you sure you want to leave #{@team.name}?"} %>
 <% end %>
 <% usersInTeam = User.where(team_id: @team.id) %>
+<!-- Shows each member of team's profile picture and name -->
 <% if !usersInTeam.blank? %>
   <div class="team-show-users">
     <% usersInTeam.each do |userInTeam| %>
@@ -23,6 +27,7 @@
 </div>
 </section>
 
+<!-- Team description -->
 <section class = "silver-background">
   <div class = "container">
   <div>
@@ -35,6 +40,7 @@
 </div>
 </section>
 
+<!-- Upload and update buttons -->
 <section class = "dark-blue-background">
   <div class = "container">
 <%if current_user != nil && current_user.team_id == @team.id %>
@@ -47,6 +53,13 @@
     </button>
   </div>
 <% end %>
+
+<!-- The following sections display each file from aws individually due to limitations of the gem paperclip
+  Each file will only display if uploaded, along with buttons to make public/agree to make public/
+  decline to make public/make private - depending on whether or not publication process has begun/
+  been started/not begun. Buttons/files are also displayed based on current user - admin can see all files,
+  user on team of uploaded file can see all their files, non team-member students, non-registered users,
+  industry professionals can see only public files -->
 
 <!-- File 0 -->
 <% approvals = Approval.where(file_url: @team.files.url) %>
@@ -591,6 +604,10 @@
 <% end %>
 
 <br>
+
+<!-- This section creates a modal for the upload functionality that changes which file is uploaded based
+    on availability -->
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" style= "z-index: 1060">
     <div class="modal-content">
@@ -763,6 +780,7 @@
 </div>
 
 
+
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" style= "z-index: 1060">
     <div class="modal-content">
@@ -787,6 +805,8 @@
     </div>
     </div>
   </div>
+
+<!-- This section creates a modal for each edit file option (up to 10), these also needed to be created individually because of the limitations of the ruby gem paperclip -->
 
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" style= "z-index: 1060">

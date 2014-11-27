@@ -79,10 +79,10 @@
         <% else %>
           <li>
             <%= link_to( {:controller => "bulletins", :action => "destroy_msg_bull", :id => current_user.id}, :method => "delete") do%>
-                 Message Board <!-- <span class="badge"><%=@msg_bullets.count%></span> -->
+                 Message Board
               <% end %>
           </li>
-          <li class="navbar-new"><%=@msg_bullets.count%></li>
+          <li class="navbar-new white-text"><%=@msg_bullets.count%></li>
         <% end %>
         <li><a class="white-text" href="/teams/">Teams</a></li>
         <li><a class="white-text" href="#fakelink">Class</a></li>
