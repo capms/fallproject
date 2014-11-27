@@ -35,7 +35,7 @@
 </div>
 </section>
 
-<section class = "dark-blue-background white-text">
+<section class = "dark-blue-background ">
   <div class = "container">
 <%if current_user != nil && current_user.team_id == @team.id %>
   <div class="text-center">
@@ -47,12 +47,11 @@
     </button>
   </div>
 <% end %>
-
 <!-- File 0 -->
 <% approvals = Approval.where(file_url: @team.files.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files_file_name.blank?%>
-    <div style ="padding: 10px;">
+    <div style ="padding: 10px; " class="white-text">
       <div style: "width:70%" float:'left'>
         <h4 padding='5px' align = 'left'><%=@team.fileTitle%></h4>
         <%if @team.files_content_type == "video/mp4" || @team.files_content_type == "video/mov" || @team.files_content_type == "video/mpeg" || @team.files_content_type == "video/mpeg4" || @team.files_content_type == "video/quicktime"%>
@@ -106,7 +105,7 @@
 <% approvals = Approval.where(file_url: @team.files1.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files1_file_name.blank?%>
-    <div style ="padding: 10px;">
+    <div style ="padding: 10px;" class="white-text">
       <div style: "width:70%" float:'left'>
         <h4 padding='5px' align = 'left'><%=@team.file1Title%></h4>
         <%if @team.files1_content_type == "video/mp4" || @team.files1_content_type == "video/mov" || @team.files1_content_type == "video/mpeg" || @team.files1_content_type == "video/mpeg4" || @team.files1_content_type == "video/quicktime"%>
@@ -159,7 +158,7 @@
 <% approvals = Approval.where(file_url: @team.files2.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files2_file_name.blank?%>
-    <div style ="padding: 10px;">
+    <div style ="padding: 10px;" class="white-text">
       <div style: "width:70%" float:'left'>
         <h4 padding='5px' align = 'left'><%=@team.file2Title%></h4>
         
@@ -213,7 +212,7 @@
 <% approvals = Approval.where(file_url: @team.files3.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files3_file_name.blank?%>
-    <div style ="padding: 10px;">
+    <div style ="padding: 10px;" class="white-text">
       <div style: "width:70%" float:'left'>
         <h4 padding='5px' align = 'left'><%=@team.file3Title%></h4>
         <%if @team.files3_content_type == "video/mp4" || @team.files3_content_type == "video/mov" || @team.files3_content_type == "video/mpeg" || @team.files3_content_type == "video/mpeg4" || @team.files3_content_type == "video/quicktime"%>
@@ -267,7 +266,7 @@
 <% approvals = Approval.where(file_url: @team.files4.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files4_file_name.blank?%>
-    <div style ="padding: 10px;">
+    <div style ="padding: 10px;" class="white-text">
       <div style: "width:70%" float:'left'>
         <h4 padding='5px' align = 'left'><%=@team.file4Title%></h4>
         <%if @team.files4_content_type == "video/mp4" || @team.files4_content_type == "video/mov" || @team.files4_content_type == "video/mpeg" || @team.files4_content_type == "video/mpeg4" || @team.files4_content_type == "video/quicktime"%>
@@ -320,7 +319,7 @@
 <% approvals = Approval.where(file_url: @team.files5.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files5_file_name.blank?%>
-    <div style ="padding: 10px;">
+    <div style ="padding: 10px;" class="white-text">
       <div style: "width:70%" float:'left'>
         <h4 padding='5px' align = 'left'><%=@team.file5Title%></h4>
         
@@ -375,7 +374,7 @@
 <% approvals = Approval.where(file_url: @team.files6.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files6_file_name.blank?%>
-    <div style ="padding: 10px;">
+    <div style ="padding: 10px;" class="white-text">
       <div style: "width:70%" float:'left'>
         <h4 padding='5px' align = 'left'><%=@team.file6Title%></h4>
         
@@ -430,7 +429,7 @@
 <% approvals = Approval.where(file_url: @team.files7.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files7_file_name.blank?%>
-    <div style ="padding: 10px;">
+    <div style ="padding: 10px;" class="white-text">
       <div style: "width:70%" float:'left'>
         <h4 padding='5px' align = 'left'><%=@team.file7Title%></h4>
         
@@ -485,7 +484,7 @@
 <% approvals = Approval.where(file_url: @team.files8.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files8_file_name.blank?%>
-    <div style ="padding: 10px;">
+    <div style ="padding: 10px;" class="white-text">
       <div style: "width:70%" float:'left'>
         <h4 padding='5px' align = 'left'><%=@team.file8Title%></h4>
         
@@ -540,7 +539,7 @@
 <% approvals = Approval.where(file_url: @team.files9.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files9_file_name.blank?%>
-    <div style ="padding: 10px;">
+    <div style ="padding: 10px;" class="white-text">
       <div style: "width:70%" float:'left'>
         <h4 padding='5px' align = 'left'><%=@team.file9Title%></h4>
         
@@ -589,8 +588,8 @@
     <% end %>
   <%end%>
 <% end %>
-
 <br>
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" style= "z-index: 1060">
     <div class="modal-content">
