@@ -64,17 +64,18 @@
 <% approvals = Approval.where(file_url: @team.files.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files_file_name.blank?%>
-    <div style ="padding: 10px; " class="white-text">
-      <div style: "width:70%" float:'left'>
+    <div style ="padding: 10px" class="white-text">
+      <div style: "width:70%; height: 100%" float:'left'>
         <h4 padding='5px' align = 'left'><%=@team.fileTitle%></h4>
+        <div>
         <%if @team.files_content_type == "video/mp4" || @team.files_content_type == "video/mov" || @team.files_content_type == "video/mpeg" || @team.files_content_type == "video/mpeg4" || @team.files_content_type == "video/quicktime"%>
-      <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files.url, :target =>  "_blank"%>
-    <% elsif @team.files_content_type == "image/jpg" || @team.files_content_type == "image/jpeg" || @team.files_content_type == "image/png" || @team.files_content_type == "image/gif" || @team.files_content_type == "video/avi" || @team.files_content_type == 'Audio/mp3'%>
-      <%= link_to image_tag(@team.files.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files.url, :target =>  "_blank"%>
-    <%else%>
-      <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files.url, :target =>  "_blank"%>
-    <%end%>
-
+          <%= link_to image_tag("icons/video.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files.url, :target =>  "_blank"%>
+        <% elsif @team.files_content_type == "image/jpg" || @team.files_content_type == "image/jpeg" || @team.files_content_type == "image/png" || @team.files_content_type == "image/gif" || @team.files_content_type == "video/avi" || @team.files_content_type == 'Audio/mp3'%>
+          <%= link_to image_tag(@team.files.url, alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;"), @team.files.url, :target =>  "_blank"%>
+        <%else%>
+          <%= link_to (image_tag("icons/file.svg", alt: "Image Error", class: "thumbnail", align: 'right', style: "with:200px; height:150px;")), @team.files.url, :target =>  "_blank"%>
+        <%end%>
+      </div>
         <p align = 'left' style="width: 55%;"> <%= @team.file_description %> </p>
       </div>
     </div> 
@@ -104,7 +105,6 @@
       <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">
         Edit 
       </button>
-      <button class="btn btn-danger">Delete</button>
     <% end %>
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
@@ -114,7 +114,6 @@
 <% end %>
 
 <!-- File 1 -->
-
 <% approvals = Approval.where(file_url: @team.files1.url) %>
 <% if approvals.count == usersInTeam.count || (current_user != nil && current_user.team_id == @team.id) || (current_user != nil && current_user.user_type_id == 2) %>
   <%if !@team.files1_file_name.blank?%>
@@ -157,7 +156,6 @@
       <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit1Modal">
         Edit 
       </button>
-      <button class="btn btn-danger">Delete</button>
     <% end %>
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
@@ -211,7 +209,6 @@
       <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit2Modal">
         Edit 
       </button>
-      <button class="btn btn-danger">Delete</button>
     <% end %>
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
@@ -265,7 +262,6 @@
       <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit3Modal">
         Edit 
       </button>
-      <button class="btn btn-danger">Delete</button>
     <% end %>
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
@@ -318,7 +314,6 @@
       <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit4Modal">
         Edit 
       </button>
-      <button class="btn btn-danger">Delete</button>
     <% end %>
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
@@ -373,7 +368,6 @@
       <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit5Modal">
         Edit 
       </button>
-      <button class="btn btn-danger">Delete</button>
     <% end %>
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
@@ -428,7 +422,6 @@
       <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit6Modal">
         Edit 
       </button>
-      <button class="btn btn-danger">Delete</button>
     <% end %>
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
@@ -483,7 +476,6 @@
       <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit7Modal">
         Edit 
       </button>
-      <button class="btn btn-danger">Delete</button>
     <% end %>
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
@@ -538,7 +530,6 @@
       <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit8Modal">
         Edit 
       </button>
-      <button class="btn btn-danger">Delete</button>
     <% end %>
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
@@ -593,7 +584,6 @@
       <button name = "file" type="button" class="btn btn-info" data-toggle="modal" data-target="#edit9Modal">
         Edit 
       </button>
-      <button class="btn btn-danger">Delete</button>
     <% end %>
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
@@ -628,36 +618,38 @@
                       <%if !@team.files7_file_name.blank?%>
                         <%if !@team.files8_file_name.blank?%>
                           <%if !@team.files9_file_name.blank?%>
-                           <%=p Error%>
+                              <h4> You have reached the limit for file uploads. Please edit a current file and replace 
+                                a current file. </h4>
+
                           <%else%>
-                            <%= f.text_field :file9Title, :class => "form-control", :placeholder => "File Name"%></div>
+                            <%= f.text_field :file9Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                           <%end%>
                         <%else%>
-                          <%= f.text_field :file8Title, :class => "form-control", :placeholder => "File Name"%></div>
+                          <%= f.text_field :file8Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                         <%end%>
                       <%else%>
-                       <%= f.text_field :file7Title, :class => "form-control", :placeholder => "File Name"%></div>
+                       <%= f.text_field :file7Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                       <%end%>
                     <%else%>
-                      <%= f.text_field :file6Title, :class => "form-control", :placeholder => "File Name"%></div>
+                      <%= f.text_field :file6Title, :required => true, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                     <%end%>
                   <%else%>
-                    <%= f.text_field :file5Title, :class => "form-control", :placeholder => "File Name"%></div>
+                    <%= f.text_field :file5Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                   <%end%>
                 <%else%>
-                  <%= f.text_field :file4Title, :class => "form-control", :placeholder => "File Name"%></div>
+                  <%= f.text_field :file4Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                 <%end%>  
               <%else%>
-                <%= f.text_field :file3Title, :class => "form-control", :placeholder => "File Name"%></div>
+                <%= f.text_field :file3Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
               <%end%>
             <%else%>
-              <%= f.text_field :file2Title, :class => "form-control", :placeholder => "File Name"%></div>
+              <%= f.text_field :file2Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
             <%end%>
           <%else%>
-            <%= f.text_field :file1Title, :class => "form-control", :placeholder => "File Name"%></div>
+            <%= f.text_field :file1Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
           <%end%>
         <%else%>
-          <%= f.text_field :fileTitle, :class => "form-control", :placeholder => "File Name"%></div>
+          <%= f.text_field :fileTitle, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
         <%end%>
 
       <div><%= f.label "Description" %><br />
@@ -671,36 +663,36 @@
                       <%if !@team.files7_file_name.blank?%>
                         <%if !@team.files8_file_name.blank?%>
                           <%if !@team.files9_file_name.blank?%>
-                           <%=p Error%>
+                           
                           <%else%>
-                            <%= f.text_area :file9_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
+                            <%= f.text_area :file9_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                           <%end%>
                         <%else%>
-                          <%= f.text_area :file8_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
+                          <%= f.text_area :file8_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                         <%end%>
                       <%else%>
-                       <%= f.text_area :file7_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
+                       <%= f.text_area :file7_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                       <%end%>
                     <%else%>
-                      <%= f.text_area :file6_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
+                      <%= f.text_area :file6_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                     <%end%>
                   <%else%>
-                    <%= f.text_area :file5_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
+                    <%= f.text_area :file5_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                   <%end%>
                 <%else%>
-                  <%= f.text_area :file4_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
+                  <%= f.text_area :file4_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                 <%end%>  
               <%else%>
-                <%= f.text_area :file3_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
+                <%= f.text_area :file3_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
               <%end%>
             <%else%>
-              <%= f.text_area :file2_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
+              <%= f.text_area :file2_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
             <%end%>
           <%else%>
-            <%= f.text_area :file1_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
+            <%= f.text_area :file1_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
           <%end%>
         <%else%>
-          <%= f.text_area :file_description, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
+          <%= f.text_area :file_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
         <%end%>
        
 
@@ -727,36 +719,35 @@
                       <%if !@team.files7_file_name.blank?%>
                         <%if !@team.files8_file_name.blank?%>
                           <%if !@team.files9_file_name.blank?%>
-                           <%=p Error%>
                           <%else%>
-                            <%= f.file_field :files9 %>
+                            <%= f.file_field :files9, :required => true%>
                           <%end%>
                         <%else%>
-                          <%= f.file_field :files8 %>
+                          <%= f.file_field :files8, :required => true%>
                         <%end%>
                       <%else%>
-                       <%= f.file_field :files7 %>
+                       <%= f.file_field :files7, :required => true%>
                       <%end%>
                     <%else%>
-                      <%= f.file_field :files6 %>
+                      <%= f.file_field :files6, :required => true%>
                     <%end%>
                   <%else%>
-                    <%= f.file_field :files5 %>
+                    <%= f.file_field :files5, :required => true%>
                   <%end%>
                 <%else%>
-                  <%= f.file_field :files4 %>
+                  <%= f.file_field :files4, :required => true%>
                 <%end%>  
               <%else%>
-                <%= f.file_field :files3 %>
+                <%= f.file_field :files3, :required => true%>
               <%end%>
             <%else%>
-              <%= f.file_field :files2 %>
+              <%= f.file_field :files2, :required => true%>
             <%end%>
           <%else%>
-            <%= f.file_field :files1 %>
+            <%= f.file_field :files1, :required => true%>
           <%end%>
         <%else%>
-          <%= f.file_field :files %>
+          <%= f.file_field :files, :required => true%>
         <%end%>
 
 
@@ -769,6 +760,7 @@
 </div>
     </div>
     <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
+    <p style="visibility: hidden; color: red;" id="ErrorUpload"> <i>Your file type is not supported. Please try again.</i><p>
       <div class="modal-footer">
       <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
   <%end%>
@@ -791,10 +783,10 @@
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
 
   <div><%= f.label :name %><br />
-  <%= f.text_field :name, :class => "form-control"  %></div>
+  <%= f.text_field :name, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label :description %><br />
-      <%= f.text_area :description, :class => "form-control" %></div>
+      <%= f.text_area :description, :required => true, :class => "form-control" %></div>
       
   <br>
 
@@ -821,10 +813,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :fileTitle, :class => "form-control"  %></div>
+      <%= f.text_field :fileTitle, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file_description, :class => "form-control"  %></div>
+      <%= f.text_area :file_description, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -850,6 +842,8 @@
   <p style="visibility: hidden; color: red;" id="wait"> <i>Please wait while your file is being uploaded...</i><p>
       <div class="modal-footer">
       <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('wait');" %>
+      <%= f.submit "Delete", :class => "btn btn-default", :onclick => "showHide('wait');" %>
+
         <%end%>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
@@ -871,10 +865,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file1Title, :class => "form-control"  %></div>
+      <%= f.text_field :file1Title, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file1_description, :class => "form-control"  %></div>
+      <%= f.text_area :file1_description, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -919,10 +913,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file2Title, :class => "form-control"  %></div>
+      <%= f.text_field :file2Title, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file2_description, :class => "form-control" %></div>
+      <%= f.text_area :file2_description, :required => true, :class => "form-control" %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -969,10 +963,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file3Title, :class => "form-control"  %></div>
+      <%= f.text_field :file3Title, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file3_description, :class => "form-control"  %></div>
+      <%= f.text_area :file3_description, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1017,10 +1011,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file4Title, :class => "form-control"  %></div>
+      <%= f.text_field :file4Title, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file4_description, :class => "form-control"  %></div>
+      <%= f.text_area :file4_description, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1065,10 +1059,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file5Title, :class => "form-control"  %></div>
+      <%= f.text_field :file5Title, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file5_description, :class => "form-control"  %></div>
+      <%= f.text_area :file5_description, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1113,10 +1107,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file6Title, :class => "form-control"  %></div>
+      <%= f.text_field :file6Title, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file6_description, :class => "form-control"  %></div>
+      <%= f.text_area :file6_description, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1161,10 +1155,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file7Title, :class => "form-control"  %></div>
+      <%= f.text_field :file7Title, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file7_description, :class => "form-control"  %></div>
+      <%= f.text_area :file7_description, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1209,10 +1203,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file8Title, :class => "form-control"  %></div>
+      <%= f.text_field :file8Title, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file8_description, :class => "form-control"  %></div>
+      <%= f.text_area :file8_description, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1258,10 +1252,10 @@
 
        
       <div><%= f.label :Title %><br />
-      <%= f.text_field :file9Title, :class => "form-control"  %></div>
+      <%= f.text_field :file9Title, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "Description" %><br />
-      <%= f.text_area :file9_description, :class => "form-control"  %></div>
+      <%= f.text_area :file9_description, :required => true, :class => "form-control"  %></div>
 
       <div><%= f.label "File" %> <i>(Please convert all possible files to PDF)</i> <br />
       <div class="form-group">
@@ -1281,6 +1275,18 @@
         </div>
       </div>
     </div>
+
+     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" style="z-index: 1060">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">x</button>
+            <h4> You do not have any notifications. </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
       
   <br>
 
