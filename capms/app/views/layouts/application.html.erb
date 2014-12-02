@@ -79,20 +79,18 @@
         <% else %>
           <li>
             <%= link_to( {:controller => "bulletins", :action => "destroy_msg_bull", :id => current_user.id}, :method => "delete") do%>
-                 Message Board
+                 Message Board <span class="label label-as-badge label-danger"><%= @msg_bullets.count%></span>
               <% end %>
           </li>
-          <li class="navbar-new white-text"><%=@msg_bullets.count%></li>
         <% end %>
 
         <li><a class="white-text" href="/teams/">Teams</a></li>
-        <li><a class="white-text" href="/teams/">Class</a></li>
         <li><a class="white-text" href="#" class="active" data-toggle="modal" data-target="#notifModal"> Notifications</a></li>
         <% if inviteCount > 0 || approvalCount > 0%>
           <% if approvalCount > 0 %>
-            <li class="navbar-new white-text"><%=inviteCount + 1%></li>
+            <span class="label label-as-badge label-danger"><%= inviteCount + 1%></span>
           <% else %>
-            <li class="navbar-new white-text"><%=inviteCount%></li>
+            <span class="label label-as-badge label-danger"><%= inviteCount%></span>
           <% end %>
         <% end %>
 
