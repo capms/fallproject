@@ -51,6 +51,9 @@
       Upload 
     </button>
   </div>
+
+<hr>
+
 <% end %>
 
 <!-- The following sections display each file from aws individually due to limitations of the gem paperclip
@@ -110,6 +113,7 @@
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
       <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
     <% end %>
+    <hr>
   <%end%>
 <% end %>
 
@@ -161,6 +165,7 @@
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
       <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files1.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
     <% end %>
+          <hr>
   <%end%>
 <% end %>
 
@@ -213,7 +218,9 @@
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
       <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files2.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+      
     <% end %>
+    <hr>
   <%end%>
 <% end %>
 
@@ -266,7 +273,9 @@
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
       <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files3.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+      
     <% end %>
+    <hr>
   <%end%>
 <% end %>
 
@@ -319,6 +328,8 @@
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
       <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files4.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
     <% end %>
+          <hr>
+
   <%end%>
 <% end %>
 
@@ -372,7 +383,9 @@
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
       <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files5.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+      
     <% end %>
+    <hr>
   <%end%>
 <% end %>
 
@@ -426,7 +439,9 @@
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
       <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files6.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+      
     <% end %>
+    <hr>
   <%end%>
 <% end %>
 
@@ -480,7 +495,10 @@
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
       <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files7.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+      
     <% end %>
+      
+    <hr>
   <%end%>
 <% end %>
 
@@ -534,7 +552,9 @@
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
       <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files8.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+      
     <% end %>
+    <hr>
   <%end%>
 <% end %>
 
@@ -588,7 +608,9 @@
     <!-- Admin view -->
     <% if current_user != nil && current_user.user_type_id == 2 && approvals.count == usersInTeam.count %>
       <%= link_to "Make Private", {:controller => "bulletins", :action => "publish_decline", :team_id => @team.id, :file_url => @team.files9.url }, :method => "delete", :class => "btn btn-warning", data: {:confirm => "Are you sure you wish to make this file private again?"} %>
+      
     <% end %>
+    <hr>
   <%end%>
 <% end %>
 <br>
@@ -1581,5 +1603,6 @@
 
 <br/>
 <br/>
+
 </div>
 </section>
