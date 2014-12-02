@@ -629,7 +629,6 @@
 
      <%= form_for(@team, url: {action: "update"}, html: { method: :put }) do |f| %>
       <div class="modal-body">
-        <div><%= f.label "Title" %><br />
         <%if !@team.files_file_name.blank?%>
           <%if !@team.files1_file_name.blank?%>
             <%if !@team.files2_file_name.blank?%>
@@ -642,39 +641,57 @@
                           <%if !@team.files9_file_name.blank?%>
                               <h4> You have reached the limit for file uploads. Please edit a current file and replace 
                                 a current file. </h4>
-
                           <%else%>
+                                  <div><%= f.label "Title" %><br />
+
                             <%= f.text_field :file9Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                           <%end%>
                         <%else%>
+                                <div><%= f.label "Title" %><br />
+
                           <%= f.text_field :file8Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                         <%end%>
                       <%else%>
+                              <div><%= f.label "Title" %><br />
+
                        <%= f.text_field :file7Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                       <%end%>
                     <%else%>
+                            <div><%= f.label "Title" %><br />
+
                       <%= f.text_field :file6Title, :required => true, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                     <%end%>
                   <%else%>
+                          <div><%= f.label "Title" %><br />
+
                     <%= f.text_field :file5Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                   <%end%>
                 <%else%>
+                        <div><%= f.label "Title" %><br />
+
                   <%= f.text_field :file4Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
                 <%end%>  
               <%else%>
+                      <div><%= f.label "Title" %><br />
+
                 <%= f.text_field :file3Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
               <%end%>
             <%else%>
+                    <div><%= f.label "Title" %><br />
+
               <%= f.text_field :file2Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
             <%end%>
           <%else%>
+                  <div><%= f.label "Title" %><br />
+
             <%= f.text_field :file1Title, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
           <%end%>
         <%else%>
+                <div><%= f.label "Title" %><br />
+
           <%= f.text_field :fileTitle, :required => true, :class => "form-control", :placeholder => "File Name"%></div>
         <%end%>
 
-      <div><%= f.label "Description" %><br />
       <%if !@team.files_file_name.blank?%>
           <%if !@team.files1_file_name.blank?%>
             <%if !@team.files2_file_name.blank?%>
@@ -687,50 +704,56 @@
                           <%if !@team.files9_file_name.blank?%>
                            
                           <%else%>
+                                <div><%= f.label "Description" %><br />
+
                             <%= f.text_area :file9_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                           <%end%>
                         <%else%>
+                              <div><%= f.label "Description" %><br />
+
                           <%= f.text_area :file8_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                         <%end%>
                       <%else%>
+                            <div><%= f.label "Description" %><br />
+
                        <%= f.text_area :file7_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                       <%end%>
                     <%else%>
+                          <div><%= f.label "Description" %><br />
+
                       <%= f.text_area :file6_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                     <%end%>
                   <%else%>
+                        <div><%= f.label "Description" %><br />
+
                     <%= f.text_area :file5_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                   <%end%>
                 <%else%>
+                      <div><%= f.label "Description" %><br />
+
                   <%= f.text_area :file4_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
                 <%end%>  
               <%else%>
+                    <div><%= f.label "Description" %><br />
+
                 <%= f.text_area :file3_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
               <%end%>
             <%else%>
+                  <div><%= f.label "Description" %><br />
+
               <%= f.text_area :file2_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
             <%end%>
           <%else%>
+                <div><%= f.label "Description" %><br />
+
             <%= f.text_area :file1_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
           <%end%>
         <%else%>
+              <div><%= f.label "Description" %><br />
+
           <%= f.text_area :file_description, :required => true, :class => "form-control", :placeholder => "Please add a detailed description of your file."%></div>
         <%end%>
        
-
-    <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
-<br/>
-      <div class="form-group">
-  <div class="fileinput fileinput-new" data-provides="fileinput">
-    <div class="input-group">
-      <div class="form-control uneditable-input" data-trigger="fileinput">
-        <span class="fui-clip fileinput-exists"></span>
-        <span class="fileinput-filename"></span>
-      </div>
-      <span class="input-group-btn btn-file">               
-        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
-        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
-
         <%if !@team.files_file_name.blank?%>
           <%if !@team.files1_file_name.blank?%>
             <%if !@team.files2_file_name.blank?%>
@@ -742,35 +765,20 @@
                         <%if !@team.files8_file_name.blank?%>
                           <%if !@team.files9_file_name.blank?%>
                           <%else%>
+                          <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+                          <br/>
+                          <div class="form-group">
+                              <div class="fileinput fileinput-new" data-provides="fileinput">
+                              <div class="input-group">
+                              <div class="form-control uneditable-input" data-trigger="fileinput">
+                                <span class="fui-clip fileinput-exists"></span>
+                                <span class="fileinput-filename"></span>
+                          </div>
+                                <span class="input-group-btn btn-file">               
+                                <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+                                <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
                             <%= f.file_field :files9, :required => true%>
-                          <%end%>
-                        <%else%>
-                          <%= f.file_field :files8, :required => true%>
-                        <%end%>
-                      <%else%>
-                       <%= f.file_field :files7, :required => true%>
-                      <%end%>
-                    <%else%>
-                      <%= f.file_field :files6, :required => true%>
-                    <%end%>
-                  <%else%>
-                    <%= f.file_field :files5, :required => true%>
-                  <%end%>
-                <%else%>
-                  <%= f.file_field :files4, :required => true%>
-                <%end%>  
-              <%else%>
-                <%= f.file_field :files3, :required => true%>
-              <%end%>
-            <%else%>
-              <%= f.file_field :files2, :required => true%>
-            <%end%>
-          <%else%>
-            <%= f.file_field :files1, :required => true%>
-          <%end%>
-        <%else%>
-          <%= f.file_field :files, :required => true%>
-        <%end%>
 
 
         <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
@@ -784,7 +792,278 @@
     <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
     <p style="visibility: hidden; color: red;" id="ErrorUpload"> <i>Your file type is not supported. Please try again.</i><p>
       <div class="modal-footer">
-      <%= f.submit "Upload", :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
+      <%= f.submit "Upload", :id => 'btnHide', :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
+                          <%end%>
+                        <%else%>
+                        <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+<br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+                          <%= f.file_field :files8, :required => true%>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+
+    </div>
+  </div>
+</div>
+</div>
+    </div>
+    <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
+    <p style="visibility: hidden; color: red;" id="ErrorUpload"> <i>Your file type is not supported. Please try again.</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :id => 'btnHide', :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
+                        <%end%>
+                      <%else%>
+                      <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+<br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+                       <%= f.file_field :files7, :required => true%>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+
+    </div>
+  </div>
+</div>
+</div>
+    </div>
+    <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
+    <p style="visibility: hidden; color: red;" id="ErrorUpload"> <i>Your file type is not supported. Please try again.</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :id => 'btnHide', :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
+                      <%end%>
+                    <%else%>
+                    <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+<br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+                      <%= f.file_field :files6, :required => true%>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+
+    </div>
+  </div>
+</div>
+</div>
+    </div>
+    <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
+    <p style="visibility: hidden; color: red;" id="ErrorUpload"> <i>Your file type is not supported. Please try again.</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :id => 'btnHide', :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
+                    <%end%>
+                  <%else%>
+                  <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+<br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+                    <%= f.file_field :files5, :required => true%>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+
+    </div>
+  </div>
+</div>
+</div>
+    </div>
+    <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
+    <p style="visibility: hidden; color: red;" id="ErrorUpload"> <i>Your file type is not supported. Please try again.</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :id => 'btnHide', :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
+                  <%end%>
+                <%else%>
+                <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+<br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+                  <%= f.file_field :files4, :required => true%>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+
+    </div>
+  </div>
+</div>
+</div>
+    </div>
+    <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
+    <p style="visibility: hidden; color: red;" id="ErrorUpload"> <i>Your file type is not supported. Please try again.</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :id => 'btnHide', :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
+                <%end%>  
+              <%else%>
+              <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+<br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+                <%= f.file_field :files3, :required => true%>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+
+    </div>
+  </div>
+</div>
+</div>
+    </div>
+    <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
+    <p style="visibility: hidden; color: red;" id="ErrorUpload"> <i>Your file type is not supported. Please try again.</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :id => 'btnHide', :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
+              <%end%>
+            <%else%>
+            <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+<br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+              <%= f.file_field :files2, :required => true%>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+
+    </div>
+  </div>
+</div>
+</div>
+    </div>
+    <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
+    <p style="visibility: hidden; color: red;" id="ErrorUpload"> <i>Your file type is not supported. Please try again.</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :id => 'btnHide', :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
+            <%end%>
+          <%else%>
+          <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+<br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+            <%= f.file_field :files1, :required => true%>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+
+    </div>
+  </div>
+</div>
+</div>
+    </div>
+    <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
+    <p style="visibility: hidden; color: red;" id="ErrorUpload"> <i>Your file type is not supported. Please try again.</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :id => 'btnHide', :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
+          <%end%>
+        <%else%>
+        <div><%= f.label "File"%> <i>(Please convert all possible files to PDF)</i>
+<br/>
+      <div class="form-group">
+  <div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group">
+      <div class="form-control uneditable-input" data-trigger="fileinput">
+        <span class="fui-clip fileinput-exists"></span>
+        <span class="fileinput-filename"></span>
+      </div>
+      <span class="input-group-btn btn-file">               
+        <span class="btn btn-default fileinput-new" data-role="select-file">Select file</span>
+        <span class="btn btn-default fileinput-exists" data-role="change"><span class="fui-gear"></span>  Change</span>
+
+          <%= f.file_field :files, :required => true%>
+
+
+        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><span class="fui-trash"></span>  Remove</a>               
+      </span>
+
+    </div>
+  </div>
+</div>
+</div>
+    </div>
+    <p style="visibility: hidden; color: red;" id="UploadWait"> <i>Please wait while your file is being uploaded...</i><p>
+    <p style="visibility: hidden; color: red;" id="ErrorUpload"> <i>Your file type is not supported. Please try again.</i><p>
+      <div class="modal-footer">
+      <%= f.submit "Upload", :id => 'btnHide', :class => "btn btn-default", :onclick => "showHide('UploadWait');" %>
+        <%end%>
   <%end%>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
