@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 
 </head>
-
+<!--if user is signed in nav bar-->
 <% if user_signed_in? %>
   <% inviteCount = Bulletin.where("user_id = ? AND team_id IS NOT NULL", current_user.id).count %>
   <% approvalCount = Bulletin.where("user_id = ? AND approval_pending = ?", current_user.id, true).count %>
@@ -128,7 +128,7 @@
     </div><!-- /.navbar-collapse -->
   </nav>
 
-
+<!--if user is signed out nav bar-->
 <%else%>
     <nav class="navbar dark-blue-background navbar-fixed-top" role="navigation">
       <div class="navbar-header">
@@ -142,7 +142,7 @@
 
           <li class="active white-text"><a href="/teams/">Teams</a></li>
           <li><a class = "white-text" href="/teams/">Class</a></li>
-          <li><a class = "white-text" href="#fakelink">About</a></li>
+          <li><a class = "white-text" href="#" data-toggle="modal" data-target="#aboutModal">About</a></li>
 
          </ul>
           <form class="form-inline navbar-form navbar-right">
@@ -167,7 +167,7 @@
 
 
 
-
+<!--footer-->
 </body>
 <div class="footer" class="mtl pbl">
     <div class="bottom-menu bottom-menu-inverse">
@@ -180,8 +180,6 @@
                     <ul class="bottom-menu-list">
                         <li><a href="https://github.com/capms/fallproject">Source Code</a></li>
                         <li><a href="#" class="active" data-toggle="modal" data-target="#aboutModal">About</a></li>
-                        <li><a href="#fakelink">Subscribe</a></li>
-                        <li><a href="#fakelink">Pricing</a></li>
                     </ul>
 
                     <ul class="bottom-menu-list">
