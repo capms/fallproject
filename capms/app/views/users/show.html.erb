@@ -7,6 +7,7 @@
 <% @accep_user = AcceptableUser.new %>
 <% @industry_user = User.new %>
 <section class = "white-background" style ="padding: 5px 0px;">
+<!-- Display user picture, default if no picture found -->
 <% if @user.profilepicture_file_name.blank?%>
 	<h1 class = "text-center" style="margin-top: 50px;"><img alt="Dude" class="clip-circle" src="/assets/icons/dude.svg"></h1>
 <% else %>
@@ -16,18 +17,18 @@
 
 	<h1 class = "text-center" style="margin-top: 10px;"><%=@user.first_name%> <%=@user.last_name%></h1>
 	<p class = "text-center"><%=@user.email%></p>
-
+<!-- Display linked in if exists -->
 	<% if @user.linkedin_url.blank?%>
 	<%else%>
 		<div class = "text-center"><a class="fui-linkedin" href = <%=@user.linkedin_url%> target="_blank"></a>
 	<%end%>
-
+<!-- Display github username if exist -->
 <%if @user.github_username.blank?%>
 <%else%>
 <a class="fui-github" href = <%=@user.github_username%> target="_blank"></a>
 </div>  
 <%end%>
-
+<!-- Display resume modal if exists -->
 <%if !@user.resume_file_name.blank?%>
 <div class="text-center">
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
@@ -38,7 +39,7 @@
 
 </section>
 
-
+<!-- Display user about me if exists -->
 <% if !@user.about_me.blank? %>
 	<section class= "dark-blue" id = "about">
 		<div class = "container">
@@ -51,13 +52,13 @@
 <% end %>
 <section class = "silver-background">
 	<div class = "container">
-
+<!-- Display user's team info if they are on a team -->
 <% if !@user.team_id.blank? %>
 	<h6>Member of: </h6>
 	<img alt="Image Error" class="img-circle" float="left" src="http://lorempixel.com/200/200/animals/<%= @rand %>">
 	<h6><%=link_to "#{Team.find(@user.team_id).name}", team_path(@user.team_id) %></h6>
 <% end %>
- 
+ <!-- Show invite option if current user is on a team and user they are viewing is not on a team and both users are of the student type -->
 <% if current_user != nil && @user.user_type_id != 2 && current_user.team_id != nil && current_user.user_type_id != 2 && current_user.id != @user.id && current_user.team_id != @user.team_id && @user.team_id == nil%>
 	<%= link_to "Invite", {:controller => "bulletins", :action => "create", :user_id => @user.id, :team_id => current_user.team_id, :invited_by_id => current_user.id }, :method => "post", :class => "btn btn-info", data: { confirm: "Are you sure you wish to invite #{@user.first_name} to #{Team.find(current_user.team_id).name}?"} %>
 <% end %>

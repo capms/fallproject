@@ -9,7 +9,7 @@ class TeamsController < ApplicationController
 
   def new
   end
-
+  #Creates new team
   def create
     @team = Team.new(team_params)
     @user = User.find(current_user.id)
@@ -35,7 +35,7 @@ class TeamsController < ApplicationController
      @updateTeam = Team.find(params[:id]).update_attributes(team_params)
       redirect_to("/teams/#{params[:id]}")
   end
-
+  #Destroys a team
   def destroy
     @desTeam = Team.find(params[:id])
     @usersInTeam = User.where(team_id: @desTeam.id)

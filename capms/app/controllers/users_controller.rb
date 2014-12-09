@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def new
 
   end
-
+  #Creates a user
   def create
     #@industryUser = User.new(first_name: 'Your first name', last_name: 'Your last name', email: params[:email], password: params[:password], user_type_id: 3)
     @industryUser = User.new(indus_params)
@@ -27,7 +27,8 @@ class UsersController < ApplicationController
   def edit
 
   end
-
+  #Updates a user's team_id attribute if they accept a team invite. Also deletes the bulletin that
+  # alerted the user that there was a team invite waiting for them
   def update
       @updateUser = User.find(params[:id])
       @bulletin = Bulletin.find(params[:bullet_id])
@@ -45,7 +46,8 @@ class UsersController < ApplicationController
         redirect_to "/404/"
       end
   end
-
+  #Changes the user's team_id back to nil, effectively leaving that team and now an available user.
+  #  Deletes team if no users left on team
   def leave_team
     @mutineer = User.find(params[:id])
     previousTeam = @mutineer.team_id
@@ -68,7 +70,8 @@ class UsersController < ApplicationController
       redirect_to "/failure_page"
     end
   end
-
+  #Called when a user leaves a team and deletes appropriate bulletins from them and approvals by them.
+  #  Deletes team if no users left on team
   def change_team
       @changeTeamUser = User.find(params[:id])
       oldTeam = Team.find(@changeTeamUser.team_id)
@@ -88,7 +91,7 @@ class UsersController < ApplicationController
       end
 
   end
-
+  #Destroys user
   def destroy
       @userToDestroy = User.find(params[:id])
       if @userToDestroy.team_id != nil

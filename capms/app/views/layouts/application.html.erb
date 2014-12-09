@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 
 </head>
-
+<!-- Version of nav bar for signed in users -->
 <% if user_signed_in? %>
   <% inviteCount = Bulletin.where("user_id = ? AND team_id IS NOT NULL", current_user.id).count %>
   <% approvalCount = Bulletin.where("user_id = ? AND approval_pending = ?", current_user.id, true).count %>
@@ -130,7 +130,7 @@
     </div><!-- /.navbar-collapse -->
   </nav>
 
-
+<!-- nav bar for users that are not signed in -->
 <%else%>
     <nav class="navbar dark-blue-background navbar-fixed-top" role="navigation">
       <div class="navbar-header">
@@ -171,6 +171,7 @@
 
 
 </body>
+<!-- Footer -->
 <div class="footer" class="mtl pbl">
     <div class="bottom-menu bottom-menu-inverse">
         <div class="container">
