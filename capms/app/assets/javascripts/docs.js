@@ -251,6 +251,7 @@ String.prototype.repeat = function (num) {
     window.prettyPrint && prettyPrint();
   });
 }(jQuery));
+
 function showHide(elementId) {
         if (document.getElementById) {
             var element = document.getElementById(elementId);
@@ -261,3 +262,4 @@ function showHide(elementId) {
             }
         }
     }
+
