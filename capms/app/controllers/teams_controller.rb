@@ -53,7 +53,7 @@ class TeamsController < ApplicationController
   end
 
   private
-
+#requirements to save files on database
   def team_params
     params.require(:team).permit(:name, :description, :max_size, :files, :files1, :files2, :files3, :files4, 
       :files5, :files6, :files7, :files8, :files9, :fileTitle, :file1Title, :file2Title, :file3Title, :file4Title,
