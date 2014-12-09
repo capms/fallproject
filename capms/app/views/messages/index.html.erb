@@ -1,8 +1,11 @@
 <br>
+
+<!-- this is the file that renders the main page with the list of messages and names -->
 <h3>Message Board</h3>
  
 <%= link_to 'New message', new_message_path %>
 
+<!-- these are the titles for the content -->
 <table class = "table table-striped">
   <tr>
     <th>Student</th>
@@ -11,14 +14,17 @@
     <th colspan="3"></th>
   </tr>
  
+ <!-- for each message go through the message object -->
 <% @message.each do |message| %>
   <tr>
-    
+    <!-- find the correct user according to the message and store it in user -->
     <% @user = User.find(message.author_id) %>
+    <!-- for the first one it uses the user object to display but for the rest it uses the message obect -->
     <th style="font-weight:normal;"><%= @user.first_name %></th> 
     <th style="font-weight:normal;"><%= message.title %></th>
     <th style="font-weight:normal;"><%= message.text %></th>
     <td><%= link_to 'Comment', message_path(message) %></td>
+    <!-- if the current user of the specific message is logged in then they will have the ability to edit and delete the post -->
     <% if current_user.id == @user.id %>
       <td><%= link_to 'Edit', edit_message_path(message) %></td>
       <td><%= link_to 'Delete', message_path(message),

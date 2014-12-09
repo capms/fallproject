@@ -1,18 +1,19 @@
-
+<!-- this finds the right commenter -->
     <% @commenter = User.find(comment.commenter_id) %>
 
+<!-- this renders the commenters name -->
 <p>
- 
+ <%= @commenter.first_name %>
+</P>
 
-  
-    <%= @commenter.first_name %><br>
+ <br>
 
- 
 <p>
   <strong>Comment:</strong>
   <%= comment.body %>
 </p>
 
+<!-- this prompts the user with a box to ask if they actually want to delete the comment -->
 <p>
   <%= link_to 'Delete Comment', [comment.message, comment],
                method: :delete,

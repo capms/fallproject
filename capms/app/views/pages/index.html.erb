@@ -1,17 +1,12 @@
 <% layout = "main_page" %>
 
 <html>
-<head>
-  <style>
-    
-  </style>
-</head>
-
-  <br>
-
+<br>
 </div>
 
   <% if user_signed_in? %>
+
+  <!-- each section has the different blocks of colors -->
 
 <section class = "white-background" style = "margin-top: -10px;">
 <div class = "container">
@@ -48,10 +43,12 @@
 
   <hr>
 
-
+<!-- finds all teams -->
 <% @teams = Team.all %>
 <div class = "white-text" id = "frontPageTeam">
+  <!-- searches through all teams -->
   <% @teams.each do |team| %>
+<!-- generates a random number so we can assign different pictures to teams -->
 <% @rand = rand(10) %>
   
     <div id = "teamPictures">
@@ -67,12 +64,6 @@
 </div>
 </section>
 
-
 </html>
-
-
-
-
-
 <% end %>
 
