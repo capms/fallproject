@@ -1,4 +1,5 @@
 class Team < ActiveRecord::Base
+	# validates s3 credentials and file types for paperclip
 	has_many :users
 	belongs_to :completion_status
 	has_many :notifications
