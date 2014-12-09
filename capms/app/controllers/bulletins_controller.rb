@@ -1,5 +1,5 @@
 class BulletinsController < ApplicationController
-
+	#Creates bulletin
 	def create
 		if Bulletin.find_by(bullet_params).blank?
 			@bullet=Bulletin.new(bullet_params)
@@ -12,18 +12,18 @@ class BulletinsController < ApplicationController
 			#flash[:notice] = "This user has already been invited to join your team"
 			#redirect_to "/teams/"
 		end
-		##Add else that lets user know somehow that this person has already by invited to team
+		
 
 		
 
 	end
-
+	#destroys a bulletin
 	def destroy
 		@des_bullet=Bulletin.delete(params[:id])
 
 		redirect_to "/teams/"
 	end
-
+	#Creates a bulletin for all users that there is a new message/comment
 	def gen_after_msg
 		@allUsers = User.all
 		@allUsers.each do |u|
@@ -31,7 +31,7 @@ class BulletinsController < ApplicationController
 		end
 		redirect_to '/messages/'
 	end
-
+	#Destroys a bulletin that existed to notify user of new message/comment
 	def destroy_msg_bull
 		@bulls = Bulletin.where("user_id = ? AND message_id IS NOT NULL", params[:id])
 		@bulls.each do |b|
@@ -39,7 +39,8 @@ class BulletinsController < ApplicationController
 		end
 		redirect_to '/messages/'
 	end
-
+	#Called when user requests to start the publication of a file. Sends bulletins to other users on team
+	# and creates approval for user that requested publication
 	def publish_request
 		@thisTeam = Team.find(params[:team_id])
 		@teamUsers = User.where(team_id: params[:team_id])
