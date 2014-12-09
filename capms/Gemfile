@@ -1,3 +1,6 @@
+#Any gems needed for the project are placed in this file.  Not specificing a version number after a gem means rails will determine which version is most compatibale with all other gems and dependencies. Unless a specific version is needed it is preferrable not to specify a version number.
+
+
 source 'https://rubygems.org'
 
 #COMMENT TO INSIGHT MERGE
@@ -5,6 +8,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.5'
 # Use postgresql as the database for Active Record
 gem 'sqlite3'
+# switch sqlite3 to pg when deploying to heroku, heroku does not support sqlite ->this will require changing the config/database.yml file to postgres as well
+# gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets

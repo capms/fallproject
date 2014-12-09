@@ -1,3 +1,4 @@
+#Acceptable user means the teacher has approved this user having access to the class
 class AcceptableUsersController < ApplicationController
 
 	def create
@@ -7,13 +8,13 @@ class AcceptableUsersController < ApplicationController
 		#params[:id_array].to_a.each do |i|
 
 		@acceptableUser = AcceptableUser.new(acceptable_params)
-		
+
 		if @acceptableUser.save
 			redirect_to(:back)
 		else
 			redirect_to "/404/"
 		end
-		
+
 		#redirect_to "/users/#{current_user.id}"
 		#redirect_to "/teams/"
 	end
