@@ -41,7 +41,12 @@
 
 <% if !@user.about_me.blank? %>
 	<section class= "dark-blue" id = "about">
+		<div class = "container">
+  		<div>
 		<p class = "text-center"><%=@user.about_me%></p>
+		</div>
+  <br>
+</div>
 	</section>
 <% end %>
 <section class = "silver-background">

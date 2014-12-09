@@ -85,7 +85,7 @@
         <% end %>
 
         <li><a class="white-text" href="/teams/">Teams</a></li>
-        <li><a class="white-text" href="#" class="active" data-toggle="modal" data-target="#notifModal"> Notifications</a></li>
+        <li><a class="white-text" href="#" class="active" data-toggle="modal" data-target="#notifModal"> Notifications
         <% if inviteCount > 0 || approvalCount > 0%>
           <% if approvalCount > 0 %>
             <span class="label label-as-badge label-danger"><%= inviteCount + 1%></span>
@@ -93,6 +93,7 @@
             <span class="label label-as-badge label-danger"><%= inviteCount%></span>
           <% end %>
         <% end %>
+        </a></li>
 
        </ul>
        <form class="form-inline navbar-form navbar-right" >
@@ -134,7 +135,7 @@
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
           <span class="sr-only">Toggle navigation</span>
         </button>
-        <a class="navbar-brand white-text" href="#">Cap MS</a>
+        <a class="navbar-brand white-text" href="../">Cap MS</a>
       </div>
       <div class="collapse navbar-collapse" id="navbar-collapse-01">
         <ul class="nav navbar-nav">
