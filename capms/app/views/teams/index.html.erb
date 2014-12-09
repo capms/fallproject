@@ -115,15 +115,15 @@
       <div class="modal-body">
 		<%= form_for @team, url: {action: "create"} do |f| %>
 			<div class="form-group">
-		      	<input id="team_name" type="text" class= "form-control input-hg" value="" placeholder="Team Name" name="team[name]">
+		      	<input id="team_name" type="text" class= "form-control input-hg" value="" placeholder="Team Name" name="team[name]", required = true>
 		    </div>
 		    <div class="form-group">
-		      	<%= f.text_area(:description, class: "form-control input-sm static-text-area", maxlength: '500', placeholder: 'Team Description (max 500 characters)') %>
+		      	<%= f.text_area(:description, :required => true, class: "form-control input-sm static-text-area", maxlength: '5000', placeholder: 'Team Description (max 5000 characters)') %>
 		    </div>
-		    <div class="form-group">
+		    <!-- <div class="form-group">
 				<%= f.label :max_size %><br />
 		      	<%= f.number_field(:max_size, class: "form-control bfh-number", in: 2..10, step: 1, value: 2) %>
-		    </div>
+		    </div> -->
 		    <div class="form-group" >
 		    	<%= button_tag(class: "btn btn-lg btn-primary") do%>
 		    		<%=content_tag(:strong, 'Create Team') %>
