@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_filter :configure_devise_params, if: :devise_controller?
 
+  #'strong parameters' must be explicitily permitted in rails 4, this method does that
   def configure_devise_params
     devise_parameter_sanitizer.for(:sign_up) do |u|
       u.permit(:first_name, :last_name, :semester, :phone, :resume_url, :about_me, :linkedin_url, :user_type, :team_id, :picture_url, :email, :password, :password_confirmation)
