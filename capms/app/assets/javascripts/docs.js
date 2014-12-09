@@ -251,7 +251,7 @@ String.prototype.repeat = function (num) {
     window.prettyPrint && prettyPrint();
   });
 }(jQuery));
-
+// hide text when file is not being uploaded
 function showHide(elementId) {
         if (document.getElementById) {
             var element = document.getElementById(elementId);
